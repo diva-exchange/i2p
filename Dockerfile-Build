@@ -1,10 +1,10 @@
 FROM alpine:latest
 
-LABEL author="Konrad Baechler <konrad@getdiva.org>" \
-  maintainer="Konrad Baechler <konrad@getdiva.org>" \
+LABEL author="Konrad Baechler <konrad@diva.exchange>" \
+  maintainer="Konrad Baechler <konrad@diva.exchange>" \
   name="diva" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
-  url="https://getdiva.org"
+  url="https://diva.exchange"
 
 # Expose git branch, tag and URL variables as arguments
 ARG GIT_BRANCH="openssl"

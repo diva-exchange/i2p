@@ -1,10 +1,10 @@
 FROM alpine:latest
 
-LABEL author="Konrad Baechler <konrad@getdiva.org>" \
-  maintainer="Konrad Baechler <konrad@getdiva.org>" \
+LABEL author="Konrad Baechler <konrad@diva.exchange>" \
+  maintainer="Konrad Baechler <konrad@diva.exchange>" \
   name="diva" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
-  url="https://getdiva.org"
+  url="https://diva.exchange"
 
 COPY bin/i2pd-x86_64-aesni /home/i2pd/bin/
 COPY ./i2pd_certs /home/i2pd_certs

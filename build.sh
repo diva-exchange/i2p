@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-cd $PROJECT_PATH
+cd ${PROJECT_PATH}
 
 docker build -f Dockerfile-Build --no-cache --tag diva/i2pd:build ${PROJECT_PATH}
 

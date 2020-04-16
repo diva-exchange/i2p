@@ -1,0 +1,457 @@
+# for this file format description,
+# see https://github.com/olivierlacan/keep-a-changelog
+
+## [2.31.0] - 2020-04-10
+### Added
+- NTCP2 through HTTP proxy
+- Publish LeaseSet2 for I2CP destinations
+- Show status page on main activity for android
+- Handle ECIESFlag in DatabaseLookup at floodfill
+- C++17 features for eligible compilers
+### Changed
+- Droped Websockets and Lua support
+- Send DeliveryStatusMsg for LeaseSet for ECIES-X25519-AEAD-Ratchet
+- Keep sending new session reply until established for ECIES-X25519-AEAD-Ratchet
+- Updated SSU log messages
+- Reopen SSU socket on exception
+- Security hardening headers in web console
+- Various web console changes
+- Various QT changes
+### Fixed
+- NTCP2 socket descriptors leak
+- Race condition with router's identity in transport sessions
+- Not terminated streams remain forever
+
+## [2.30.0] - 2020-02-25
+### Added
+- Single threaded SAM
+- Experimental support of ECIES-X25519-AEAD-Ratchet crypto type
+### Changed
+- Minimal MTU size is 1280 for ipv6
+- Use unordered_map instead map for destination's sessions and tags list
+- Use std::shuffle instead std::random_shuffle
+- SAM is single threaded by default
+- Reseeds list
+### Fixed
+- Correct termination of streaming destination
+- Extra ',' in RouterInfo response in I2PControl
+- SAM crash on session termination
+- Storage for Android 10
+
+## [2.29.0] - 2019-10-21
+### Added
+- Client auth flag for b33 address
+### Changed
+- Remove incoming  NTCP2 session from pending list when established 
+- Handle errors for NTCP2 SessionConfrimed send
+### Fixed
+- Failure to start on Windows XP
+- SAM crash if invalid lookup address
+- Possible crash when UPnP enabled on shutdown
+
+## [2.28.0] - 2019-08-27
+### Added
+- RAW datagrams in SAM
+- Publishing encrypted LeaseSet2 with DH or PSH authentication
+- Ability to disable battery optimization for Android
+- Transport Network ID Check
+### Changed
+- Set and handle published encrypted flag for LeaseSet2
+### Fixed
+- ReceiveID changes in the same stream
+- "\r\n" command terminator in SAM
+- Addressbook lines with signatures
+
+## [2.27.0] - 2019-07-03
+### Added
+- Support of PSK and DH authentication for encrypted LeaseSet2
+### Changed
+- Uptime is based on monotonic timer
+### Fixed
+- BOB status command response
+- Correct NTCP2 port if NTCP is disabled
+- Flood encrypted LeaseSet2 with store hash
+
+## [2.26.0] - 2019-06-07
+### Added
+- HTTP method "PROPFIND"
+- Detection of external ipv6 address through the SSU
+- NTCP2 publishing depends on network status
+### Changed
+- ntcp is disabled by default, ntcp2 is published by default
+- Response to BOB's "list" command
+- ipv6 address is not longer NTCP's local endpoint's address
+- Reseeds list
+- HTTP_REFERER stripping in httpproxy (#823)
+### Fixed
+- Check and handle incorrect BOB input
+- Ignore introducers for NTCP or NTCP2 addresses
+- RouterInfo check from NTCP2
+
+## [2.25.0] - 2019-05-09
+### Added
+- Create, publish and handle encrypted LeaseSet2
+- Support of b33 addresses 
+- RedDSA key blinding
+- .b32.i2p addresses in jump links
+- ntcp2.addressv6 parameter
+### Changed
+- Allow HTTP headers without value
+- Set data directory from external storage path for Android
+- addresshelper support is configurable per tunnel
+- gradlew script for android build
+### Fixed
+- Deletion of expired encrypted LeaseSet2 on floodfills
+- ipv6 fallback address
+- SSU incoming packets routing
+
+## [2.24.0] - 2019-03-21
+### Added
+- Support of transient keys for LeaseSet2
+- Support of encrypted LeaseSet2
+- Recognize signature type 11 (RedDSA)
+- Support websocket connections over HTTP proxy
+- Ability to disable full addressbook persist
+### Changed
+- Don't load peer profiles if non-persistant
+- REUSE_ADDR for ipv6 acceptors
+- Reset eTags if addressbook can't be loaded
+### Fixed
+- Build with boost 1.70
+- Filter out unspecified addresses from RouterInfo
+- Check floodfill status change
+- Correct SAM response for invalid key
+- SAM crash on termination for Windows
+- Race condition for publishing
+ 
+## [2.23.0] - 2019-01-21
+### Added
+- Standard LeaseSet2 support
+- Ability to adjust timestamps through the NTP
+- Ability to disable peer profile persist
+- Request permission for android >= 6
+- Initial addressbook to android assets
+- Cancel graceful shutdown for android
+- Russian translation for android
+### Changed
+- Chacha20 and Poly1305 implementation
+- Eliminate extra copy of NTCP2 send buffers
+- Extract content of tunnel.d from assets on android
+- Removed name resolvers from transports
+- Update reseed certificates
+### Fixed
+- LeaseSet published content verification
+- Exclude invalid LeaseSets from the list on a floodfill
+- Build for OpenWrt with openssl 1.1.1
+
+## [2.22.0] - 2018-11-09
+### Added
+- Multiple tunnel config files from tunnels.d folder
+### Changed
+- Fetch own RouterInfo upon SessionRequest for NTCP2
+- Faster XOR between AES blocks for non AVX capable CPUs
+### Fixed
+- Fixed NTCP2 termination send
+
+## [2.21.1] - 2018-10-22
+### Changed
+- cost=13 for unpublished NTCP2 address
+### Fixed
+- Handle I2NP messages longer than 32K
+
+## [2.21.0] - 2018-10-04
+### Added
+- EdDSA, x25519 and SipHash from openssl 1.1.1
+- NTCP2 ipv6 incoming connections
+- Show total number of destination's outgoing tags in the web console
+### Changed
+- Android build with openssl 1.1.1/boost 1.64
+- Bandwidth classes 'P' and 'X' don't add 'O' anymore
+### Fixed
+- Update own RouterInfo if no SSU
+- Recognize 'P' and 'X' routers as high bandwidth without 'O'
+- NTCP address doesn't disappear if NTCP2 enabled
+- Android with api 26+
+
+## [2.20.0] - 2018-08-23
+### Added
+- Full implementation of NTCP2
+- Assets for android
+### Changed
+- armeabi-v7a and x86 in one apk for android
+- NTCP2 is enabled by default
+- Show lease's expiration time in readable format in the web console
+### Fixed
+- Correct names for transports in the web console 
+
+## [2.19.0] - 2018-06-26
+### Added
+- ECIES support for RouterInfo
+- HTTP outproxy authorization
+- AVX/AESNI runtime detection
+- Initial implementation of NTCP2
+- I2CP session reconfigure
+- I2CP method ClientServicesInfo
+- Datagrams to websocks
+### Changed
+- RouterInfo uses EdDSA signature by default
+- Remove stream bans
+- Android build system changed to gradle
+- Multiple changes in QT GUI
+- Dockerfile
+### Fixed
+- zero tunnelID issue
+- tunnels reload
+- headers in webconsole
+- XSS in webconsole from SAM session name
+- build for gcc 8
+- cmake build scripts
+- systemd service files
+- some netbsd issues
+
+## [2.18.0] - 2018-01-30
+### Added
+- Show tunnel nicknames for I2CP destination in WebUI
+- Re-create HTTP and SOCKS proxy by tunnel reload
+- Graceful shutdown as soon as no more transit tunnels
+### Changed
+- Regenerate shared local destination by tunnel reload
+- Use transient local destination by default if not specified
+- Return correct code if pid file can't be created
+- Timing and number of attempts for adressbook requests
+- Certificates list
+### Fixed
+- Malformed addressbook subsctiption request
+- Build with boost 1.66
+- Few race conditions for SAM
+- Check LeaseSet's signature before update
+
+## [2.17.0] - 2017-12-04
+### Added
+- Reseed through HTTP and SOCKS proxy
+- Show status of client services through web console
+- Change log level through web connsole
+- transient keys for tunnels
+- i2p.streaming.initialAckDelay parameter
+- CRYPTO_TYPE for SAM destination
+- signature and crypto type for newkeys BOB command
+### Changed
+- Correct publication of ECIES destinations
+- Disable RSA signatures completely
+### Fixed
+- CVE-2017-17066
+- Possible buffer overflow for RSA-4096
+- Shutdown from web console for Windows
+- Web console page layout
+## [2.16.0] - 2017-11-13
+### Added
+- https and "Connect" method for HTTP proxy
+- outproxy for HTTP proxy
+- initial support of ECIES crypto
+- NTCP soft and hard descriptors limits
+- Support full timestamps in logs
+### Changed
+- Faster implementation of GOST R 34.11 hash
+- Reject routers with RSA signtures
+- Reload config and shudown from Windows GUI
+- Update tunnels address(destination) without restart
+### Fixed
+- BOB crashes if destination is not set
+- Correct SAM tunnel name
+- QT GUI issues
+
+## [2.15.0] - 2017-08-17
+### Added
+- QT GUI
+- Ability to add and remove I2P tunnels without restart
+- Ability to disable SOCKS outproxy option
+### Changed
+- Strip-out Accept-* hedaers in HTTP proxy
+- Don't run peer test if nat=false
+- Separate output of NTCP and SSU sessions in Transports tab
+### Fixed
+- Handle lines with comments in hosts.txt file for address book
+- Run router with empty netdb for testnet
+- Skip expired introducers by iexp
+
+## [2.14.0] - 2017-06-01
+### Added
+- Transit traffic bandwidth limitation
+- NTCP connections through HTTP and SOCKS proxies
+- Ability to disable address helper for HTTP proxy
+### Changed
+- Reseed servers list
+- Minimal required version is 4.0 for Android
+### Fixed
+- Ignore comments in addressbook feed
+
+## [2.13.0] - 2017-04-06
+### Added
+- Persist local destination's tags
+- GOST signature types 9 and 10
+- Exploratory tunnels configuration
+### Changed
+- Reseed servers list
+- Inactive NTCP sockets get closed faster
+- Some EdDSA speed up
+### Fixed
+- Multiple acceptors for SAM
+- Follow on data after STREAM CREATE for SAM
+- Memory leaks
+
+## [2.12.0] - 2017-02-14
+### Added
+- Additional HTTP and SOCKS proxy tunnels
+- Reseed from ZIP archive
+- Some stats in a main window for Windows version
+### Changed
+- Reseed servers list
+- MTU of 1488 for ipv6
+- Android and Mac OS X versions use OpenSSL 1.1
+- New logo for Android
+### Fixed
+- Multiple memory leaks
+- Incomptibility of some EdDSA private keys with Java
+- Clock skew for Windows XP
+- Occasional crashes with I2PSnark
+
+## [2.11.0] - 2016-12-18
+### Added
+- Websockets support
+- Reseed through a floodfill
+- Tunnel configuration for HTTP and SOCKS proxy
+- Zero-hops tunnels for destinations
+- Multiple acceptors for SAM
+### Changed
+- Reseed servers list
+- DHT uses AVX if applicable
+- New logo
+- LeaseSet lookups
+### Fixed
+- HTTP Proxy connection reset for Windows
+- Crash upon SAM session termination
+- Can't connect to a destination for a longer time after restart
+- Mass packet loss for UDP tunnels
+
+## [2.10.2] - 2016-12-04
+### Fixed
+- Fixes UPnP discovery bug, producing excessive CPU usage
+- Fixes sudden SSU thread stop for Windows.
+
+## [2.10.1] - 2016-11-07
+### Fixed
+- Fixed some performance issues for Windows and Android
+
+## [2.10.0] - 2016-10-17
+### Added
+- Datagram i2p tunnels
+- Unique local addresses for server tunnels
+- Configurable list of reseed servers  and initial addressbook
+- Configurable netid
+- Initial iOS support
+
+### Changed
+- Reduced file descriptors usage
+- Strict reseed checks enabled by default
+
+## Fixed
+- Multiple fixes in I2CP and BOB implementations
+
+## [2.9.0] - 2016-08-12
+### Changed
+- Proxy refactoring & speedup
+- Transmission-I2P support
+- Graceful shutdown for Windows
+- Android without QT
+- Reduced number of timers in SSU
+- ipv6 peer test support
+- Reseed from SU3 file
+
+## [2.8.0] - 2016-06-20
+### Added
+- Basic Android support
+- I2CP implementation
+- 'doxygen' target
+
+### Changed
+- I2PControl refactoring & fixes (proper jsonrpc responses on errors)
+- boost::regex no more needed
+
+### Fixed
+- initscripts: added openrc one, in sysv-ish make I2PD_PORT optional
+- properly close NTCP sessions (memleak)
+
+## [2.7.0] - 2016-05-18
+### Added
+- Precomputed El-Gamal/DH tables
+- Configurable limit of transit tunnels
+
+### Changed
+- Speed-up of asymmetric crypto for non-x64 platforms
+- Refactoring of web-console
+
+## [2.6.0] - 2016-03-31
+### Added
+- Graceful shutdown on SIGINT
+- Numeric bandwidth limits (was: by router class)
+- Jumpservices in web-console
+- Logging to syslog
+- Tray icon for windows application
+
+### Changed
+- Logs refactoring
+- Improved statistics in web-console
+
+### Deprecated:
+- Renamed main/tunnels config files (will use old, if found, but emits warning)
+
+## [2.5.1] - 2016-03-10
+### Fixed
+- Doesn't create ~/.i2pd dir if missing
+
+## [2.5.0] - 2016-03-04
+### Added
+- IRC server tunnels
+- SOCKS outproxy support
+- Support for gzipped addressbook updates
+- Support for router families
+
+### Changed
+- Shared RTT/RTO between streams
+- Filesystem work refactoring
+
+## [2.4.0] - 2016-02-03
+### Added
+- X-I2P-* headers for server http-tunnels
+- I2CP options for I2P tunnels
+- Show I2P tunnels in webconsole
+
+### Changed
+- Refactoring of cmdline/config parsing
+
+## [2.3.0] - 2016-01-12
+### Added
+- Support for new router bandwidth class codes (P and X)
+- I2PControl supports external webui
+- Added --pidfile and --notransit parameters
+- Ability to specify signature type for i2p tunnel
+
+### Changed
+- Fixed multiple floodfill-related bugs
+- New webconsole layout
+
+## [2.2.0] - 2015-12-22
+### Added
+- Ability to connect to router without ip via introducer
+
+### Changed
+- Persist temporary encryption keys for local destinations
+- Performance improvements for EdDSA
+- New addressbook structure
+
+## [2.1.0] - 2015-11-12
+### Added
+- Implementation of EdDSA
+
+### Changed
+- EdDSA is default signature type for new RouterInfos

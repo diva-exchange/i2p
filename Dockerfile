@@ -23,9 +23,7 @@ RUN mkdir -p "/home/i2pd/log" "/home/i2pd/data" \
     openssl \
     musl-utils \
     libstdc++ \
-    nano \
     dnsmasq \
-    iputils \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
   && ln -s /home/i2pd_certs /home/i2pd/data/certificates \

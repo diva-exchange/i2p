@@ -22,3 +22,5 @@ docker stop i2pd-build
 docker rm i2pd-build
 docker volume rm i2pd_build
 docker rmi diva/i2pd:build
+
+docker build -f Dockerfile --no-cache --tag divax/i2p:latest ${PROJECT_PATH}

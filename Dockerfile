@@ -7,6 +7,7 @@ LABEL author="Konrad Baechler <konrad@diva.exchange>" \
   url="https://diva.exchange"
 
 COPY bin/i2pd-x86_64-aesni /home/i2pd/bin/
+COPY reseed/i2pseeds.su3 /home/i2pd/
 COPY ./i2pd_certs /home/i2pd_certs
 COPY conf/* /home/i2pd/
 COPY network/* /
@@ -31,8 +32,8 @@ RUN mkdir -p "/home/i2pd/log" "/home/i2pd/data" \
   && chmod 0700 /home/i2pd/bin/i2pd-x86_64-aesni \
   && chmod +x /entrypoint.sh
 
-# 7070 i2p webconsole, 4440 http proxy, 4450 socks proxy
-EXPOSE 7070 4440 4450
+# 7070 i2p webconsole, 4444 http proxy, 4447 socks proxy
+EXPOSE 7070 4444 4447
 
 WORKDIR "/home/i2pd/"
 ENTRYPOINT ["/entrypoint.sh"]

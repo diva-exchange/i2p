@@ -21,5 +21,8 @@ dnsmasq -a 127.0.1.1 \
   --local-service \
   --address=/diva.local/${DIVA_IP}
 
+# tor proxy
+/usr/bin/tor -f /torrc
+
 # see configs: /conf/i2pd.conf
 su i2pd -c "/home/i2pd/bin/i2pd-x86_64-aesni --datadir=/home/i2pd/data --conf=/home/i2pd/i2pd.conf"

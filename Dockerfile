@@ -25,6 +25,8 @@ RUN mkdir -p "/home/i2pd/log" "/home/i2pd/data" \
     musl-utils \
     libstdc++ \
     dnsmasq \
+    tor \
+    darkhttpd \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
   && ln -s /home/i2pd_certs /home/i2pd/data/certificates \
@@ -32,8 +34,8 @@ RUN mkdir -p "/home/i2pd/log" "/home/i2pd/data" \
   && chmod 0700 /home/i2pd/bin/i2pd-x86_64-aesni \
   && chmod +x /entrypoint.sh
 
-# 7070 i2p webconsole, 4444 http proxy, 4447 socks proxy
-EXPOSE 7070 4444 4447
+# 7070 i2p webconsole, 4444 http proxy, 4447 socks proxy, 4446 tor proxy, 4445 darkhttpd
+EXPOSE 7070 4444 4445 4446 4447
 
 WORKDIR "/home/i2pd/"
 ENTRYPOINT ["/entrypoint.sh"]

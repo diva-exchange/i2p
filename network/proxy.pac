@@ -3,5 +3,5 @@
       if ( shExpMatch(host, "*.i2p$") ) {
         return "PROXY localhost:4444"
       }
-      return "SOCKS localhost:9050";
+      return "SOCKS localhost:4446";
    }

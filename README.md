@@ -1,5 +1,38 @@
-# I2PD for diva.exchange
-The private and secure communication layer of _diva.exchange_.
+# Private Experience
+This project helps you to get a smooth browsing experience both on the clearnet (like https://diva.exchange) and the darknet (onion and i2p sites, like http://diva.i2p).  
 
 ## Get started
-Visit https://diva.exchange or the repository https://codeberg.org/diva.exchange.
+
+To get your new private browsing experience up and running, just do two things:
+1. Run the Docker container
+2. Adapt your browser proxy settings
+
+### How to Run the Docker Container
+ 
+#### Linux & OSX
+To run the docker container on Linux just execute:
+
+`./run.sh`
+
+#### Windows
+Run the following command in a powershell:
+
+`docker run -p 7070:7070 -p 4444:4444 -p 4445:4445 -p 4446:4446 -p 4447:4447 -d --name i2p0 divax/i2p`
+
+### How to Adapt the Proxy Settings of Your Browser
+Open your favourite browser, like Firefox. Open the settings. Search for "proxy". Then enable "Automatic proxy configuration URL" and set it to "http://localhost:4445/proxy.pac".
+
+This proxy configuration (see source code below for details) uses your new docker container to route all your browser traffic through either I2P or TOR. If you now browse the clearnet (like https://diva.exchange) you'll be using automatically TOR.    
+
+## Build from scratch
+### Linux & OSX
+To rebuild all the I2Pd binaries from source just execute  `build.sh`
+
+### Windows
+tbd.
+
+## Source Code
+Its GPLv3 licensed and the source code is available here:
+https://codeberg.org/diva.exchange/i2p
+
+The source code of the underlying I2Pd project is found here: https://github.com/PurpleI2P/i2pd

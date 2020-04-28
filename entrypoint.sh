@@ -15,11 +15,24 @@ cat </resolv.conf >/etc/resolv.conf
 # overwrite dnsmasq.conf
 cat </dnsmasq.conf >/etc/dnsmasq.conf
 
+# move proxy.pac
+mv /proxy.pac /var/www/localhost/htdocs/proxy.pac
+
 # networking, see resolv.conf
 dnsmasq -a 127.0.1.1 \
   --no-hosts \
   --local-service \
   --address=/diva.local/${DIVA_IP}
+
+# httpd server
+/usr/bin/darkhttpd /var/www/localhost/htdocs \
+  --port 4445 \
+  --daemon \
+  --chroot \
+  --uid darkhttpd \
+  --gid www-data \
+  --log /dev/null \
+  --no-listing
 
 # tor proxy
 /usr/bin/tor -f /torrc

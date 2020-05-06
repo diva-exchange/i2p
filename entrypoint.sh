@@ -23,7 +23,7 @@ dnsmasq -a 127.0.1.1 \
 
 # httpd server
 /usr/bin/darkhttpd /var/www/localhost/htdocs \
-  --port 4445 \
+  --port 8080 \
   --daemon \
   --chroot \
   --uid darkhttpd \

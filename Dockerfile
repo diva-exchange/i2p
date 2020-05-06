@@ -35,8 +35,8 @@ RUN mkdir -p "/home/i2pd/log" "/home/i2pd/data" \
   && chmod 0700 /home/i2pd/bin/i2pd-x86_64-alpine \
   && chmod +x /entrypoint.sh
 
-# 7070 i2p webconsole, 4444 http proxy, 4447 socks proxy, 4446 tor proxy, 4445 darkhttpd
-EXPOSE 7070 4444 4445 4446 4447
+# 7070 I2P webconsole, 4444 I2P http proxy, 4445 I2P socks proxy, 9050 TOR proxy, 8080 darkhttpd
+EXPOSE 7070 4444 4445 9050 8080
 
 VOLUME [ "/home/i2pd/" ]
 WORKDIR "/home/i2pd/"

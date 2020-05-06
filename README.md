@@ -9,7 +9,7 @@ However: we hope this project helps you to get started.
 Docker (https://www.docker.com/get-started) must be available on your system. 
 
 To get your new private browsing experience up and running:
-1. Pull the docker image (in a shell/powershell): `docker pull divax/tor-i2p`
+1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p`
 2. Run the Docker container
 3. Adapt your browser proxy settings
 

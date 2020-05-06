@@ -7,7 +7,6 @@ LABEL author="Konrad Baechler <konrad@diva.exchange>" \
   url="https://diva.exchange"
 
 COPY bin/i2pd-x86_64-aesni /home/i2pd/bin/
-COPY reseed/i2pseeds.su3 /home/i2pd/
 COPY ./i2pd_certs /home/i2pd_certs
 COPY conf/* /home/i2pd/
 COPY network/* /

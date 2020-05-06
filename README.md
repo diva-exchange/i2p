@@ -27,7 +27,7 @@ This proxy configuration (see source code below for details) uses your new docke
 
 ## Build from Source
 ### On Linux
-To rebuild all the I2Pd binaries from source just execute  `build.sh`
+To rebuild all the I2Pd binaries from source execute  `build.sh`
 
 ## Source Code
 Its GPLv3 licensed and the source code is available here:

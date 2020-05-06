@@ -15,9 +15,6 @@ cat </resolv.conf >/etc/resolv.conf
 # overwrite dnsmasq.conf
 cat </dnsmasq.conf >/etc/dnsmasq.conf
 
-# overwrite proxy.pac
-cat </proxy.pac >/var/www/localhost/htdocs/proxy.pac
-
 # networking, see resolv.conf
 dnsmasq -a 127.0.1.1 \
   --no-hosts \

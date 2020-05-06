@@ -11,6 +11,8 @@ COPY ./i2pd_certs /home/i2pd_certs
 COPY conf/* /home/i2pd/
 COPY network/* /
 COPY entrypoint.sh /
+# darkhttpd static content
+COPY htdocs/* /var/www/localhost/htdocs/
 
 RUN mkdir -p "/home/i2pd/log" "/home/i2pd/data" \
   && apk --no-cache add \

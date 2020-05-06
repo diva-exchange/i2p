@@ -1,6 +1,5 @@
 User tor
 RunAsDaemon 1
 LearnCircuitBuildTimeout 0
-DormantCanceledByStartup 1
-SocksPort 0.0.0.0:4446
+SocksPort 0.0.0.0:9050
 DataDirectory /var/lib/tor

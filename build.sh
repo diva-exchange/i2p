@@ -3,11 +3,11 @@
 PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd ${PROJECT_PATH}
 
-docker build -f Dockerfile-Build --no-cache --tag diva/i2pd:build ${PROJECT_PATH}
+docker build -f Dockerfile-Build-alpine --no-cache --tag diva/i2pd:build ${PROJECT_PATH}
 
 docker run -d --volume i2pd_build:/home/i2pd/ --name i2pd-build diva/i2pd:build
 
-cp -f /var/lib/docker/volumes/i2pd_build/_data/i2pd-x86_64-aesni ${PROJECT_PATH}/bin/
+cp -f /var/lib/docker/volumes/i2pd_build/_data/i2pd-x86_64-alpine ${PROJECT_PATH}/bin/
 cp -f /var/lib/docker/volumes/i2pd_build/_data/LICENSE ${PROJECT_PATH}/bin/
 cp -f /var/lib/docker/volumes/i2pd_build/_data/ChangeLog ${PROJECT_PATH}/bin/
 chown -R --reference=${PROJECT_PATH} ${PROJECT_PATH}/bin

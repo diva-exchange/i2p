@@ -18,7 +18,7 @@ To get your new private browsing experience up and running:
 #### On Linux, OSX and Windows
 Run the following command in a shell (powershell on Windows):
 
-`docker run -p 7070:7070 -p 4444:4444 -p 4445:4445 -p 4446:4446 -p 4447:4447 -d --name i2p0 divax/i2p`
+`docker run --mount src=i2pd,dst=/home/i2pd -p 7070:7070 -p 4444:4444 -p 4445:4445 -p 4446:4446 -p 4447:4447 -d --name i2pd divax/i2p`
 
 ### How to Adapt the Proxy Settings of Your Browser
 Open your favourite browser, like Firefox. Open the settings. Search for "proxy". Then enable "Automatic proxy configuration URL" and set it to "http://localhost:4445/proxy.pac".

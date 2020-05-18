@@ -6,38 +6,68 @@ LABEL author="Konrad Baechler <konrad@diva.exchange>" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 
-COPY bin/i2pd-x86_64-alpine /home/i2pd/bin/
-COPY ./i2pd_certs /home/i2pd_certs
-COPY conf/* /home/i2pd/
-COPY network/* /
-COPY entrypoint.sh /
-# darkhttpd static content
-COPY htdocs/* /var/www/localhost/htdocs/
+WORKDIR /home
 
-RUN mkdir -p "/home/i2pd/log" "/home/i2pd/data" \
-  && apk --no-cache add \
-    boost-filesystem \
-    boost-system \
-    boost-program_options \
-    boost-date_time \
-    boost-thread \
-    boost-iostreams \
-    openssl \
-    musl-utils \
-    libstdc++ \
-    dnsmasq \
-    tor \
-    darkhttpd \
-  && addgroup -g 1000 i2pd \
+# 1. install deps
+RUN apk --no-cache add \
+  cmake \
+  make \
+  gcc \
+  g++ \
+  libtool \
+  zlib-dev \
+  boost-dev \
+  build-base \
+  openssl-dev \
+  openssl \
+  git \
+  autoconf \
+  automake
+
+# 2. build i2pd binary
+RUN git clone -b openssl https://github.com/PurpleI2P/i2pd.git \
+  && cd i2pd/build \
+  && cmake . \
+  && make
+
+RUN ls -lahR
+
+# 3. prepare final image
+FROM alpine:latest
+WORKDIR /home/i2pd
+RUN apk --no-cache add ca-certificates \
+  boost-filesystem \
+  boost-system \
+  boost-program_options \
+  boost-date_time \
+  boost-thread \
+  boost-iostreams \
+  openssl \
+  musl-utils \
+  libstdc++ \
+  dnsmasq \
+  tor \
+  darkhttpd
+
+COPY --from=0 /home/i2pd/build/i2pd /home/i2pd/bin/
+COPY --from=0 /home/i2pd/LICENSE /home/i2pd/
+COPY --from=0 /home/i2pd/ChangeLog /home/i2pd/
+
+COPY conf/ /home/i2pd/conf/ 
+COPY network/ /home/i2pd/network/ 
+COPY i2pd_certs/ /home/i2pd/data/certificates/
+COPY htdocs/ /home/i2pd/htdocs/
+COPY entrypoint.sh .
+
+RUN addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
-  && ln -s /home/i2pd_certs /home/i2pd/data/certificates \
   && chown -R i2pd:i2pd /home/i2pd \
-  && chmod 0700 /home/i2pd/bin/i2pd-x86_64-alpine \
-  && chmod +x /entrypoint.sh
+  && chmod 0700 /home/i2pd/bin/i2pd \
+  && chmod +x /home/i2pd/entrypoint.sh
 
 # 7070 I2P webconsole, 4444 I2P http proxy, 4445 I2P socks proxy, 9050 TOR proxy, 8080 darkhttpd
 EXPOSE 7070 4444 4445 9050 8080
 
 VOLUME [ "/home/i2pd/" ]
-WORKDIR "/home/i2pd/"
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/home/i2pd/entrypoint.sh"]
+

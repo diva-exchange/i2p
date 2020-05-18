@@ -55,7 +55,7 @@ COPY --from=0 /home/i2pd/ChangeLog /home/i2pd/
 
 COPY conf/ /home/i2pd/conf/ 
 COPY network/ /home/i2pd/network/ 
-COPY i2pd_certs/ /home/i2pd/data/certificates/
+COPY certs/ /home/i2pd/data/certificates/
 COPY htdocs/ /home/i2pd/htdocs/
 COPY entrypoint.sh .
 

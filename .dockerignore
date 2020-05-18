@@ -1,0 +1,7 @@
+*
+!/conf
+!/htdocs
+!/network
+!/certs
+!Dockerfile
+!entrypoint.sh

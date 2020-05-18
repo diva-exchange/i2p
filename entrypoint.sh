@@ -10,10 +10,10 @@ set -e
 DIVA_IP=${DIVA_IP:-127.0.0.1}
 
 # overwrite resolv.conf
-cat </resolv.conf >/etc/resolv.conf
+cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
 
 # overwrite dnsmasq.conf
-cat </dnsmasq.conf >/etc/dnsmasq.conf
+cat </home/i2pd/network/dnsmasq.conf >/etc/dnsmasq.conf
 
 # networking, see resolv.conf
 dnsmasq -a 127.0.1.1 \
@@ -22,17 +22,17 @@ dnsmasq -a 127.0.1.1 \
   --address=/diva.local/${DIVA_IP} \
 
 # httpd server
-/usr/bin/darkhttpd /var/www/localhost/htdocs \
+/usr/bin/darkhttpd /home/i2pd/htdocs \
   --port 8080 \
   --daemon \
   --chroot \
-  --uid darkhttpd \
-  --gid www-data \
-  --log /dev/null \
+  --uid i2pd \
+  --gid i2pd \
+  --log /dev/stdout \
   --no-listing
 
 # tor proxy
-/usr/bin/tor -f /torrc
+/usr/bin/tor -f /home/i2pd/network/torrc
 
 # see configs: /conf/i2pd.conf
-su i2pd -c "/home/i2pd/bin/i2pd-x86_64-alpine --datadir=/home/i2pd/data --conf=/home/i2pd/i2pd.conf"
+su i2pd -c "/home/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/home/i2pd/conf/i2pd.conf"

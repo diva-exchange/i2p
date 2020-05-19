@@ -16,9 +16,7 @@ To get your new private browsing experience up and running:
 ### How to Run the Docker Container
  
 #### On Linux, OSX and Windows
-Run the following command in a shell (powershell on Windows):
-
-`docker run -p 7070:7070 -p 4444:4444 -p 4445:4445 -p 9050:9050 -p 8080:8080 -d --name i2pd divax/i2p`
+Run the following command in a shell (powershell on Windows): `./bin/run.sh`
 
 ### How to Adapt the Proxy Settings of Your Browser
 Open your favourite browser, like Firefox. Open the settings. Search for "proxy". Then enable "Automatic proxy configuration URL" and set it to "http://localhost:8080/proxy.pac".
@@ -27,7 +25,7 @@ This proxy configuration (see source code below for details) uses your new docke
 
 ## Build from Source
 ### On Linux
-To rebuild all the I2Pd binaries from source execute  `build.sh`
+To rebuild all the I2Pd binaries from source execute  `./bin/build.sh`
 
 ## Source Code
 Its GPLv3 licensed and the source code is available here:

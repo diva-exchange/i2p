@@ -14,6 +14,7 @@ RUN apk --no-cache add \
   make \
   gcc \
   g++ \
+  binutils \
   libtool \
   zlib-dev \
   boost-dev \
@@ -27,8 +28,9 @@ RUN apk --no-cache add \
 # 2. build i2pd binary
 RUN git clone -b openssl https://github.com/PurpleI2P/i2pd.git \
   && cd i2pd/build \
-  && cmake . \
-  && make
+  && cmake -DWITH_AESNI=ON . \
+  && make \
+  && strip i2pd
 
 RUN ls -lahR
 
@@ -53,8 +55,8 @@ COPY --from=0 /home/i2pd/build/i2pd /home/i2pd/bin/
 COPY --from=0 /home/i2pd/LICENSE /home/i2pd/
 COPY --from=0 /home/i2pd/ChangeLog /home/i2pd/
 
-COPY conf/ /home/i2pd/conf/ 
-COPY network/ /home/i2pd/network/ 
+COPY conf/ /home/i2pd/conf/
+COPY network/ /home/i2pd/network/
 COPY i2pd_certs/ /home/i2pd/data/certificates/
 COPY htdocs/ /home/i2pd/htdocs/
 COPY entrypoint.sh .

@@ -32,8 +32,6 @@ RUN git clone -b openssl https://github.com/PurpleI2P/i2pd.git \
   && make \
   && strip i2pd
 
-RUN ls -lahR
-
 # 3. prepare final image
 FROM alpine:latest
 WORKDIR /home/i2pd
@@ -51,13 +49,13 @@ RUN apk --no-cache add ca-certificates \
   tor \
   darkhttpd
 
+COPY --from=0 /home/i2pd/contrib/certificates /home/i2pd/data/certificates
 COPY --from=0 /home/i2pd/build/i2pd /home/i2pd/bin/
 COPY --from=0 /home/i2pd/LICENSE /home/i2pd/
 COPY --from=0 /home/i2pd/ChangeLog /home/i2pd/
 
 COPY conf/ /home/i2pd/conf/
 COPY network/ /home/i2pd/network/
-COPY i2pd_certs/ /home/i2pd/data/certificates/
 COPY htdocs/ /home/i2pd/htdocs/
 COPY entrypoint.sh .
 

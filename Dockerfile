@@ -35,7 +35,7 @@ RUN git clone -b openssl https://github.com/PurpleI2P/i2pd.git \
 # 3. prepare final image
 FROM alpine:latest
 WORKDIR /home/i2pd
-RUN apk --no-cache add ca-certificates \
+RUN apk --no-cache add \
   boost-filesystem \
   boost-system \
   boost-program_options \
@@ -45,9 +45,7 @@ RUN apk --no-cache add ca-certificates \
   openssl \
   musl-utils \
   libstdc++ \
-  dnsmasq \
-  tor \
-  darkhttpd
+  dnsmasq
 
 COPY --from=0 /home/i2pd/contrib/certificates /home/i2pd/data/certificates
 COPY --from=0 /home/i2pd/build/i2pd /home/i2pd/bin/
@@ -65,8 +63,8 @@ RUN addgroup -g 1000 i2pd \
   && chmod 0700 /home/i2pd/bin/i2pd \
   && chmod +x /home/i2pd/entrypoint.sh
 
-# 7070 I2P webconsole, 4444 I2P http proxy, 4445 I2P socks proxy, 9050 TOR proxy, 8080 darkhttpd
-EXPOSE 7070 4444 4445 9050 8080
+# 7070 I2P webconsole, 4444 I2P http proxy, 4445 I2P socks proxy
+EXPOSE 7070 4444 4445
 
 VOLUME [ "/home/i2pd/" ]
 ENTRYPOINT ["/home/i2pd/entrypoint.sh"]

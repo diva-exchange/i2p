@@ -1,15 +1,23 @@
-# Private Browsing Experience
-Enjoy a smooth private browsing experience both on the clearnet (like https://diva.exchange) and the darknet (onion and i2p sites, like http://diva.i2p). Use your favourite browser (like Firefox). Hence it should be suitable for beginners.
+# I2P - ready to use
 
-Please note: this setup is only a first - yet necessary - step to protect your privacy. You need to change your behaviour to protect your online privacy (like: use NoScript, AdBlock). Also fingerprinting (a hash of your online footprint) and obviously login data is a threat. On your systems and mobile phones there are plenty of applications running which will leak your private data. This project helps you only with browsing.
+Two flavours of this docker image are available:
+* I2P only version - very lean. It's tagged as "latest".
+* I2P, Tor and a proxy to enable everyone to get started using the i2p and onion network. It's tagged as "i2p-tor-proxy". 
 
-However: we hope this project helps you to get started.
+If you are an I2P pro - go for the imaged tagged as "latest". You get the latest stable i2pd (C++ version) release. Lean & fast.
+
+If you are looking for an entry-level experience, focused on browsing the network: use the image tagged as "i2p-tor-proxy".  
+
+## Entry level - I2P & Onion: Private Browsing Experience
+Enjoy a smooth private browsing experience both on the clearnet (like https://diva.exchange) and the darknet (onion and i2p sites/eepsites, like http://diva.i2p). Use your favourite browser (like Firefox). Hence it should be suitable for beginners.
+
+Please note: this entry-level setup is only a first - yet necessary - step to protect your privacy. You need to change your behaviour to protect your online privacy (like: use NoScript, AdBlock). Also fingerprinting (a hash of your online footprint) and obviously login data is a threat. On your systems and mobile phones there are plenty of applications running which will leak your private data. This project helps you with browsing.
 
 ## Get started
 Docker (https://www.docker.com/get-started) must be available on your system. 
 
 To get your new private browsing experience up and running:
-1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p`
+1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p:i2p-tor-proxy` or `docker pull divax/i2p:latest` 
 2. Run the Docker container
 3. Adapt your browser proxy settings
 

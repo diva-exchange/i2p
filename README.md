@@ -17,7 +17,7 @@ Please note: this entry-level setup is only a first - yet necessary - step to pr
 Docker (https://www.docker.com/get-started) must be available on your system. 
 
 To get your new private browsing experience up and running:
-1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p:i2p-tor-proxy` or `docker pull divax/i2p:latest` 
+1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p:i2p-tor-proxy` 
 2. Run the Docker container
 3. Adapt your browser proxy settings
 

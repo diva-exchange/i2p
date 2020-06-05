@@ -42,21 +42,6 @@ RUN apk --no-cache --virtual build-dependendencies add \
   && cd /home/i2pd \
   && rm -fr /tmp/i2pd \
   && apk --no-cache --purge del build-dependendencies \
-    fortify-headers \
-    boost-python3 \
-    python3 \
-    gdbm \
-    boost-unit_test_framework \
-    boost-python2 \
-    linux-headers \
-    boost-prg_exec_monitor \
-    boost-serialization \
-    boost-wave \
-    boost-wserialization \
-    boost-math \
-    boost-graph \
-    boost-regex \
-    pcre2 \
   && apk --no-cache add \
     boost-filesystem \
     boost-system \

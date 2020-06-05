@@ -18,18 +18,5 @@ dnsmasq -a 127.0.1.1 \
   --local-service \
   --address=/#/${DNS_CATCH_ALL} \
 
-# httpd server
-/usr/bin/darkhttpd /home/i2pd/htdocs \
-  --port 8080 \
-  --daemon \
-  --chroot \
-  --uid i2pd \
-  --gid i2pd \
-  --log /dev/stdout \
-  --no-listing
-
-# tor proxy
-/usr/bin/tor -f /home/i2pd/network/torrc
-
 # see configs: /conf/i2pd.conf
 su i2pd -c "/home/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/home/i2pd/conf/i2pd.conf"

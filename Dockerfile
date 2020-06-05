@@ -68,6 +68,8 @@ RUN apk --no-cache --virtual build-dependendencies add \
     musl-utils \
     libstdc++ \
     dnsmasq \
+    tor \
+    darkhttpd \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
   && chown -R i2pd:i2pd /home/i2pd \

@@ -12,13 +12,17 @@ COPY htdocs/ /home/i2pd/htdocs/
 COPY entrypoint.sh /home/i2pd/
 
 # install deps && build i2p binary
-RUN apk --no-cache --virtual build-dependendencies add \
+RUN mkdir /home/i2pd/bin \
+  && mkdir /home/i2pd/data \
+  && apk --no-cache --virtual build-dependendencies add \
     cmake \
     make \
     gcc \
     g++ \
     binutils \
     libtool \
+    libev-dev \
+    check-dev \
     zlib-dev \
     boost-dev \
     build-base \
@@ -33,15 +37,39 @@ RUN apk --no-cache --virtual build-dependendencies add \
   && cmake -DWITH_AESNI=ON -DWITH_AVX=ON . \
   && make \
   && strip i2pd \
-  && mkdir /home/i2pd/bin \
   && mv /tmp/i2pd/build/i2pd /home/i2pd/bin/i2pd \
-  && mkdir /home/i2pd/data \
   && mv /tmp/i2pd/contrib/certificates /home/i2pd/data/certificates \
   && mv /tmp/i2pd/LICENSE /home/i2pd/LICENSE \
   && mv /tmp/i2pd/ChangeLog /home/i2pd/ChangeLog \
+  # stubby, DNS-over-TLS client
+  # build required libyaml
+  && cd /tmp \
+  && git clone https://github.com/yaml/libyaml.git \
+  && cd libyaml \
+  && ./bootstrap \
+  && ./configure \
+  && make install \
+  # build getndns/stubby
+  && cd /tmp \
+  && git clone https://github.com/getdnsapi/getdns.git \
+  && cd getdns \
+  && git checkout master \
+  && git submodule update --init \
+  && mkdir build \
+  && cd build \
+  && cmake -DENABLE_STUB_ONLY=ON -DBUILD_STUBBY=ON -DUSE_LIBIDN2=OFF .. \
+  && make \
+  && strip stubby/stubby \
+  && chmod 0700 stubby/stubby \
+  && mv stubby/stubby /usr/local/bin/stubby \
+  # clean up /tmp
   && cd /home/i2pd \
-  && rm -fr /tmp/i2pd \
+  && rm -rf /tmp/i2pd \
+  && rm -rf /tmp/libyaml \
+  && rm -rf /tmp/getdns \
+  # remove build dependencies
   && apk --no-cache --purge del build-dependendencies \
+  # i2p and stubby runtime dependencies
   && apk --no-cache add \
     boost-filesystem \
     boost-system \
@@ -52,7 +80,7 @@ RUN apk --no-cache --virtual build-dependendencies add \
     openssl \
     musl-utils \
     libstdc++ \
-    dnsmasq \
+    libev \
     tor \
     darkhttpd \
   && addgroup -g 1000 i2pd \
@@ -65,4 +93,5 @@ RUN apk --no-cache --virtual build-dependendencies add \
 EXPOSE 7070 4444 4445
 
 VOLUME [ "/home/i2pd/" ]
+WORKDIR "/home/i2pd/"
 ENTRYPOINT ["/home/i2pd/entrypoint.sh"]

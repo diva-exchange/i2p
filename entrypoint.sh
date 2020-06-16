@@ -6,6 +6,15 @@
 # -e  Exit immediately if a simple command exits with a non-zero status
 set -e
 
+IP_CONTAINER=`ip route get 1 | awk '{ print $NF; exit; }'`
+IP_BRIDGE=`ip route | awk '/default/ { print $3; }'`
+sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g ; s/\$IP_BRIDGE/'"${IP_BRIDGE}"'/g' \
+  /home/i2pd/conf/i2pd.conf >/home/i2pd/conf/i2pd.tmp.conf \
+  && mv /home/i2pd/conf/i2pd.tmp.conf /home/i2pd/conf/i2pd.conf
+sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g ; s/\$IP_BRIDGE/'"${IP_BRIDGE}"'/g' \
+  /home/i2pd/conf/tunnels.conf >/home/i2pd/conf/tunnels.tmp.conf \
+  && mv /home/i2pd/conf/tunnels.tmp.conf /home/i2pd/conf/tunnels.conf
+
 # overwrite resolv.conf - forces the container to use stubby as a resolver
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
 

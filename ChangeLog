@@ -1,6 +1,11 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.32.1-i2p-20200616] - 2020-06-16
+### Changed
+- fixed wrong i2pd config: socks port 4445
+- security fix: added container ip support for http and socks proxy
+
 ## [2.32.1-i2p-20200607] - 2020-06-07
 ### Changed
 - Replaced dnsmasq by stubby, introducing DNS-over-TLS

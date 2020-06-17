@@ -1,4 +1,4 @@
-# I2P - ready to use
+# I2P - For Everyone
 
 Two flavours are available:
 * Entry-level experience: I2P, Tor and a proxy to enable everyone to get started using the i2p and onion network. It's tagged as "i2p-tor-proxy". 
@@ -8,12 +8,14 @@ The solutions are deployed as docker image.
 
 If you are looking for an entry-level experience, focused on browsing the network: use the docker image tagged as "i2p-tor-proxy". Read the "Get Started" below.   
 
-If you are an I2P pro - go for the docker imaged tagged as "latest". You get the latest stable i2pd (C++ version) release. Lean & fast.
+If you are experienced and looking for an I2P-only container - go for the docker imaged tagged as "latest". You get the latest stable i2pd (C++ version) release. Lean & fast.
+
+A great tutorial, including "How to setup your system", is found here: [Introduction to “I2P”](https://www.diva.exchange/en/privacy/introduction-to-i2p-your-own-internet-secure-private-and-free/).
 
 ## Entry-Level Experience - I2P & Onion: Private Browsing
-Enjoy a smooth private browsing experience both on the clearnet (like https://diva.exchange) and the darknet (onion and i2p sites/eepsites, like http://diva.i2p). Use your favourite browser (like Firefox). Hence it should be suitable for beginners.
+Enjoy a smooth and private browsing experience on multiple networks (like https://diva.exchange or also onion and i2p sites like http://diva.i2p). Use your favourite browser (like Firefox). Hence it should be suitable for beginners.
 
-Please note: an entry-level setup is only a first - yet necessary - step to protect your privacy. You need to change your behaviour to protect your online privacy (like: use NoScript, AdBlock). Also fingerprinting (a hash of your online footprint) and obviously login data is a threat. On your systems and mobile phones there are plenty of applications leaking your private data. This project helps you with browsing.
+Please note: an entry-level setup is only a first - yet necessary - step to protect your privacy. You need to change your behaviour to protect your online privacy (like: use NoScript, AdBlock). Also fingerprinting (a hash of your online footprint) and obviously login data is threatening your privacy. This project helps you to get started with private browsing.
 
 ## DNS-over-TLS
 All DNS queries of this docker container are resolved using DNS-over-TLS (DoT). DoT makes it difficult to spy out DNS queries.
@@ -25,6 +27,8 @@ To get your new private browsing experience up and running:
 1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p:i2p-tor-proxy` or `docker pull divax/i2p:latest` 
 2. Run the Docker container
 3. Adapt your browser proxy settings
+
+As said, this tutorial might be helpful: [Introduction to “I2P”](https://www.diva.exchange/en/privacy/introduction-to-i2p-your-own-internet-secure-private-and-free/).
 
 ### How to Run the Docker Container
  
@@ -43,12 +47,26 @@ Check your now-running docker container with `docker ps -a` (within your shell/p
 ### Entry-Level: How to Adapt the Proxy Settings of Your Browser
 Open your favourite browser, like Firefox. Open the settings. Search for "proxy". Then enable "Automatic proxy configuration URL" and set it to "http://localhost:8080/proxy.pac".
 
-This proxy configuration (see source code below for details) uses your new docker container to route all your browser traffic through either I2P or TOR. If you now browse the clearnet (like https://diva.exchange) you'll be using automatically Tor.
+This proxy configuration (see source code below for details) uses your new docker container to route all your browser traffic through either I2P or Tor. If you now browse the clearnet (like https://diva.exchange) you'll be using automatically Tor.
 
 ### Advanced: Configuration
 The docker container is exposing an http and a socks proxy. By default, the container exposes the http proxy on port 4444 and the socks proxy on port 4445. 
 
-The configuration files for I2P are found within `./conf`: `i2pd.conf` and `tunnels.conf`). The configuration files for DNS-over-TLS are found within `./network`: `resolv.conf` and `stubby.yml`. Also the Tor configuration file is found within `./network`: `torrc`.
+The configuration files for I2P are found within `./conf`: `i2pd.org.conf` and `tunnels.org.conf`). The configuration files for DNS-over-TLS are found within `./network`: `resolv.conf` and `stubby.yml`. Also the Tor configuration file is found within `./network`: `torrc`.
+
+The behaviour of a container might be influenced with environment variables, DISABLE_TUNNELS, PORT_BACKEND, PORT_EXPOSED and IP_BRIDGE.
+
+If DISABLE_TUNNELS is set to 1, then the container will be started without a tunnels configuration. Defaults to 0 and therefore tunnels are enabled by default.
+
+PORT_BACKEND points to a listening backend service on the interface set by IP_BRIDGE. IP_BRIDGE points by default to the docker host interface. Example: if a HTTP server is running on port 8080 on the docker host, PORT_BACKEND would be set to 8080 and the HTTP service would be exposed to I2P. The default value of PORT_BACKEND is set to 3902.
+
+PORT_EXPOSED defines the port exposed to the I2P network. By default it is the same as PORT_BACKEND.
+
+Some examples on how to use environment variables:
+
+`docker run --env DISABLE_TUNNELS=1 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2pd divax/i2p:latest`
+
+`docker run --env PORT_BACKEND=8080 --env PORT_EXPOSED=80 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2pd divax/i2p:latest`
 
 ## Build from Source
 ### On Linux

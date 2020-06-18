@@ -1,6 +1,10 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.32.1-i2p-20200618] - 2020-06-18
+### Changed
+- Bugfix: entrypoint.sh, sed for tunnels.conf
+
 ## [2.32.1-i2p-20200617] - 2020-06-17
 ### Added
 - Support for environment variables to control the behaviour of the container: DISABLE_TUNNELS, PORT_BACKEND, PORT_EXPOSED and IP_BRIDGE

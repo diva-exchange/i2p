@@ -18,7 +18,7 @@ if [[ ${DISABLE_TUNNELS} == 1 ]]
 then
   rm -f /home/i2pd/conf/tunnels.conf
 else
-  sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g ; s/\$IP_BRIDGE/'"${IP_BRIDGE}"'/g ; s/\PORT_BACKEND/'"${PORT_BACKEND}"'/g ; s/\PORT_EXPOSED/'"${PORT_EXPOSED}"'/g' \
+  sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g ; s/\$IP_BRIDGE/'"${IP_BRIDGE}"'/g ; s/\$PORT_BACKEND/'"${PORT_BACKEND}"'/g ; s/\$PORT_EXPOSED/'"${PORT_EXPOSED}"'/g' \
     /home/i2pd/conf/tunnels.org.conf >/home/i2pd/conf/tunnels.conf
 fi
 

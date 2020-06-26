@@ -52,9 +52,9 @@ This proxy configuration (see source code below for details) uses your new docke
 ### Advanced: Configuration
 The docker container is exposing an http and a socks proxy. By default, the container exposes the http proxy on port 4444 and the socks proxy on port 4445. 
 
-The configuration files for I2P are found within `./conf`: `i2pd.org.conf` and `tunnels.org.conf`). The configuration files for DNS-over-TLS are found within `./network`: `resolv.conf` and `stubby.yml`. Also the Tor configuration file is found within `./network`: `torrc`.
+The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration and `tunnels.org.conf` contains the tunnel configuration. The configuration files for DNS-over-TLS are found within the folder `./network`: `resolv.conf` is containing nameserver information and `stubby.yml` contains the configuration for DNS-over-TLS. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
 
-The behaviour of a container might be influenced with environment variables, DISABLE_TUNNELS, PORT_BACKEND, PORT_EXPOSED and IP_BRIDGE.
+The configuration of a container might be influenced with environment variables: DISABLE_TUNNELS, PORT_BACKEND, PORT_EXPOSED and IP_BRIDGE.
 
 If DISABLE_TUNNELS is set to 1, then the container will be started without a tunnels configuration. Defaults to 0 and therefore tunnels are enabled by default.
 

@@ -12,6 +12,7 @@ docker run -d --mount type=volume,src=i2pd-build,dst=/home/i2pd/ --name i2pd-bui
 # update certs
 rm -R certificates
 cp -r -f /var/lib/docker/volumes/i2pd-build/_data/data/certificates ./certificates
+cp ./reseed/reseed_at_diva.exchange.crt ./certificates/reseed/reseed_at_diva.exchange.crt
 chown -R --reference ./ certificates
 
 # update changelog & license

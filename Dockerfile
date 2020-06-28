@@ -9,11 +9,11 @@ LABEL author="Konrad Baechler <konrad@diva.exchange>" \
 COPY conf/ /home/i2pd/conf/
 COPY network/ /home/i2pd/network/
 COPY htdocs/ /home/i2pd/htdocs/
+COPY certificates/ /home/i2pd/data/certificates/
 COPY entrypoint.sh /home/i2pd/
 
 # install deps && build i2p binary
 RUN mkdir /home/i2pd/bin \
-  && mkdir /home/i2pd/data \
   && apk --no-cache --virtual build-dependendencies add \
     cmake \
     make \
@@ -38,7 +38,6 @@ RUN mkdir /home/i2pd/bin \
   && make \
   && strip i2pd \
   && mv /tmp/i2pd/build/i2pd /home/i2pd/bin/i2pd \
-  && mv /tmp/i2pd/contrib/certificates /home/i2pd/data/certificates \
   && mv /tmp/i2pd/LICENSE /home/i2pd/LICENSE \
   && mv /tmp/i2pd/ChangeLog /home/i2pd/ChangeLog \
   # stubby, DNS-over-TLS client

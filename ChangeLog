@@ -1,6 +1,11 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.32.1-i2p-20200629] - 2020-06-29
+### Changed
+- added missing hosts.txt - which also serves as an example on how to use a base64 adress
+- bringing the reseed server urls in line with the code base of the stable i2pd release
+
 ## [2.32.1-i2p-20200618] - 2020-06-18
 ### Changed
 - Bugfix: entrypoint.sh, sed for tunnels.conf

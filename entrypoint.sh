@@ -15,13 +15,18 @@ IP_CONTAINER=`ip route get 1 | awk '{ print $NF; exit; }'`
 if [[ ${ENABLE_TUNNELS} == 1 ]]
 then
   TUNNELS_DIR=/home/i2pd/tunnels.conf.d
-  rm /home/i2pd/tunnels.conf.d/*
-  cp /home/i2pd/tunnels.source.conf.d/* /home/i2pd/tunnels.conf.d/
-  sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g ; s/\$IP_BRIDGE/'"${IP_BRIDGE}"'/g' \
-    /home/i2pd/conf/tunnels.conf.d/*.conf
+  rm -f ${TUNNELS_DIR}/*.conf
+
+  [[ -f /home/i2pd/tunnels.source.conf.d/*.conf ]] && cp \
+    /home/i2pd/tunnels.source.conf.d/*.conf ${TUNNELS_DIR}
+
+  [[ -f ${TUNNELS_DIR}/*.conf ]] && sed -i \
+    's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g' \
+    ${TUNNELS_DIR}/*.conf
 fi
 
-sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g ; s/\$TUNNELS_DIR/'"${TUNNELS_DIR}"'/g' \
+sed \
+  's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g ; s!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' \
   /home/i2pd/conf/i2pd.org.conf >/home/i2pd/conf/i2pd.conf
 
 # overwrite resolv.conf - forces the container to use stubby as a resolver

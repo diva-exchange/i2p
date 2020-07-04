@@ -49,24 +49,29 @@ Open your favourite browser, like Firefox. Open the settings. Search for "proxy"
 
 This proxy configuration (see source code below for details) uses your new docker container to route all your browser traffic through either I2P or Tor. If you now browse the clearnet (like https://diva.exchange) you'll be using automatically Tor.
 
+If you prefer a _weaker_ configuration you can also use the proxy file proxy-ip2-onion-clearnet.pac and set the "Automatic proxy configuration URL" to "http://localhost:8080/proxy-ip2-onion-clearnet.pac". This will only route .i2p and .onion addresses through the docker container. Routes to the clearnet won't be affected.
+
 ### Advanced: Configuration
 The docker container is exposing an http and a socks proxy. By default, the container exposes the http proxy on port 4444 and the socks proxy on port 4445. 
 
-The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration and `tunnels.org.conf` contains the tunnel configuration. The configuration files for DNS-over-TLS are found within the folder `./network`: `resolv.conf` is containing nameserver information and `stubby.yml` contains the configuration for DNS-over-TLS. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
+The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration. The configuration files for DNS-over-TLS are found within the folder `./network`: `resolv.conf` is containing nameserver information and `stubby.yml` contains the configuration for DNS-over-TLS. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
 
-The configuration of a container might be influenced with environment variables: DISABLE_TUNNELS, PORT_BACKEND, PORT_EXPOSED and IP_BRIDGE.
+The configuration of a container might be influenced with environment variables: ENABLE_TUNNELS and IP_BRIDGE.
 
-If DISABLE_TUNNELS is set to 1, then the container will be started without a tunnels configuration. Defaults to 0 and therefore tunnels are enabled by default.
+Set ENABLE_TUNNELS to 1 to use the tunnels configuration within the container. Defaults to 0 and therefore tunnels are disabled by default.
 
-PORT_BACKEND points to a listening backend service on the interface set by IP_BRIDGE. IP_BRIDGE points by default to the docker host interface. Example: if a HTTP server is running on port 8080 on the docker host, PORT_BACKEND would be set to 8080 and the HTTP service would be exposed to I2P. The default value of PORT_BACKEND is set to 3902.
+IP_BRIDGE points by default to the docker host interface.
 
-PORT_EXPOSED defines the port exposed to the I2P network. By default it is the same as PORT_BACKEND.
+Example on how to use environment variables:
 
-Some examples on how to use environment variables:
+`docker run --env ENABLE_TUNNELS=1 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2pd divax/i2p:latest`
 
-`docker run --env DISABLE_TUNNELS=1 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2pd divax/i2p:latest`
+### Advanced: Tunnel Configuration
+Tunnels are exposing specific services to the I2P network. Like a web server, an application or a blockchain.
 
-`docker run --env PORT_BACKEND=8080 --env PORT_EXPOSED=80 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2pd divax/i2p:latest`
+Tunnels might be configured on the host within a folder, like tunnels.conf.d. Then this folder gets mounted into the container as a bind mount. See `./bin/run.sh` on how to set up such a bind mount.
+
+Some examples of tunnel configuration files are found within the folder `tunnels.example.conf.d`. To use such an example just copy the file from `tunnels.example.conf.d` to `tunnels.conf.d` and run the container with the bind mount or by executing `ENABLE_TUNNELS=1 ./bin/run.sh`.
 
 ## Build from Source
 ### On Linux

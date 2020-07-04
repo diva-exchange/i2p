@@ -6,21 +6,23 @@
 # -e  Exit immediately if a simple command exits with a non-zero status
 set -e
 
-DISABLE_TUNNELS=${DISABLE_TUNNELS:-0}
-PORT_BACKEND=${PORT_BACKEND:-3902}
-PORT_EXPOSED=${PORT_EXPOSED:-${PORT_BACKEND}}
+ENABLE_TUNNELS=${ENABLE_TUNNELS:-0}
 IP_BRIDGE=${IP_BRIDGE:-`ip route | awk '/default/ { print $3; }'`}
+
+TUNNELS_DIR=/home/i2pd/tunnels.null
 IP_CONTAINER=`ip route get 1 | awk '{ print $NF; exit; }'`
 
-sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g' /home/i2pd/conf/i2pd.org.conf >/home/i2pd/conf/i2pd.conf
-
-if [[ ${DISABLE_TUNNELS} == 1 ]]
+if [[ ${ENABLE_TUNNELS} == 1 ]]
 then
-  rm -f /home/i2pd/conf/tunnels.conf
-else
-  sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g ; s/\$IP_BRIDGE/'"${IP_BRIDGE}"'/g ; s/\$PORT_BACKEND/'"${PORT_BACKEND}"'/g ; s/\$PORT_EXPOSED/'"${PORT_EXPOSED}"'/g' \
-    /home/i2pd/conf/tunnels.org.conf >/home/i2pd/conf/tunnels.conf
+  TUNNELS_DIR=/home/i2pd/tunnels.conf.d
+  rm /home/i2pd/tunnels.conf.d/*
+  cp /home/i2pd/tunnels.source.conf.d/* /home/i2pd/tunnels.conf.d/
+  sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g ; s/\$IP_BRIDGE/'"${IP_BRIDGE}"'/g' \
+    /home/i2pd/conf/tunnels.conf.d/*.conf
 fi
+
+sed 's/\$IP_CONTAINER/'"${IP_CONTAINER}"'/g ; s/\$TUNNELS_DIR/'"${TUNNELS_DIR}"'/g' \
+  /home/i2pd/conf/i2pd.org.conf >/home/i2pd/conf/i2pd.conf
 
 # overwrite resolv.conf - forces the container to use stubby as a resolver
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf

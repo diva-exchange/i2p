@@ -37,11 +37,11 @@ Run one of the following command in a shell (powershell on Windows).
 
 To run the I2P/TOR/proxy only (entry-level):
 
-`docker run -p 127.0.0.1:7070:7070 -p 127.0.0.1:4444:4444 -p 127.0.0.1:4445:4445 -p 127.0.0.1:9050:9050 -p 127.0.0.1:8080:8080 -d --name i2pd divax/i2p:i2p-tor-proxy`
+`docker run --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor-proxy divax/i2p:i2p-tor-proxy`
 
 To run I2P only (advanced):
 
-`docker run -p 127.0.0.1:7070:7070 -p 127.0.0.1:4444:4444 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
+`docker run -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2pd divax/i2p:latest`
 
 ### Check the Status of your Container
 Check your now-running docker container with `docker ps -a` (within your shell/powershell) and look for the container "i2pd".

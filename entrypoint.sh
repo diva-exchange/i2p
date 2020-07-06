@@ -12,6 +12,9 @@ IP_BRIDGE=${IP_BRIDGE:-`ip route | awk '/default/ { print $3; }'`}
 TUNNELS_DIR=/home/i2pd/tunnels.null
 IP_CONTAINER=`ip route get 1 | awk '{ print $NF; exit; }'`
 
+PORT_TOR=${PORT_TOR:?err}
+PORT_HTTP_PROXY=${PORT_HTTP_PROXY:?err}
+
 if [[ ${ENABLE_TUNNELS} == 1 ]]
 then
   TUNNELS_DIR=/home/i2pd/tunnels.conf.d
@@ -34,6 +37,14 @@ fi
 sed \
   's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g ; s!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' \
   /home/i2pd/conf/i2pd.org.conf >/home/i2pd/conf/i2pd.conf
+
+# replace variables in the proxy pac files
+sed \
+  's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
+  /home/i2pd/htdocs/proxy.org.pac >/home/i2pd/htdocs/proxy.pac
+sed \
+  's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
+  /home/i2pd/htdocs/proxy-ip2-onion-clearnet.org.pac >/home/i2pd/htdocs/proxy-ip2-onion-clearnet.pac
 
 # overwrite resolv.conf - forces the container to use stubby as a resolver
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf

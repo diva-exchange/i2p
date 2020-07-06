@@ -13,7 +13,10 @@ COPY certificates/ /home/i2pd/data/certificates/
 COPY entrypoint.sh /home/i2pd/
 
 # install deps && build i2p binary
-RUN mkdir /home/i2pd/bin \
+RUN mkdir /home/i2pd/tunnels.null \
+  && mkdir /home/i2pd/tunnels.source.conf.d \
+  && mkdir /home/i2pd/tunnels.conf.d \
+  && mkdir /home/i2pd/bin \
   && apk --no-cache --virtual build-dependendencies add \
     cmake \
     make \

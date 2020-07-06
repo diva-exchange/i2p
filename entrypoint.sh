@@ -20,11 +20,17 @@ then
   [[ -f /home/i2pd/tunnels.source.conf.d/*.conf ]] && cp \
     /home/i2pd/tunnels.source.conf.d/*.conf ${TUNNELS_DIR}
 
-  [[ -f ${TUNNELS_DIR}/*.conf ]] && sed -i \
-    's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g' \
-    ${TUNNELS_DIR}/*.conf
+  # replace environment variables in the tunnels config files
+  if [[ -f ${TUNNELS_DIR}/*.conf ]]
+  then
+    for pathFile in ${TUNNELS_DIR}/*.conf
+    do
+      eval "echo \"$(cat ${pathFile})\"" >${pathFile}
+    done
+  fi
 fi
 
+# replace variables in the i2pd config files
 sed \
   's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g ; s!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' \
   /home/i2pd/conf/i2pd.org.conf >/home/i2pd/conf/i2pd.conf

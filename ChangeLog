@@ -1,6 +1,12 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.32.1-i2p-20200706] - 2020-07-06
+### Changed
+- modified startup scripts to enable easier container configuration
+- changed the way tunnels are configured
+- updated README to reflect the changed behaviour
+
 ## [2.32.1-i2p-20200629] - 2020-06-29
 ### Changed
 - added missing hosts.txt - which also serves as an example on how to use a base64 adress

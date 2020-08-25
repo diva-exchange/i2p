@@ -1,6 +1,11 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.33.0] - 2020-08-25
+### Changed
+- i2pd version 2.33.0
+- removed local reseed.diva.exchange reseed server, since it is included in the main release
+
 ## [2.32.1-i2p-20200706] - 2020-07-06
 ### Changed
 - modified startup scripts to enable easier container configuration

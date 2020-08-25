@@ -2,7 +2,7 @@ FROM alpine:latest
 
 LABEL author="Konrad Baechler <konrad@diva.exchange>" \
   maintainer="Konrad Baechler <konrad@diva.exchange>" \
-  name="diva" \
+  name="diva-i2p" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 
@@ -83,8 +83,6 @@ RUN mkdir /home/i2pd/tunnels.null \
     musl-utils \
     libstdc++ \
     libev \
-    tor \
-    darkhttpd \
     sed \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \

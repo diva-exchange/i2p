@@ -83,6 +83,8 @@ RUN mkdir /home/i2pd/tunnels.null \
     musl-utils \
     libstdc++ \
     libev \
+    tor \
+    darkhttpd \
     sed \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \

@@ -37,7 +37,7 @@ RUN mkdir /home/i2pd/tunnels.null \
   && cd /tmp \
   && git clone -b openssl https://github.com/PurpleI2P/i2pd.git \
   && cd /tmp/i2pd/build \
-  && cmake -DWITH_AESNI=ON -DWITH_AVX=ON . \
+  && cmake . \
   && make \
   && strip i2pd \
   && mv /tmp/i2pd/build/i2pd /home/i2pd/bin/i2pd \

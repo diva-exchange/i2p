@@ -2,7 +2,7 @@ FROM alpine:latest
 
 LABEL author="Konrad Baechler <konrad@diva.exchange>" \
   maintainer="Konrad Baechler <konrad@diva.exchange>" \
-  name="diva-i2p" \
+  name="diva-i2p-tor" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 
@@ -43,27 +43,6 @@ RUN mkdir /home/i2pd/tunnels.null \
   && mv /tmp/i2pd/build/i2pd /home/i2pd/bin/i2pd \
   && mv /tmp/i2pd/LICENSE /home/i2pd/LICENSE \
   && mv /tmp/i2pd/ChangeLog /home/i2pd/ChangeLog \
-  # stubby, DNS-over-TLS client
-  # build required libyaml
-  && cd /tmp \
-  && git clone https://github.com/yaml/libyaml.git \
-  && cd libyaml \
-  && ./bootstrap \
-  && ./configure \
-  && make install \
-  # build getndns/stubby
-  && cd /tmp \
-  && git clone https://github.com/getdnsapi/getdns.git \
-  && cd getdns \
-  && git checkout master \
-  && git submodule update --init \
-  && mkdir build \
-  && cd build \
-  && cmake -DENABLE_STUB_ONLY=ON -DBUILD_STUBBY=ON -DUSE_LIBIDN2=OFF .. \
-  && make \
-  && strip stubby/stubby \
-  && chmod 0700 stubby/stubby \
-  && mv stubby/stubby /usr/local/bin/stubby \
   # clean up /tmp
   && cd /home/i2pd \
   && rm -rf /tmp/i2pd \
@@ -71,18 +50,18 @@ RUN mkdir /home/i2pd/tunnels.null \
   && rm -rf /tmp/getdns \
   # remove build dependencies
   && apk --no-cache --purge del build-dependendencies \
-  # i2p and stubby runtime dependencies
+  # i2p runtime dependencies
   && apk --no-cache add \
     boost-filesystem \
     boost-system \
     boost-program_options \
     boost-date_time \
-    boost-thread \
-    boost-iostreams \
     openssl \
     musl-utils \
     libstdc++ \
     libev \
+    tor \
+    darkhttpd \
     sed \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \

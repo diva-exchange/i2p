@@ -79,7 +79,7 @@ then
   CMD="${CMD} -p ${IP_BIND}:${PORT_SOCKS_PROXY}:4445"
 fi
 
-CMD="${CMD} --name ${NAME} divax/i2p:i2p-tor-proxy"
+CMD="${CMD} --name ${NAME} divax/i2p:i2p-tor-stubby"
 
 # run container
 echo "Executing: ${CMD}"

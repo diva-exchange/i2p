@@ -1,12 +1,12 @@
 # I2P - For Everyone
 
 Two flavours are available:
-* Entry-level experience: I2P and Tor to enable everyone to get started using the i2p and onion network. It's tagged as "i2p-tor-proxy". 
+* Entry-level experience: I2P and Tor to enable everyone to get started using the i2p and onion network. It's tagged as "i2p-tor-stubby". 
 * For advanced users: I2P only version - very lean. It's tagged as "latest".
 
 The solutions are deployed as docker image.
 
-If you are looking for an entry-level experience, focused on safely browsing the internet: use the docker image tagged as "i2p-tor-proxy". Read the "Get Started" below.   
+If you are looking for an entry-level experience, focused on safely browsing the internet: use the docker image tagged as "i2p-tor-stubby". Read the "Get Started" below.   
 
 If you are experienced and looking for an I2P-only container - go for the docker imaged tagged as "latest". You get the latest stable i2pd (C++ version) release. Lean & fast.
 
@@ -24,7 +24,7 @@ All DNS queries of this docker container are resolved using DNS-over-TLS (DoT). 
 Docker (https://www.docker.com/get-started) must be available on your system. 
 
 To get your new private browsing experience up and running:
-1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p:i2p-tor-proxy` or `docker pull divax/i2p:latest` 
+1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p:i2p-tor-stubby` or `docker pull divax/i2p:latest` 
 2. Run the Docker container
 3. Adapt your browser proxy settings
 
@@ -37,7 +37,7 @@ Run one of the following command in a shell (powershell on Windows).
 
 To run the I2P/TOR/proxy only (entry-level):
 
-`docker run --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor-proxy divax/i2p:i2p-tor-proxy`
+`docker run --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor-stubby divax/i2p:i2p-tor-stubby`
 
 To run I2P only (advanced):
 

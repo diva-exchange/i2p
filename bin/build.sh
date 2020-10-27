@@ -9,9 +9,9 @@ set -e
 PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../"
 cd ${PROJECT_PATH}
 
-docker build --no-cache -t divax/i2p:i2p-tor-proxy .
+docker build --no-cache -t divax/i2p:i2p-tor-stubby .
 docker volume create i2pd-build
-docker run -d --mount type=volume,src=i2pd-build,dst=/home/i2pd/ --name i2pd-build divax/i2p:i2p-tor-proxy
+docker run -d --mount type=volume,src=i2pd-build,dst=/home/i2pd/ --name i2pd-build divax/i2p:i2p-tor-stubby
 
 # update certs
 rm -R certificates

@@ -1,6 +1,11 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.34.0] - 2020-10-27
+### Changed
+- i2pd version 2.34.0
+- default cmake options in i2pd build (removed WITH_AESNI=ON and WITH_AVX=ON flags)
+
 ## [2.33.0] - 2020-08-25
 ### Changed
 - i2pd version 2.33.0

@@ -35,11 +35,10 @@ sed \
   's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g ; s!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' \
   /home/i2pd/conf/i2pd.org.conf >/home/i2pd/conf/i2pd.conf
 
-# overwrite resolv.conf - forces the container to use stubby as a resolver
+# overwrite resolv.conf - forces the container to use dnscrypt as a resolver
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
-
-# DNS-over-TLS, -C path to config
-/usr/local/bin/stubby -l -C /home/i2pd/network/stubby.yml &
+dnscrypt-proxy -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml -logfile /dev/null 2>&1 &
 
 # see configs: /conf/i2pd.conf
-su i2pd -c "/home/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/home/i2pd/conf/i2pd.conf"
+su - i2pd
+/home/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/home/i2pd/conf/i2pd.conf

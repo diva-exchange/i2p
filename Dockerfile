@@ -37,7 +37,7 @@ RUN mkdir /home/i2pd/tunnels.null \
   && cd /tmp \
   && git clone -b openssl https://github.com/PurpleI2P/i2pd.git \
   && cd /tmp/i2pd/build \
-  && cmake . \
+  && cmake -DWITH_AESNI=ON . \
   && make \
   && strip i2pd \
   && mv /tmp/i2pd/build/i2pd /home/i2pd/bin/i2pd \
@@ -46,8 +46,6 @@ RUN mkdir /home/i2pd/tunnels.null \
   # clean up /tmp
   && cd /home/i2pd \
   && rm -rf /tmp/i2pd \
-  && rm -rf /tmp/libyaml \
-  && rm -rf /tmp/getdns \
   # remove build dependencies
   && apk --no-cache --purge del build-dependendencies \
   # i2p runtime dependencies
@@ -59,10 +57,10 @@ RUN mkdir /home/i2pd/tunnels.null \
     openssl \
     musl-utils \
     libstdc++ \
-    libev \
     tor \
     darkhttpd \
     sed \
+    dnscrypt-proxy \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
   && chown -R i2pd:i2pd /home/i2pd \

@@ -46,6 +46,10 @@ sed \
   's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
   /home/i2pd/htdocs/proxy-ip2-onion-clearnet.org.pac >/home/i2pd/htdocs/proxy-ip2-onion-clearnet.pac
 
+# overwrite resolv.conf - forces the container to use dnscrypt as a resolver
+cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
+dnscrypt-proxy -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml -logfile /dev/null 2>&1 &
+
 # httpd server
 /usr/bin/darkhttpd /home/i2pd/htdocs \
   --port 8080 \

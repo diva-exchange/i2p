@@ -1,6 +1,10 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.34.0] - 2020-11-15
+### Changed
+- Addressbook handling: added diva.i2p default addresses
+
 ## [2.34.0] - 2020-10-28
 ### Added
 - dnscrypt-proxy package to support privacy respecting name resolution

@@ -2,7 +2,7 @@ FROM alpine:latest
 
 LABEL author="Konrad Baechler <konrad@diva.exchange>" \
   maintainer="Konrad Baechler <konrad@diva.exchange>" \
-  name="diva-i2p-tor" \
+  name="diva-i2p" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 
@@ -13,7 +13,8 @@ COPY certificates/ /home/i2pd/data/certificates/
 COPY entrypoint.sh /home/i2pd/
 
 # install deps && build i2p binary
-RUN mkdir /home/i2pd/tunnels.null \
+RUN mkdir -p /home/i2pd/data/addressbook \
+  && mkdir /home/i2pd/tunnels.null \
   && mkdir /home/i2pd/tunnels.source.conf.d \
   && mkdir /home/i2pd/tunnels.conf.d \
   && mkdir /home/i2pd/bin \
@@ -57,10 +58,9 @@ RUN mkdir /home/i2pd/tunnels.null \
     openssl \
     musl-utils \
     libstdc++ \
-    tor \
-    darkhttpd \
     sed \
     dnscrypt-proxy \
+  && cp /home/i2pd/conf/addresses-initial.org.csv /home/i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
   && chown -R i2pd:i2pd /home/i2pd \

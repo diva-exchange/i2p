@@ -2,7 +2,7 @@ FROM alpine:latest
 
 LABEL author="Konrad Baechler <konrad@diva.exchange>" \
   maintainer="Konrad Baechler <konrad@diva.exchange>" \
-  name="diva-i2p" \
+  name="diva-i2p-tor" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 
@@ -58,6 +58,8 @@ RUN mkdir -p /home/i2pd/data/addressbook \
     openssl \
     musl-utils \
     libstdc++ \
+    tor \
+    darkhttpd \
     sed \
     dnscrypt-proxy \
   && cp /home/i2pd/conf/addresses-initial.org.csv /home/i2pd/data/addressbook/addresses.csv \

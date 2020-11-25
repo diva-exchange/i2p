@@ -10,8 +10,6 @@ If you are looking for an entry-level experience, focused on safely browsing the
 
 If you are experienced and looking for an I2P-only container - go for the docker imaged tagged as "latest". You get the latest stable i2pd (C++ version) release. Lean & fast.
 
-The containers do contain the "dnscrypt-proxy" package to prevent DNS leaks.
-
 A great tutorial, including "How to setup your system", is found here: [Introduction to “I2P”](https://www.diva.exchange/en/privacy/introduction-to-i2p-your-own-internet-secure-private-and-free/).
 
 ## Entry-Level Experience - I2P & Onion: Private Browsing
@@ -34,7 +32,7 @@ As said, this tutorial might be helpful: [Introduction to “I2P”](https://www
 #### On Linux, OSX and Windows
 Run one of the following command in a shell (powershell on Windows).
 
-To run the I2P/TOR/proxy only (entry-level):
+To run the I2P/TOR-proxy only (entry-level):
 
 `docker run --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor divax/i2p:i2p-tor`
 
@@ -55,7 +53,7 @@ If you prefer a _weaker_ configuration you can also use the proxy file proxy-ip2
 ### Advanced: Configuration
 The docker container is exposing an http and a socks proxy. By default, the container exposes the http proxy on port 4444 and the socks proxy on port 4445. 
 
-The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration. The configuration files for DNS-over-TLS are found within the folder `./network`: `resolv.conf` is containing nameserver information and `stubby.yml` contains the configuration for DNS-over-TLS. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
+The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration. The configuration files for DNS and Tor `./network`: `resolv.conf` is containing nameserver information. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
 
 The configuration of a container might be influenced with environment variables: ENABLE_TUNNELS and IP_BRIDGE.
 

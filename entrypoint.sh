@@ -50,9 +50,8 @@ sed \
   's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g ; s!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' \
   /home/i2pd/conf/i2pd.org.conf >/home/i2pd/conf/i2pd.conf
 
-# overwrite resolv.conf - forces the container to use dnscrypt as a resolver
+# overwrite resolv.conf - using specific DNS servers only to initially access reseed servers
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
-dnscrypt-proxy -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml -logfile /dev/null 2>&1 &
 
 # see configs: /conf/i2pd.conf
 su - i2pd

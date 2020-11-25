@@ -1,6 +1,21 @@
 #!/bin/sh
 #
-# Author/Maintainer: konrad@diva.exchange
+# Copyright (C) 2020 diva.exchange
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Author/Maintainer: Konrad Bächler <konrad@diva.exchange>
 #
 
 # -e  Exit immediately if a simple command exits with a non-zero status
@@ -46,9 +61,8 @@ sed \
   's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
   /home/i2pd/htdocs/proxy-ip2-onion-clearnet.org.pac >/home/i2pd/htdocs/proxy-ip2-onion-clearnet.pac
 
-# overwrite resolv.conf - forces the container to use dnscrypt as a resolver
+# overwrite resolv.conf - using specific DNS servers only to initially access reseed servers
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
-dnscrypt-proxy -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml -logfile /dev/null 2>&1 &
 
 # httpd server
 /usr/bin/darkhttpd /home/i2pd/htdocs \

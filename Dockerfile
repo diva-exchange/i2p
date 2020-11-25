@@ -10,7 +10,7 @@ COPY conf/ /home/i2pd/conf/
 COPY network/ /home/i2pd/network/
 COPY htdocs/ /home/i2pd/htdocs/
 COPY certificates/ /home/i2pd/data/certificates/
-COPY entrypoint.sh /home/i2pd/
+COPY entrypoint.sh /
 
 # install deps && build i2p binary
 RUN mkdir -p /home/i2pd/data/addressbook \
@@ -61,17 +61,16 @@ RUN mkdir -p /home/i2pd/data/addressbook \
     tor \
     darkhttpd \
     sed \
-    dnscrypt-proxy \
   && cp /home/i2pd/conf/addresses-initial.org.csv /home/i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
   && chown -R i2pd:i2pd /home/i2pd \
   && chmod 0700 /home/i2pd/bin/i2pd \
-  && chmod +x /home/i2pd/entrypoint.sh
+  && chmod +x /entrypoint.sh
 
 # 7070 I2P webconsole, 4444 I2P http proxy, 4445 I2P socks proxy
 EXPOSE 7070 4444 4445
 
-VOLUME [ "/home/i2pd/" ]
+VOLUME [ "/home/i2pd/data/" ]
 WORKDIR "/home/i2pd/"
-ENTRYPOINT ["/home/i2pd/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

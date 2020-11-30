@@ -1,6 +1,9 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.35.0] - 2020-11-30
+- i2pd version 2.35.0
+
 ## [2.34.0] - 2020-11-30
 ### Changed
 - Addressbook: replaced diva testnet domain names

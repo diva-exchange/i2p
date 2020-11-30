@@ -1,6 +1,28 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.35.0] - 2020-11-30
+### Added
+- ECIES-x25519 routers
+- Random intro keys for SSU
+- Graceful shutdown timer for windows
+- Send queue for I2CP messages
+- Update DSA router keys to EdDSA
+- TCP_QUICKACK for NTCP2 sockets on Linux
+### Changed
+- Exclude floodfills with DSA signatures and < 0.9.28
+- Random intervals between tunnel tests and manage for tunnel pools
+- Don't replace an addressbook record by one with DSA signature
+- Publish RouterInfo after update
+- Create paired inbound tunnels if no inbound tunnels yet
+- Reseed servers list
+### Fixed
+- Transient signature length, if different from identity
+- Terminate I2CP session if destroyed
+- RouterInfo publishing confirmation
+- Check if ECIES-X25519-AEAD-Ratchet session expired before generating more tags
+- Correct block size for delivery type local for ECIES-X25519-AEAD-Ratchet
+
 ## [2.34.0] - 2020-10-27
 ### Added
 - Ping responses for streaming
@@ -9,7 +31,7 @@
 - Single thread for I2CP
 - Shared transient destination between proxies
 - Database lookups from ECIES destinations with ratchets response
-- Handle WebDAV HTTP methods 
+- Handle WebDAV HTTP methods
 - Don't try to connect or build tunnels if offline
 - Validate IP when trying connect to remote peer
 - Handle ICMP responses and WinAPI errors for SSU
@@ -26,7 +48,7 @@
 - Random crashes on I2CP session disconnect
 - Stream through racthets hangs if first SYN was not acked
 - Check "Last-Modified" instead "If-Modified-Since" for addressbook reponse
-- Trim behind ECIESx25519 tags 
+- Trim behind ECIESx25519 tags
 - Few bugs with Android main activity
 - QT visual and layout issues
 
@@ -37,11 +59,11 @@
 - Multiple encryption keys through I2CP
 - Pre-calculated x25519 ephemeral keys
 - Change datagram routing path if nothing comes back in 10 seconds
-- Shared routing path for datagram session 
+- Shared routing path for datagram session
 ### Changed
 - UDP tunnels send mix of repliable and raw datagrams in bulk
 - Encrypt SSU packet again upon resend
-- Start new tunnel message if remaining buffer is too small 
+- Start new tunnel message if remaining buffer is too small
 - Use LeaseSet2 for ECIES-X25519-AEAD-Ratchet automatically
 - Save new ECIES-X25519-AEAD-Ratchet session with NSR tagset
 - Generate random padding lengths for ECIES-X25519-AEAD-Ratchet in bulk
@@ -49,11 +71,11 @@
 - Reseed servers list
 ### Fixed
 - Don't connect through terminated SAM destination
-- Differentiate UDP server sessions by port 
+- Differentiate UDP server sessions by port
 - ECIES-X25519-AEAD-Ratchet through I2CP
 - Don't save invalid address to AddressBook
 - ECDSA signatures names in SAM
-- AppArmor profile 
+- AppArmor profile
 
 ## [2.32.1] - 2020-06-02
 ### Added

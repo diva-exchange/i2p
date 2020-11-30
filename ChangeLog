@@ -1,6 +1,21 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.35.0] - 2020-11-30
+- i2pd version 2.35.0
+
+## [2.34.0] - 2020-11-30
+### Changed
+- Addressbook: replaced diva testnet domain names
+
+## [2.34.0] - 2020-11-25
+### Added
+- htdocs/ping
+### Changed
+- Dockerfile: volume definition, pointing to data folder only
+- Docker tag "i2p:latest": removed DNScrypt, replaced by resolv.conf only
+- Docker tag "i2p:latest": removed COPY for obsolete htdocs folder
+
 ## [2.34.0] - 2020-11-15
 ### Changed
 - Addressbook handling: added diva.i2p default addresses

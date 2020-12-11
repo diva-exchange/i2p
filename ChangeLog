@@ -1,6 +1,13 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.35.0] - 2020-12-11
+### Added
+- Environment variable: TUNNELS_DIR_SOURCE
+### Changed
+- Bugfix: fixed tunnels directory handling
+- Bugfix: Docker build
+
 ## [2.35.0] - 2020-12-03
 ### Changed
 - Addressbook: updated diva testnet records

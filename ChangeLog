@@ -1,6 +1,11 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.36.0] - 2021-02-15
+### Changed
+- addresses-initial: replaced inr.i2p by reg.i2p
+- i2pd conf: minor changes/typos/formatting in-sync with upstream config from i2pd
+
 ## [2.35.0] - 2020-12-11
 ### Added
 - Environment variable: TUNNELS_DIR_SOURCE

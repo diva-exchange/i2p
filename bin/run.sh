@@ -32,7 +32,7 @@ VOLUME_PERSISTENCE=${VOLUME_PERSISTENCE:-0}
 PORT_HTTP=${PORT_HTTP:-8080}
 
 EXPOSE_PORT_DEFAULTS=${EXPOSE_PORT_DEFAULTS:-0}
-if [[ ${EXPOSE_PORT_DEFAULTS} > 0 ]]
+if [[ ${EXPOSE_PORT_DEFAULTS} -gt 0 ]]
 then
   PORT_WEBCONSOLE=${PORT_WEBCONSOLE:-7070}
   PORT_HTTP_PROXY=${PORT_HTTP_PROXY:-4444}
@@ -62,19 +62,19 @@ CMD="docker run\
  -p ${IP_BIND}:${PORT_HTTP}:8080"
 
 # tunnels bind mount
-if [[ ${ENABLE_TUNNELS} > 0 ]]
+if [[ ${ENABLE_TUNNELS} -gt 0 ]]
 then
   CMD="${CMD} -v ${TUNNELS_DIR}:/home/i2pd/tunnels.source.conf.d/"
 fi
 
 # create persistent volume
-if [[ ${VOLUME_PERSISTENCE} > 0 ]]
+if [[ ${VOLUME_PERSISTENCE} -gt 0 ]]
 then
   docker volume create ${NAME}
   CMD="${CMD} -v ${NAME}:/home/i2pd/"
 fi
 
-if [[ ${PORT_SOCKS_PROXY} > 0 ]]
+if [[ ${PORT_SOCKS_PROXY} -gt 0 ]]
 then
   CMD="${CMD} -p ${IP_BIND}:${PORT_SOCKS_PROXY}:4445"
 fi

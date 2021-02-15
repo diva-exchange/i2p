@@ -1,27 +1,41 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
-## [2.35.0] - 2020-11-30
+## [2.36.0] - 2021-02-15
 ### Added
-- ECIES-x25519 routers
-- Random intro keys for SSU
-- Graceful shutdown timer for windows
-- Send queue for I2CP messages
-- Update DSA router keys to EdDSA
-- TCP_QUICKACK for NTCP2 sockets on Linux
+- Encrypted lookup and publications to ECIES-x25519 floodfiils
+- Yggdrasil transports and reseeds
+- Dump addressbook in hosts.txt format
+- Request RouterInfo through exploratory tunnels if direct connection to fllodfill is not possible
+- Threads naming
+- Check if public x25519 key is valid
+- ECIES-X25519-AEAD-Ratchet for shared local destination
+- LeaseSet creation timeout for I2CP session
+- Resend RouterInfo after some interval for longer NTCP2 sessions
+- Select reachable router of inbound tunnel gateway
+- Reseed if no compatible routers in netdb
+- Refresh on swipe in Android webconsole
 ### Changed
-- Exclude floodfills with DSA signatures and < 0.9.28
-- Random intervals between tunnel tests and manage for tunnel pools
-- Don't replace an addressbook record by one with DSA signature
-- Publish RouterInfo after update
-- Create paired inbound tunnels if no inbound tunnels yet
-- Reseed servers list
+- reg.i2p for default addressbook instead inr.i2p
+- ECIES-x25519 (crypto type 4) for new routers
+- Try to connect to all compatible addresses from peer's RouterInfo
+- Replace LeaseSet completely if store type changes
+- Try ECIES-X25519-AEAD-Ratchet tag before ElGamal
+- Don't detach ECIES-X25519-AEAD-Ratchet session from destination immediately
+- Viewport and styles on error in HTTP proxy
+- Don't create notification when Windows taskbar restarted
+- Cumulative SSU ACK bitfields
+- limit tunnel length to 8 hops
+- Limit tunnels quantity to 16
 ### Fixed
-- Transient signature length, if different from identity
-- Terminate I2CP session if destroyed
-- RouterInfo publishing confirmation
-- Check if ECIES-X25519-AEAD-Ratchet session expired before generating more tags
-- Correct block size for delivery type local for ECIES-X25519-AEAD-Ratchet
+- Handling chunked HTTP response in addressbook
+- Missing ECIES-X25519-AEAD-Ratchet tags for multiple streams with the same destination
+- Correct NAME for NAMING REPLY in SAM
+- SSU crash on termination
+- Offline signature length for stream close packet
+- Don't send updated LeaseSet through a terminated session
+- Decryption of follow-on ECIES-X25519-AEAD-Ratchet NSR messages
+- Non-confirmed LeaseSet is resent too late for ECIES-X25519-AEAD-Ratchet session
 
 ## [2.35.0] - 2020-11-30
 ### Added

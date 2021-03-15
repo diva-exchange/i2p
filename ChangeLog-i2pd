@@ -1,6 +1,34 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.37.0] - 2021-03-15
+### Added
+- Address registration line for reg.i2p and stats.i2p through the web console
+- "4" and "6" caps for addresses without published IP address
+- Mesh and Proxy network statuses
+- Symmetric NAT network status error
+- Bind server tunnel connection to specified address
+- lookuplocal BOB extended command
+- address4 and address6 parameters to bind outgoing connections to 
+- Rekey of low-bandwidth routers to ECIES
+- Popup notification windows when unable to parse config for Windows
+### Changed
+- Floodfills with "U" cap are not ignored anymore
+- Check transports reachability between tunnel peers and between router and floodfill 
+- NTCP2 and reseed HTTP proxy support authorization now
+- Show actual IP addresses for proxy connections
+- Publish and handle SSU addreses without host
+- Outbound tunnel endpoint must be ipv4 compatible
+- Logging optimization
+- Removed Windows service
+### Fixed
+- Incoming SSU session terminates after 5 seconds
+- Outgoing NTCP2 ipv4 session even if ipv4 is disabled
+- No incoming Yggdrasil connection if connected through NTCP2 proxy
+- Race condition between tunnel build and floodfill requests decryption for ECIES routers
+- Numeric bandwidth limitation
+- Yggdrasil for Android
+
 ## [2.36.0] - 2021-02-15
 ### Added
 - Encrypted lookup and publications to ECIES-x25519 floodfiils
@@ -8,22 +36,22 @@
 - Dump addressbook in hosts.txt format
 - Request RouterInfo through exploratory tunnels if direct connection to fllodfill is not possible
 - Threads naming
-- Check if public x25519 key is valid
+- Check if public x25519 key is valid 
 - ECIES-X25519-AEAD-Ratchet for shared local destination
 - LeaseSet creation timeout for I2CP session
 - Resend RouterInfo after some interval for longer NTCP2 sessions
 - Select reachable router of inbound tunnel gateway
-- Reseed if no compatible routers in netdb
+- Reseed if no compatible routers in netdb 
 - Refresh on swipe in Android webconsole
 ### Changed
 - reg.i2p for default addressbook instead inr.i2p
 - ECIES-x25519 (crypto type 4) for new routers
 - Try to connect to all compatible addresses from peer's RouterInfo
-- Replace LeaseSet completely if store type changes
+- Replace LeaseSet completely if store type changes 
 - Try ECIES-X25519-AEAD-Ratchet tag before ElGamal
 - Don't detach ECIES-X25519-AEAD-Ratchet session from destination immediately
 - Viewport and styles on error in HTTP proxy
-- Don't create notification when Windows taskbar restarted
+- Don't create notification when Windows taskbar restarted 
 - Cumulative SSU ACK bitfields
 - limit tunnel length to 8 hops
 - Limit tunnels quantity to 16
@@ -56,7 +84,7 @@
 - Transient signature length, if different from identity
 - Terminate I2CP session if destroyed
 - RouterInfo publishing confirmation
-- Check if ECIES-X25519-AEAD-Ratchet session expired before generating more tags
+- Check if ECIES-X25519-AEAD-Ratchet session expired before generating more tags 
 - Correct block size for delivery type local for ECIES-X25519-AEAD-Ratchet
 
 ## [2.34.0] - 2020-10-27
@@ -67,7 +95,7 @@
 - Single thread for I2CP
 - Shared transient destination between proxies
 - Database lookups from ECIES destinations with ratchets response
-- Handle WebDAV HTTP methods
+- Handle WebDAV HTTP methods 
 - Don't try to connect or build tunnels if offline
 - Validate IP when trying connect to remote peer
 - Handle ICMP responses and WinAPI errors for SSU
@@ -84,7 +112,7 @@
 - Random crashes on I2CP session disconnect
 - Stream through racthets hangs if first SYN was not acked
 - Check "Last-Modified" instead "If-Modified-Since" for addressbook reponse
-- Trim behind ECIESx25519 tags
+- Trim behind ECIESx25519 tags 
 - Few bugs with Android main activity
 - QT visual and layout issues
 
@@ -95,11 +123,11 @@
 - Multiple encryption keys through I2CP
 - Pre-calculated x25519 ephemeral keys
 - Change datagram routing path if nothing comes back in 10 seconds
-- Shared routing path for datagram session
+- Shared routing path for datagram session 
 ### Changed
 - UDP tunnels send mix of repliable and raw datagrams in bulk
 - Encrypt SSU packet again upon resend
-- Start new tunnel message if remaining buffer is too small
+- Start new tunnel message if remaining buffer is too small 
 - Use LeaseSet2 for ECIES-X25519-AEAD-Ratchet automatically
 - Save new ECIES-X25519-AEAD-Ratchet session with NSR tagset
 - Generate random padding lengths for ECIES-X25519-AEAD-Ratchet in bulk
@@ -107,11 +135,11 @@
 - Reseed servers list
 ### Fixed
 - Don't connect through terminated SAM destination
-- Differentiate UDP server sessions by port
+- Differentiate UDP server sessions by port 
 - ECIES-X25519-AEAD-Ratchet through I2CP
 - Don't save invalid address to AddressBook
 - ECDSA signatures names in SAM
-- AppArmor profile
+- AppArmor profile 
 
 ## [2.32.1] - 2020-06-02
 ### Added

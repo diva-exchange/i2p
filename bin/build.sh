@@ -11,7 +11,10 @@ cd ${PROJECT_PATH}
 
 docker build --no-cache -t divax/i2p:i2p-tor .
 docker volume create i2pd-build
-docker run -d --mount type=volume,src=i2pd-build,dst=/home/i2pd/ --name i2pd-build divax/i2p:i2p-tor
+docker run \
+  -d \
+  --mount type=volume,src=i2pd-build,dst=/home/i2pd/ \
+  --name i2pd-build divax/i2p:i2p-tor
 
 # update certs
 rm -R certificates

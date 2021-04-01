@@ -1,0 +1,67 @@
+#
+# Copyright (C) 2021 diva.exchange
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Author/Maintainer: Konrad Bächler <konrad@diva.exchange>
+#
+
+version: "3.7"
+services:
+  n1.i2pd.local:
+    container_name: n1.i2pd.local
+    image: divax/i2p:latest
+    restart: unless-stopped
+    environment:
+      ENABLE_TUNNELS: 1
+    volumes:
+      - n1.i2pd.local:/home/i2pd/
+    ports:
+      - 7070:7070
+      - 4444:4444
+      - 4445:4445
+    networks:
+      network.i2pd.local:
+        ipv4_address: 172.29.101.10
+
+  n2.i2pd.local:
+    container_name: n2.i2pd.local
+    image: divax/i2p:latest
+    restart: unless-stopped
+    environment:
+      ENABLE_TUNNELS: 1
+    volumes:
+      - n2.i2pd.local:/home/i2pd/
+    ports:
+      - 7080:7070
+      - 4484:4444
+      - 4485:4445
+    networks:
+      network.i2pd.local:
+        ipv4_address: 172.29.101.20
+
+networks:
+  network.i2pd.local:
+    name: network.i2pd.local
+    internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.29.101.0/24
+
+volumes:
+  n1.i2pd.local:
+    name: n1.i2pd.local
+  n2.i2pd.local:
+    name: n2.i2pd.local

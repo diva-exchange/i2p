@@ -32,20 +32,27 @@ PORT_HTTP_PROXY=${PORT_HTTP_PROXY:?err}
 
 if [[ ${ENABLE_TUNNELS} == 1 ]]
 then
+  TUNNELS_DIR_SOURCE=${TUNNELS_DIR_SOURCE:-/home/i2pd/tunnels.source.conf.d}
+  [[ ! -d ${TUNNELS_DIR_SOURCE} ]] && mkdir -p ${TUNNELS_DIR_SOURCE}
+  echo "Using tunnels source ${TUNNELS_DIR_SOURCE}"
+
   TUNNELS_DIR=/home/i2pd/tunnels.conf.d
   rm -f ${TUNNELS_DIR}/*.conf
 
-  [[ -f /home/i2pd/tunnels.source.conf.d/*.conf ]] && cp \
-    /home/i2pd/tunnels.source.conf.d/*.conf ${TUNNELS_DIR}
+  if [[ `ls ${TUNNELS_DIR_SOURCE}/*.conf >/dev/null 2>&1 ; echo $?` -eq 0 ]]
+  then
+    cp ${TUNNELS_DIR_SOURCE}/*.conf ${TUNNELS_DIR}/
+    chown i2pd:i2pd ${TUNNELS_DIR}/*.conf
+    chmod 0644 ${TUNNELS_DIR}/*.conf
+  fi
 
   # replace environment variables in the tunnels config files
-  if [[ -f ${TUNNELS_DIR}/*.conf ]]
-  then
-    for pathFile in ${TUNNELS_DIR}/*.conf
-    do
-      eval "echo \"$(cat ${pathFile})\"" >${pathFile}
-    done
-  fi
+  for pathFile in `ls -1 ${TUNNELS_DIR}/*.conf 2>/dev/null`
+  do
+    eval "echo \"$(cat ${pathFile})\"" >${pathFile}
+  done
+else
+  TUNNELS_DIR=/home/i2pd/tunnels.null
 fi
 
 # replace variables in the i2pd config files

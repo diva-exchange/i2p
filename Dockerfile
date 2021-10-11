@@ -11,8 +11,8 @@ COPY network/ /home/i2pd/network/
 COPY certificates/ /home/i2pd/data/certificates/
 COPY entrypoint.sh /
 
-RUN addgroup -g 1000 i2pd \
-  && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
+RUN addgroup --gid 1000 i2pd \
+  && adduser --uid 1000 --shell /bin/sh --home "/home/i2pd" --disabled-password --disabled-login --ingroup i2pd i2pd \
   && mkdir -p /home/i2pd/data/addressbook \
   && mkdir /home/i2pd/tunnels.null \
   && mkdir /home/i2pd/tunnels.source.conf.d \

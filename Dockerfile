@@ -11,20 +11,16 @@ COPY network/ /home/i2pd/network/
 COPY certificates/ /home/i2pd/data/certificates/
 COPY entrypoint.sh /
 
-RUN addgroup --gid 1000 i2pd \
-  && adduser --uid 1000 --shell /bin/sh --home "/home/i2pd" --disabled-password --disabled-login --ingroup i2pd i2pd \
-  && mkdir -p /home/i2pd/data/addressbook \
+RUN mkdir -p /home/i2pd/data/addressbook \
   && mkdir /home/i2pd/tunnels.null \
   && mkdir /home/i2pd/tunnels.source.conf.d \
   && mkdir /home/i2pd/tunnels.conf.d \
   && cd /home/i2pd/ \
   && apt-get update \
-  && apt-get -y install wget \
+  && apt-get -y install wget iproute2 procps bash \
   && wget -O i2pd.deb http://http.us.debian.org/debian/pool/main/i/i2pd/i2pd_2.39.0-1_arm64.deb \
-  && apt-get -y install i2pd.deb \
+  && apt-get -y install ./i2pd.deb \
   && cp /home/i2pd/conf/addresses-initial.org.csv /home/i2pd/data/addressbook/addresses.csv \
-  && chown -R i2pd:i2pd /home/i2pd \
-  && chmod 0700 /home/i2pd/bin/i2pd \
   && chmod +x /entrypoint.sh
 
 # 7070 I2P webconsole, 4444 I2P http proxy, 4445 I2P socks proxy

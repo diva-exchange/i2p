@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Copyright (C) 2020 diva.exchange
 #
@@ -38,7 +38,6 @@ then
   if [[ `ls ${TUNNELS_DIR_SOURCE}/*.conf >/dev/null 2>&1 ; echo $?` -eq 0 ]]
   then
     cp ${TUNNELS_DIR_SOURCE}/*.conf ${TUNNELS_DIR}/
-    chown i2pd:i2pd ${TUNNELS_DIR}/*.conf
     chmod 0644 ${TUNNELS_DIR}/*.conf
   fi
 
@@ -60,5 +59,4 @@ sed \
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
 
 # see configs: /conf/i2pd.conf
-su - i2pd
 i2pd --datadir=/home/i2pd/data --conf=/home/i2pd/conf/i2pd.conf

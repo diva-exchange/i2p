@@ -24,7 +24,7 @@ set -e
 ENABLE_TUNNELS=${ENABLE_TUNNELS:-0}
 IP_BRIDGE=${IP_BRIDGE:-`ip route | awk '/default/ { print $3; }'`}
 
-IP_CONTAINER=`ip route get 1 | awk '{ print $NF; exit; }'`
+IP_CONTAINER=`ip route get 1 | awk '{ print $7; exit; }'`
 
 if [[ ${ENABLE_TUNNELS} == 1 ]]
 then

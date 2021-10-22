@@ -55,15 +55,25 @@ The docker container is exposing an http and a socks proxy. By default, the cont
 
 The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration. The configuration files for DNS and Tor `./network`: `resolv.conf` is containing nameserver information. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
 
-The configuration of a container might be influenced with environment variables: ENABLE_TUNNELS and IP_BRIDGE.
+The configuration of a container might be influenced with environment variables: ENABLE_TUNNELS, IP_BRIDGE, HAS_SAM, IS_FLOODFILL and BANDWIDTH.
 
 Set ENABLE_TUNNELS to 1 to use the tunnels configuration within the container. Defaults to 0 and therefore tunnels are disabled by default.
 
 IP_BRIDGE points by default to the docker host interface.
 
-Example on how to use environment variables:
+Set HAS_SAM to true or false (default) to enable the SAM bridge.
+
+Set IS_FLOODFILL to true or false (default) to create a floodfill router.
+
+Set BANDWIDTH to control or limit the bandwidth used by the router. Use "L" (32KBs/sec), "O" (256KBs/sec), "P" (2048KBs/sec) or "X" (unlimited). By default, the bandwidth is set to "L" for non-floodfill routers and to "X" for floodfill routers. 
+
+Some examples on how to use environment variables:
 
 `docker run --env ENABLE_TUNNELS=1 -p 127.0.0.1:7070:7070 -p 127.0.0.1:4444:4444 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
+
+`docker run --env HAS_SAM=true IS_FLOODFILL=true -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
+
+`docker run --env BANDWIDTH=X -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
 
 ### Advanced: Tunnel Configuration
 Tunnels are exposing specific services to the I2P network. Like a web server, an application or a blockchain.

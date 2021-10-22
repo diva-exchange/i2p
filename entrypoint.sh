@@ -21,6 +21,15 @@
 # -e  Exit immediately if a simple command exits with a non-zero status
 set -e
 
+HAS_SAM=${HAS_SAM:-false}
+IS_FLOODFILL=${IS_FLOODFILL:-false}
+if [[ ${IS_FLOODFILL} == true ]]
+then
+  BANDWIDTH=${BANDWIDTH:-X}
+else
+  BANDWIDTH=${BANDWIDTH:-L}
+fi
+
 ENABLE_TUNNELS=${ENABLE_TUNNELS:-0}
 IP_BRIDGE=${IP_BRIDGE:-`ip route | awk '/default/ { print $3; }'`}
 
@@ -53,7 +62,7 @@ fi
 
 # replace variables in the i2pd config files
 sed \
-  's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g ; s!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' \
+  's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g ; s!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g ; s!\$HAS_SAM!'"${HAS_SAM}"'!g ; s!\$IS_FLOODFILL!'"${IS_FLOODFILL}"'!g ; s!\$BANDWIDTH!'"${BANDWIDTH}"'!g' \
   /home/i2pd/conf/i2pd.org.conf >/home/i2pd/conf/i2pd.conf
 
 # overwrite resolv.conf - using specific DNS servers only to initially access reseed servers

@@ -13,6 +13,15 @@ cd ${PROJECT_PATH}/../
 ENABLE_TUNNELS=${ENABLE_TUNNELS:-0}
 TUNNELS_DIR=${TUNNELS_DIR:-${PWD}/tunnels.conf.d}
 
+HAS_SAM=${HAS_SAM:-false}
+IS_FLOODFILL=${IS_FLOODFILL:-false}
+if [[ ${IS_FLOODFILL} == true ]]
+then
+  BANDWIDTH=${BANDWIDTH:-X}
+else
+  BANDWIDTH=${BANDWIDTH:-L}
+fi
+
 IP_BIND=${IP_BIND:-127.0.0.1}
 VOLUME_PERSISTENCE=${VOLUME_PERSISTENCE:-0}
 PORT_WEBCONSOLE=${PORT_WEBCONSOLE:-0}
@@ -22,9 +31,11 @@ if [[ ${EXPOSE_PORT_DEFAULTS} > 0 ]]
 then
   PORT_HTTP_PROXY=${PORT_HTTP_PROXY:-4444}
   PORT_SOCKS_PROXY=${PORT_SOCKS_PROXY:-4445}
+  PORT_SAM=${PORT_SAM:-7656}
 else
   PORT_HTTP_PROXY=${PORT_HTTP_PROXY:-0}
   PORT_SOCKS_PROXY=${PORT_SOCKS_PROXY:-0}
+  PORT_SAM=${PORT_SAM:-0}
 fi
 
 NAME=${NAME:-i2pd-`date -u +%s`}
@@ -33,6 +44,9 @@ NAME=${NAME:-i2pd-`date -u +%s`}
 CMD="docker run\
  -d\
  --env ENABLE_TUNNELS=${ENABLE_TUNNELS}\
+ --env HAS_SAM=${HAS_SAM}\
+ --env IS_FLOODFILL=${IS_FLOODFILL}\
+ --env BANDWIDTH=${BANDWIDTH}\
  -p ${IP_BIND}:${PORT_WEBCONSOLE}:7070"
 
 # tunnels bind mount
@@ -56,9 +70,13 @@ if [[ ${PORT_SOCKS_PROXY} > 0 ]]
 then
   CMD="${CMD} -p ${IP_BIND}:${PORT_SOCKS_PROXY}:4445"
 fi
+if [[ ${PORT_SAM} > 0 ]]
+then
+  CMD="${CMD} -p ${IP_BIND}:${PORT_SAM}:7656"
+fi
 
 CMD="${CMD} --name ${NAME} divax/i2p:latest"
 
 # run container
-echo "Executing: ${CMD}"
-${CMD}
+echo "Executing: sudo ${CMD}"
+sudo ${CMD}

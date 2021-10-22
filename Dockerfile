@@ -8,7 +8,6 @@ LABEL author="Konrad Baechler <konrad@diva.exchange>" \
 
 COPY conf/ /home/i2pd/conf/
 COPY network/ /home/i2pd/network/
-COPY htdocs/ /home/i2pd/htdocs/
 COPY certificates/ /home/i2pd/data/certificates/
 COPY entrypoint.sh /
 

@@ -65,9 +65,6 @@ RUN mkdir -p /home/i2pd/data/addressbook \
   && chmod 0700 /home/i2pd/bin/i2pd \
   && chmod +x /entrypoint.sh
 
-# 7070 I2P webconsole, 4444 I2P http proxy, 4445 I2P socks proxy
-EXPOSE 7070 4444 4445
-
 VOLUME [ "/home/i2pd/data/" ]
 WORKDIR "/home/i2pd/"
 ENTRYPOINT ["/entrypoint.sh"]

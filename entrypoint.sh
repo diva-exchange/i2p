@@ -21,12 +21,40 @@
 # -e  Exit immediately if a simple command exits with a non-zero status
 set -e
 
-HAS_SAM=${HAS_SAM:-false}
-IS_FLOODFILL=${IS_FLOODFILL:-false}
-if [[ ${IS_FLOODFILL} == true ]]
+ENABLE_HTTPPROXY=${ENABLE_HTTPPROXY:-0}
+if [[ ${ENABLE_HTTPPROXY} == 1 ]]
 then
+  ENABLE_HTTPPROXY=true
+else
+  ENABLE_HTTPPROXY=false
+fi
+PORT_HTTPPROXY=${PORT_HTTPPROXY:-4444}
+
+ENABLE_SOCKSPROXY=${ENABLE_SOCKSPROXY:-0}
+if [[ ${ENABLE_SOCKSPROXY} == 1 ]]
+then
+  ENABLE_SOCKSPROXY=true
+else
+  ENABLE_SOCKSPROXY=false
+fi
+PORT_SOCKSPROXY=${PORT_SOCKSPROXY:-4445}
+
+ENABLE_SAM=${ENABLE_SAM:-0}
+if [[ ${ENABLE_SAM} == 1 ]]
+then
+  ENABLE_SAM=true
+else
+  ENABLE_SAM=false
+fi
+PORT_SAM=${PORT_SAM:-7656}
+
+ENABLE_FLOODFILL=${ENABLE_FLOODFILL:-0}
+if [[ ${ENABLE_FLOODFILL} == 1 ]]
+then
+  ENABLE_FLOODFILL=true
   BANDWIDTH=${BANDWIDTH:-X}
 else
+  ENABLE_FLOODFILL=false
   BANDWIDTH=${BANDWIDTH:-L}
 fi
 
@@ -60,10 +88,20 @@ else
   TUNNELS_DIR=/home/i2pd/tunnels.null
 fi
 
+# create a copy of the i2pd config file
+cp /home/i2pd/conf/i2pd.org.conf /home/i2pd/conf/i2pd.conf
 # replace variables in the i2pd config files
-sed \
-  's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g ; s!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g ; s!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g ; s!\$HAS_SAM!'"${HAS_SAM}"'!g ; s!\$IS_FLOODFILL!'"${IS_FLOODFILL}"'!g ; s!\$BANDWIDTH!'"${BANDWIDTH}"'!g' \
-  /home/i2pd/conf/i2pd.org.conf >/home/i2pd/conf/i2pd.conf
+sed -i 's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$ENABLE_HTTPPROXY!'"${ENABLE_HTTPPROXY}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$PORT_HTTPPROXY!'"${PORT_HTTPPROXY}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$ENABLE_SOCKSPROXY!'"${ENABLE_SOCKSPROXY}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$PORT_SOCKSPROXY!'"${PORT_SOCKSPROXY}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$ENABLE_SAM!'"${ENABLE_SAM}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$PORT_SAM!'"${PORT_SAM}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$ENABLE_FLOODFILL!'"${ENABLE_FLOODFILL}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$BANDWIDTH!'"${BANDWIDTH}"'!g' /home/i2pd/conf/i2pd.conf
 
 # overwrite resolv.conf - using specific DNS servers only to initially access reseed servers
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf

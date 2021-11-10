@@ -1,6 +1,11 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.39.0] - 2021-11-10
+### Changed
+- addresses-initial: removed n1.diva... nodes
+- docker: replaced and added environment variables (see README)
+
 ## [2.39.0] - 2021-08-23
 ### Changed
 - i2pd version 2.39.0

@@ -34,11 +34,11 @@ Run one of the following command in a shell (powershell on Windows).
 
 To run the I2P/TOR-proxy only (entry-level):
 
-`docker run --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor divax/i2p:i2p-tor`
+`docker run --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 --env ENABLE_HTTPPROXY=1 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor divax/i2p:i2p-tor`
 
 To run I2P only (advanced):
 
-`docker run -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2p divax/i2p:latest`
+`docker run --env ENABLE_HTTPPROXY=1 --env ENABLE_SOCKSPROXY=1 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2p divax/i2p:latest`
 
 ### Check the Status of your Container
 Check your now-running docker container with `docker ps -a` (within your shell/powershell) and look for the container "i2pd".
@@ -51,36 +51,46 @@ This proxy configuration (see source code below for details) uses your new docke
 If you prefer a _weaker_ configuration you can also use the proxy file proxy-ip2-onion-clearnet.pac and set the "Automatic proxy configuration URL" to "http://localhost:8080/proxy-ip2-onion-clearnet.pac". This will only route .i2p and .onion addresses through the docker container. Routes to the clearnet won't be affected.
 
 ### Advanced: Configuration
-The docker container is exposing an http and a socks proxy. By default, the container exposes the http proxy on port 4444 and the socks proxy on port 4445. 
+The docker container might expose an http and a socks proxy. To enable the http and/or socks proxy, set the environment variables ENABLE_HTTPPROXY and/or ENABLE_SOCKSPROXY to 1. If enabled, the container exposes the http proxy on port 4444 and the socks proxy on port 4445 by default. These ports might be changed by setting the environment variables PORT_HTTPPROXY or PORT_SOCKSPROXY. 
 
 The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration. The configuration files for DNS and Tor `./network`: `resolv.conf` is containing nameserver information. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
 
-The configuration of a container might be influenced with environment variables: ENABLE_TUNNELS, IP_BRIDGE, HAS_SAM, IS_FLOODFILL and BANDWIDTH.
+The configuration of a container might be influenced with environment variables: ENABLE_TUNNELS, IP_BRIDGE, ENABLE_HTTPPROXY, PORT_HTTPPROXY, ENABLE_SOCKSPROXY, PORT_SOCKSPROXY, ENABLE_SAM, PORT_SAM, ENABLE_FLOODFILL and BANDWIDTH.
 
 Set ENABLE_TUNNELS to 1 to use the tunnels configuration within the container. Defaults to 0 and therefore tunnels are disabled by default.
 
 IP_BRIDGE points by default to the docker host interface.
 
-Set HAS_SAM to true or false (default) to enable the SAM bridge.
+Set ENABLE_HTTPPROXY to 1 (true) or 0 (false) to enable the HTTP proxy. Defaults to 0.
 
-Set IS_FLOODFILL to true or false (default) to create a floodfill router.
+Use PORT_HTTPPROXY to define the http proxy port. Defaults to 4444.
+
+Set ENABLE_SOCKSPROXY to 1 (true) or 0 (false) to enable the SOCKS proxy. Defaults to 0.
+
+Use PORT_SOCKSPROXY to define the socks proxy port. Defaults to 4445.
+
+Set ENABLE_SAM to 1 (true) or 0 (false) to enable the SAM bridge. Defaults to 0.
+
+Use PORT_SAM to define the SAM bridge port. Defaults to 7656.
+
+Set ENABLE_FLOODFILL to 1 (true) or 0 (false) to create a floodfill router. Defaults to 0.
 
 Set BANDWIDTH to control or limit the bandwidth used by the router. Use "L" (32KBs/sec), "O" (256KBs/sec), "P" (2048KBs/sec) or "X" (unlimited). By default, the bandwidth is set to "L" for non-floodfill routers and to "X" for floodfill routers. 
 
 Some examples on how to use environment variables:
 
-`docker run --env ENABLE_TUNNELS=1 -p 127.0.0.1:7070:7070 -p 127.0.0.1:4444:4444 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
+`docker run --env ENABLE_TUNNELS=1 -p 127.0.0.1:7070:7070 -d --name i2pd divax/i2p:latest`
 
-`docker run --env HAS_SAM=true IS_FLOODFILL=true -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
+`docker run --env ENABLE_SOCKSPROXY=1 --env ENABLE_SAM=1 --env ENABLE_FLOODFILL=1 -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -p 127.0.0.1:7656:7656 -d --name i2pd divax/i2p:latest`
 
 `docker run --env BANDWIDTH=X -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
 
 ### Advanced: Tunnel Configuration
 Tunnels are exposing specific services to the I2P network. Like a web server, an application or a blockchain.
 
-Tunnels might be configured on the host within a folder, like tunnels.conf.d. Then this folder gets mounted into the container as a bind mount. See `./bin/run.sh` on how to set up such a bind mount.
+Tunnels might be configured on the host within a folder, like tunnels.conf.d. Then this folder gets mounted into the container as a bind mount.
 
-Some examples of tunnel configuration files are found within the folder `tunnels.example.conf.d`. To use such an example just copy the file from `tunnels.example.conf.d` to `tunnels.conf.d` and run the container with the bind mount or by executing `ENABLE_TUNNELS=1 ./bin/run.sh`.
+Some examples of tunnel configuration files are found within the folder `tunnels.example.conf.d`.
 
 ## Build from Source
 Get the source code from the public repository:

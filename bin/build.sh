@@ -18,12 +18,12 @@ sudo docker run \
 
 # update certs
 rm -R certificates
-cp -r -f /var/lib/docker/volumes/i2pd-build/_data/data/certificates ./certificates
-chown -R --reference ./ certificates
+sudo cp -r -f /var/lib/docker/volumes/i2pd-build/_data/data/certificates ./certificates
+sudo chown -R --reference ./ certificates
 
 # update changelog & license
-cp -r -f /var/lib/docker/volumes/i2pd-build/_data/ChangeLog ./ChangeLog-i2pd
-cp -r -f /var/lib/docker/volumes/i2pd-build/_data/LICENSE ./LICENSE-i2pd
+sudo cp -r -f /var/lib/docker/volumes/i2pd-build/_data/ChangeLog ./ChangeLog-i2pd
+sudo cp -r -f /var/lib/docker/volumes/i2pd-build/_data/LICENSE ./LICENSE-i2pd
 
 # clean up
 sudo docker stop i2pd-build

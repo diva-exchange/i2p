@@ -1,6 +1,10 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.40.0] - 2021-11-128
+### Changed
+- i2pd version 2.40.0
+
 ## [2.39.0] - 2021-11-10
 ### Changed
 - addresses-initial: removed n1.diva... nodes

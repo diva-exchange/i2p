@@ -77,7 +77,7 @@ Set ENABLE_FLOODFILL to 1 (true) or 0 (false) to create a floodfill router. Defa
 
 Set BANDWIDTH to control or limit the bandwidth used by the router. Use "L" (32KBs/sec), "O" (256KBs/sec), "P" (2048KBs/sec) or "X" (unlimited). By default, the bandwidth is set to "L" for non-floodfill routers and to "X" for floodfill routers. 
 
-Set ENABLE_UPNP to 1 (true) or 0 (false) to enable UPNP. Defaults to 1 (true).
+Set ENABLE_UPNP to 1 (true) or 0 (false) to enable UPNP. Defaults to 0 (false).
 
 Some examples on how to use environment variables:
 

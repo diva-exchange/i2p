@@ -24,6 +24,9 @@ sudo chown -R --reference ./ certificates
 # update changelog & license
 sudo cp -r -f /var/lib/docker/volumes/i2pd-build/_data/ChangeLog ./ChangeLog-i2pd
 sudo cp -r -f /var/lib/docker/volumes/i2pd-build/_data/LICENSE ./LICENSE-i2pd
+sudo cp -r -f /var/lib/docker/volumes/i2pd-build/_data/bin/i2pd ./bin/i2pd
+sudo chown --reference ./bin ./bin/i2pd
+sudo chmod u+x ./bin/i2pd
 
 # clean up
 sudo docker stop i2pd-build

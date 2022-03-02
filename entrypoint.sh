@@ -58,6 +58,14 @@ else
   BANDWIDTH=${BANDWIDTH:-L}
 fi
 
+ENABLE_UPNP=${ENABLE_UPNP:-1}
+if [[ ${ENABLE_UPNP} == 1 ]]
+then
+  ENABLE_UPNP=true
+else
+  ENABLE_UPNP=false
+fi
+
 ENABLE_TUNNELS=${ENABLE_TUNNELS:-0}
 IP_BRIDGE=${IP_BRIDGE:-`ip route | awk '/default/ { print $3; }'`}
 
@@ -106,6 +114,7 @@ sed -i 's!\$ENABLE_SAM!'"${ENABLE_SAM}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$PORT_SAM!'"${PORT_SAM}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$ENABLE_FLOODFILL!'"${ENABLE_FLOODFILL}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$BANDWIDTH!'"${BANDWIDTH}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$ENABLE_UPNP!'"${ENABLE_UPNP}"'!g' /home/i2pd/conf/i2pd.conf
 
 # replace variables in the proxy pac files
 sed \

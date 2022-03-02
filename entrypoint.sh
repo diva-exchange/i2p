@@ -58,7 +58,7 @@ else
   BANDWIDTH=${BANDWIDTH:-L}
 fi
 
-ENABLE_UPNP=${ENABLE_UPNP:-1}
+ENABLE_UPNP=${ENABLE_UPNP:-0}
 if [[ ${ENABLE_UPNP} == 1 ]]
 then
   ENABLE_UPNP=true

@@ -5,7 +5,7 @@
 ### Added
 - Environment variable ENABLE_UPNP, see README
 ### Changed
-- i2pd default config, enabled upnp by default
+- i2pd default config, using ENABLE_UPNP, defaults to false
 - i2pd version 2.41.0
 
 ## [2.40.0] - 2021-11-12

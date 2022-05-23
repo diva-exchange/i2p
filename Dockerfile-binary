@@ -13,6 +13,7 @@ COPY certificates/ /home/i2pd/data/certificates/
 COPY entrypoint.sh /
 COPY bin/i2pd /home/i2pd/bin/i2pd
 
+# install deps
 RUN mkdir -p /home/i2pd/data/addressbook \
   && mkdir /home/i2pd/tunnels.null \
   && mkdir /home/i2pd/tunnels.source.conf.d \

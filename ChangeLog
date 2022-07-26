@@ -1,6 +1,10 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.42.1-1] - 2022-07-26
+### Added
+- log level support, env var LOGLEVEL (debug, *info, warn, error, none)
+
 ## [2.42.1] - 2022-05-25
 ### Changed
 - i2pd version 2.42.1

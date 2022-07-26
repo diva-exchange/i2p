@@ -79,13 +79,15 @@ Set BANDWIDTH to control or limit the bandwidth used by the router. Use "L" (32K
 
 Set ENABLE_UPNP to 1 (true) or 0 (false) to enable UPNP. Defaults to 0 (false).
 
+Set LOGLEVEL to the desired logging level: debug, info, warn, error or none. Defaults to info. 
+
 Some examples on how to use environment variables:
 
 `docker run --env ENABLE_TUNNELS=1 -p 127.0.0.1:7070:7070 -d --name i2pd divax/i2p:latest`
 
 `docker run --env ENABLE_SOCKSPROXY=1 --env ENABLE_SAM=1 --env ENABLE_FLOODFILL=1 -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -p 127.0.0.1:7656:7656 -d --name i2pd divax/i2p:latest`
 
-`docker run --env BANDWIDTH=X -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
+`docker run --env LOGLEVEL=error --env BANDWIDTH=X -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
 
 ### Advanced: Tunnel Configuration
 Tunnels are exposing specific services to the I2P network. Like a web server, an application or a blockchain.

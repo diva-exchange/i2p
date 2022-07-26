@@ -96,12 +96,15 @@ else
   TUNNELS_DIR=/home/i2pd/tunnels.null
 fi
 
+LOGLEVEL=${LOGLEVEL:-info}
+
 # create a copy of the i2pd config file
 cp /home/i2pd/conf/i2pd.org.conf /home/i2pd/conf/i2pd.conf
 # replace variables in the i2pd config files
 sed -i 's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$LOGLEVEL!'"${LOGLEVEL}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$ENABLE_HTTPPROXY!'"${ENABLE_HTTPPROXY}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$PORT_HTTPPROXY!'"${PORT_HTTPPROXY}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$ENABLE_SOCKSPROXY!'"${ENABLE_SOCKSPROXY}"'!g' /home/i2pd/conf/i2pd.conf

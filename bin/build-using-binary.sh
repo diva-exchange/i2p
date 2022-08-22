@@ -9,4 +9,6 @@ set -e
 PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../"
 cd ${PROJECT_PATH}
 
-sudo docker build --force-rm --no-cache -t divax/i2p:i2p-tor -f Dockerfile-binary ./
+TAG=${TAG:-current-i2p-tor}
+
+sudo docker build --force-rm --no-cache -t divax/i2p:${TAG} -f Dockerfile-binary ./

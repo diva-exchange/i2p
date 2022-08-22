@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 diva.exchange
+# Copyright (C) 2021-2022 diva.exchange
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -21,7 +21,7 @@ version: "3.7"
 services:
   n1.i2pd.local:
     container_name: n1.i2pd.local
-    image: divax/i2p:latest
+    image: divax/i2p:current-i2p-tor
     restart: unless-stopped
     environment:
       ENABLE_HTTPPROXY: 1
@@ -36,7 +36,7 @@ services:
 
   n2.i2pd.local:
     container_name: n2.i2pd.local
-    image: divax/i2p:latest
+    image: divax/i2p:current
     restart: unless-stopped
     environment:
       ENABLE_HTTPPROXY: 1

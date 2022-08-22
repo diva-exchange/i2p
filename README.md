@@ -1,14 +1,14 @@
 # I2P - For Everyone
 
 Two flavours are available:
-* Entry-level experience: I2P and Tor to enable everyone to get started using the i2p and onion network. It's tagged as "i2p-tor". 
-* For advanced users: I2P only version - very lean. It's tagged as "latest".
+* Entry-level experience: I2P and Tor to enable everyone to get started using the i2p and onion network. It's tagged as "current-i2p-tor". 
+* For advanced users: I2P only version - very lean. It's tagged as "current".
 
 The solutions are deployed as docker image.
 
-If you are looking for an entry-level experience, focused on safely browsing the internet: use the docker image tagged as "i2p-tor". Read the "Get Started" below.   
+If you are looking for an entry-level experience, focused on safely browsing the internet: use the docker image tagged as "current-i2p-tor". Read the "Get Started" below.   
 
-If you are experienced and looking for an I2P-only container - go for the docker imaged tagged as "latest". You get the latest stable i2pd (C++ version) release. Lean & fast.
+If you are experienced and looking for an I2P-only container - go for the docker imaged tagged as "current". You get the stable i2pd (C++ version) release. Lean & fast.
 
 A great tutorial, including "How to setup your system", is found here: [Introduction to “I2P”](https://www.diva.exchange/en/privacy/introduction-to-i2p-your-own-internet-secure-private-and-free/).
 
@@ -21,7 +21,7 @@ Please note: an entry-level setup is only a first - yet necessary - step to prot
 Docker (https://www.docker.com/get-started) must be available on your system. 
 
 To get your new private browsing experience up and running:
-1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p:i2p-tor` or `docker pull divax/i2p:latest` 
+1. Pull the docker image (in a shell/powershell): `docker pull divax/i2p:current-i2p-tor` or `docker pull divax/i2p:current` 
 2. Run the Docker container
 3. Adapt your browser proxy settings
 
@@ -34,11 +34,11 @@ Run one of the following command in a shell (powershell on Windows).
 
 To run the I2P/TOR-proxy only (entry-level):
 
-`docker run --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 --env ENABLE_HTTPPROXY=1 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor divax/i2p:i2p-tor`
+`docker run --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 --env ENABLE_HTTPPROXY=1 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor divax/i2p:current-i2p-tor`
 
 To run I2P only (advanced):
 
-`docker run --env ENABLE_HTTPPROXY=1 --env ENABLE_SOCKSPROXY=1 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2p divax/i2p:latest`
+`docker run --env ENABLE_HTTPPROXY=1 --env ENABLE_SOCKSPROXY=1 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2p divax/i2p:current`
 
 ### Check the Status of your Container
 Check your now-running docker container with `docker ps -a` (within your shell/powershell) and look for the container "i2pd".
@@ -83,11 +83,11 @@ Set LOGLEVEL to the desired logging level: debug, info, warn, error or none. Def
 
 Some examples on how to use environment variables:
 
-`docker run --env ENABLE_TUNNELS=1 -p 127.0.0.1:7070:7070 -d --name i2pd divax/i2p:latest`
+`docker run --env ENABLE_TUNNELS=1 -p 127.0.0.1:7070:7070 -d --name i2pd divax/i2p:current`
 
-`docker run --env ENABLE_SOCKSPROXY=1 --env ENABLE_SAM=1 --env ENABLE_FLOODFILL=1 -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -p 127.0.0.1:7656:7656 -d --name i2pd divax/i2p:latest`
+`docker run --env ENABLE_SOCKSPROXY=1 --env ENABLE_SAM=1 --env ENABLE_FLOODFILL=1 -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -p 127.0.0.1:7656:7656 -d --name i2pd divax/i2p:current`
 
-`docker run --env LOGLEVEL=error --env BANDWIDTH=X -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:latest`
+`docker run --env LOGLEVEL=error --env BANDWIDTH=X -p 127.0.0.1:7070:7070 -p 127.0.0.1:4445:4445 -d --name i2pd divax/i2p:current`
 
 ### Advanced: Tunnel Configuration
 Tunnels are exposing specific services to the I2P network. Like a web server, an application or a blockchain.
@@ -96,14 +96,16 @@ Tunnels might be configured on the host within a folder, like tunnels.conf.d. Th
 
 Some examples of tunnel configuration files are found within the folder `tunnels.example.conf.d`.
 
-## Build from Source
+## Build from Source on Linux
 Get the source code from the public repository:
 ```
 git clone -b master https://codeberg.org/diva.exchange/i2p.git && cd i2p
 ```
 
-### On Linux
-To rebuild the docker image and all the contained binaries from source, execute  `./bin/build.sh`
+To rebuild the docker image and all the contained binaries from source, execute  `./bin/build.sh`. To pass a specific tag, set the environment variable TAG, like `TAG=local-development ./bin/build.sh`. This will result in a docker image called divax/i2p:local-development.
+
+## Testing
+Run a local testnet using docker-compose, like `docker-compose -f i2p-testnet.yml up -d` and stop it using `docker-compose -f i2p-testnet.yml down --volumes`. This will create two containers, n1.i2pd.local and n2.i2pd.local. Examine the logs by using `docker logs n1.i2pd.local`. Access the web console through http://localhost:7770 (n1) or http://localhost:7771 (n2).  
 
 ## Source Code
 GPLv3 licensed and the source code is available here:

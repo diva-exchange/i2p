@@ -1,6 +1,13 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.43.0] - 2022-08-22
+### Changed
+- i2pd version 2.43.0
+- i2pd default config, in line with i2pd 2.43.0, enabled ssu2
+- docker: replaced latest by current; current points to stable i2pd version
+- README to reflect changes
+
 ## [2.42.1-1] - 2022-07-26
 ### Added
 - log level support, env var LOGLEVEL (debug, *info, warn, error, none)

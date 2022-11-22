@@ -21,7 +21,7 @@ version: "3.7"
 services:
   n1.i2pd.local:
     container_name: n1.i2pd.local
-    image: divax/i2p:current
+    image: divax/i2p:current-i2p-tor
     restart: unless-stopped
     environment:
       ENABLE_HTTPPROXY: 1

@@ -7,18 +7,18 @@
 set -e
 
 PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../"
-cd ${PROJECT_PATH}
+cd "${PROJECT_PATH}"
 
 TAG=${TAG:-current}
 
-sudo docker build --force-rm --no-cache -t divax/i2p:${TAG} .
+sudo docker build --force-rm --no-cache -t divax/i2p:"${TAG}" .
 sudo docker volume create i2pd-build
 sudo docker volume create i2pd-data
 sudo docker run \
   -d \
   --mount type=volume,src=i2pd-build,dst=/home/i2pd/ \
   --mount type=volume,src=i2pd-data,dst=/home/i2pd/data \
-  --name i2pd-build divax/i2p:${TAG}
+  --name i2pd-build divax/i2p:"${TAG}"
 
 # update certs
 rm -R certificates

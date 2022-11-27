@@ -441,7 +441,7 @@
 ### Added
 - Client auth flag for b33 address
 ### Changed
-- Remove incoming  NTCP2 session from pending list when established
+- Remove incoming NTCP2 session from pending list when established
 - Handle errors for NTCP2 SessionConfrimed send
 ### Fixed
 - Failure to start on Windows XP
@@ -745,7 +745,7 @@
 ### Added
 - Datagram i2p tunnels
 - Unique local addresses for server tunnels
-- Configurable list of reseed servers  and initial addressbook
+- Configurable list of reseed servers and initial addressbook
 - Configurable netid
 - Initial iOS support
 

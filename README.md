@@ -94,35 +94,70 @@ Tunnels are exposing specific services to the I2P network. Like a web server, an
 
 Tunnels might be configured on the host within a folder, like tunnels.conf.d. Then this folder gets mounted into the container as a bind mount.
 
+Example of such a bind mount (adapt /PATH/TO/tunnels.conf.d to your needs):
+```
+docker run \
+    --env ENABLE_TUNNELS=1  \
+    --mount type=bind,source=/PATH/TO/tunnels.conf.d,target=/home/i2pd/tunnels.source.conf.d \
+    -p 127.0.0.1:7970:7070 \
+    -p 127.0.0.1:6669:6669 \
+    -d \
+    --name i2pd \
+    divax/i2p:current
+```
+
 Some examples of tunnel configuration files are found within the folder `tunnels.example.conf.d`.
 
 ## Build from Source on Linux
 Get the source code from the public repository:
 ```
-git clone -b master https://codeberg.org/diva.exchange/i2p.git && cd i2p
+git clone -b master https://github.com/diva-exchange/i2p.git && cd i2p
 ```
 
 To rebuild the docker image and all the contained binaries from source, execute  `./bin/build.sh`. To pass a specific tag, set the environment variable TAG, like `TAG=local-development ./bin/build.sh`. This will result in a docker image called divax/i2p:local-development.
 
 ## Testing
-Run a local testnet using docker-compose, like `docker-compose -f i2p-testnet.yml up -d` and stop it using `docker-compose -f i2p-testnet.yml down --volumes`. This will create two containers, n1.i2pd.local and n2.i2pd.local. Examine the logs by using `docker logs n1.i2pd.local`. Access the web console through http://localhost:7770 (n1) or http://localhost:7771 (n2).  
+Run a local testnet using docker compose, like `docker compose -f i2p-testnet.yml up -d` and stop it using `docker compose -f i2p-testnet.yml down --volumes`. This will create two containers, n1.i2pd.local and n2.i2pd.local. Examine the logs by using `docker logs n1.i2pd.local`. Access the web console through http://localhost:7770 (n1) or http://localhost:7771 (n2).
 
 ## Source Code
 GPLv3 licensed and the source code is available here:
-https://codeberg.org/diva.exchange/i2p
+https://github.com/diva-exchange/i2p
 
 The source code of the underlying "I2Pd" project is found here: https://github.com/PurpleI2P/i2pd
 
-## Contact the Developers
+## Contributions
+Contributions are very welcome. This is the general workflow:
 
-On [DIVA.EXCHANGE](https://www.diva.exchange) you'll find various options to get in touch with the team. 
+1. Fork from https://github.com/diva-exchange/i2p/
+2. Pull the forked project to your local developer environment
+3. Make your changes, test, commit and push them
+4. Create a new pull request on github.com
+
+It is strongly recommended to sign your commits: https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
+
+If you have questions, please just contact us (see below).
 
 ## Donations
 
-Your donation goes entirely to the project. Your donation makes the development of DIVA.EXCHANGE faster.
+Your donation goes entirely to the project. Your donation makes the development of DIVA.EXCHANGE faster. Thanks a lot.
 
-XMR: 42QLvHvkc9bahHadQfEzuJJx4ZHnGhQzBXa8C9H3c472diEvVRzevwpN7VAUpCPePCiDhehH4BAWh8kYicoSxpusMmhfwgx
+### XMR
 
-BTC: 3Ebuzhsbs6DrUQuwvMu722LhD8cNfhG1gs
+42QLvHvkc9bahHadQfEzuJJx4ZHnGhQzBXa8C9H3c472diEvVRzevwpN7VAUpCPePCiDhehH4BAWh8kYicoSxpusMmhfwgx
 
-Awesome, thank you!
+![XMR](https://www.diva.exchange/wp-content/uploads/2020/06/diva-exchange-monero-qr-code-1.jpg)
+
+or via https://www.diva.exchange/en/join-in/
+
+### BTC
+
+3Ebuzhsbs6DrUQuwvMu722LhD8cNfhG1gs
+
+![BTC](https://www.diva.exchange/wp-content/uploads/2020/06/diva-exchange-bitcoin-qr-code-1.jpg)
+
+## Contact the Developers
+
+On [DIVA.EXCHANGE](https://www.diva.exchange) you'll find various options to get in touch with the team.
+
+Talk to us via [Telegram](https://t.me/diva_exchange_chat_de) (English or German).
+

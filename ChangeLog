@@ -1,6 +1,13 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.44.0] - 2022-11-27
+### Added
+- Addressbook Subscriptions (notbob, identiguy, reg)
+- IRC client example
+### Changed
+- README update
+
 ## [2.44.0] - 2022-11-20
 ### Added
 - SSL connection for server I2P tunnels

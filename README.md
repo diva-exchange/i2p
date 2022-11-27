@@ -117,7 +117,7 @@ git clone -b master https://github.com/diva-exchange/i2p.git && cd i2p
 To rebuild the docker image and all the contained binaries from source, execute  `./bin/build.sh`. To pass a specific tag, set the environment variable TAG, like `TAG=local-development ./bin/build.sh`. This will result in a docker image called divax/i2p:local-development.
 
 ## Testing
-Run a local testnet using docker-compose, like `docker-compose -f i2p-testnet.yml up -d` and stop it using `docker-compose -f i2p-testnet.yml down --volumes`. This will create two containers, n1.i2pd.local and n2.i2pd.local. Examine the logs by using `docker logs n1.i2pd.local`. Access the web console through http://localhost:7770 (n1) or http://localhost:7771 (n2).
+Run a local testnet using docker compose, like `docker compose -f i2p-testnet.yml up -d` and stop it using `docker compose -f i2p-testnet.yml down --volumes`. This will create two containers, n1.i2pd.local and n2.i2pd.local. Examine the logs by using `docker logs n1.i2pd.local`. Access the web console through http://localhost:7770 (n1) or http://localhost:7771 (n2).
 
 ## Source Code
 GPLv3 licensed and the source code is available here:

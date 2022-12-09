@@ -1,8 +1,8 @@
 FROM alpine:latest
 
-LABEL author="Konrad Baechler <konrad@diva.exchange>" \
-  maintainer="Konrad Baechler <konrad@diva.exchange>" \
-  name="diva-i2p" \
+LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
+  maintainer="DIVA.EXCHANGE Association <contact@diva.exchange>" \
+  name="diva-i2p-tor" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 

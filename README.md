@@ -55,7 +55,7 @@ The docker container might expose an http and a socks proxy. To enable the http 
 
 The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration. The configuration files for DNS and Tor `./network`: `resolv.conf` is containing nameserver information. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
 
-The configuration of a container might be influenced with environment variables: ENABLE_TUNNELS, IP_BRIDGE, ENABLE_HTTPPROXY, PORT_HTTPPROXY, ENABLE_SOCKSPROXY, PORT_SOCKSPROXY, ENABLE_SAM, PORT_SAM, ENABLE_FLOODFILL, BANDWIDTH and ENABLE_UPNP.
+The configuration of a container might be influenced with environment variables: ENABLE_TUNNELS, IP_BRIDGE, ENABLE_HTTPPROXY, PORT_HTTPPROXY, ENABLE_SOCKSPROXY, PORT_SOCKSPROXY, ENABLE_SAM, PORT_SAM, ENABLE_FLOODFILL, BANDWIDTH, ENABLE_UPNP and ENABLE_HIDDEN.
 
 Set ENABLE_TUNNELS to 1 to use the tunnels configuration within the container. Defaults to 0 and therefore tunnels are disabled by default.
 
@@ -78,6 +78,8 @@ Set ENABLE_FLOODFILL to 1 (true) or 0 (false) to create a floodfill router. Defa
 Set BANDWIDTH to control or limit the bandwidth used by the router. Use "L" (32KBs/sec), "O" (256KBs/sec), "P" (2048KBs/sec) or "X" (unlimited). By default, the bandwidth is set to "L" for non-floodfill routers and to "X" for floodfill routers. 
 
 Set ENABLE_UPNP to 1 (true) or 0 (false) to enable UPNP. Defaults to 0 (false).
+
+Set ENABLE_HIDDEN to 1 (true) or 0 (false) to enable hidden mode. Defaults to 0 (false).
 
 Set LOGLEVEL to the desired logging level: debug, info, warn, error or none. Defaults to info. 
 

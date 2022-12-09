@@ -1,6 +1,12 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.44.0] - 2022-12-09
+### Added
+- Environment variable ENABLE_HIDDEN to control hidden mode (default: false)
+### Changed
+- README update
+
 ## [2.44.0] - 2022-11-27
 ### Added
 - Addressbook Subscriptions (notbob, identiguy, reg)

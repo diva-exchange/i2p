@@ -1,8 +1,8 @@
-FROM alpine:latest
+FROM alpine:3.16.3
 
 LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
   maintainer="DIVA.EXCHANGE Association <contact@diva.exchange>" \
-  name="diva-i2p-tor" \
+  name="diva-i2p" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 

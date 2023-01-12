@@ -1,6 +1,14 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.45.1] - 2023-01-12
+### Changed
+- I2Pd v2.45.1 (see ChangeLog-i2pd)
+
+## [2.44.0] - 2022-12-26
+### Added
+- Environment variable TRANSIT_SHARE to control percentage of bandwidth shared for transit (default: 100)
+
 ## [2.44.0] - 2022-12-09
 ### Added
 - Environment variable ENABLE_HIDDEN to control hidden mode (default: false)

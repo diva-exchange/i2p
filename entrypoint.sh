@@ -58,12 +58,22 @@ else
   BANDWIDTH=${BANDWIDTH:-L}
 fi
 
+TRANSIT_SHARE=${TRANSIT_SHARE:-100}
+
 ENABLE_UPNP=${ENABLE_UPNP:-0}
 if [[ ${ENABLE_UPNP} == 1 ]]
 then
   ENABLE_UPNP=true
 else
   ENABLE_UPNP=false
+fi
+
+ENABLE_HIDDEN=${ENABLE_HIDDEN:-0}
+if [[ ${ENABLE_HIDDEN} == 1 ]]
+then
+  ENABLE_HIDDEN=true
+else
+  ENABLE_HIDDEN=false
 fi
 
 ENABLE_TUNNELS=${ENABLE_TUNNELS:-0}
@@ -117,7 +127,9 @@ sed -i 's!\$ENABLE_SAM!'"${ENABLE_SAM}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$PORT_SAM!'"${PORT_SAM}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$ENABLE_FLOODFILL!'"${ENABLE_FLOODFILL}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$BANDWIDTH!'"${BANDWIDTH}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$TRANSIT_SHARE!'"${TRANSIT_SHARE}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$ENABLE_UPNP!'"${ENABLE_UPNP}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$ENABLE_HIDDEN!'"${ENABLE_HIDDEN}"'!g' /home/i2pd/conf/i2pd.conf
 
 # replace variables in the proxy pac files
 sed \

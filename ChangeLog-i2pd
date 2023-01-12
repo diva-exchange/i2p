@@ -1,6 +1,50 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.45.1] - 2023-01-11
+### Added
+- Full Cone NAT status error
+### Changed
+- Drop duplicated I2NP messages in SSU2
+- Set rejection code 30 if tunnel with id already exists
+- Network status is always OK if peer test msg 5 received
+### Fixed
+- UPnP crash if SSU2 or NTCP2 is disabled
+- Crash on termination for some platforms
+
+## [2.45.0] - 2023-01-03
+### Added
+- Test for Symmetric NAT with peer test msgs 6 and 7
+- Webconsole "No Descriptors" router error state
+- 1 and 15 seconds bandwidth calculation for i2pcontrol
+- Show non-zero send queue size for transports in web console
+- Compressible padding for I2P addresses
+- Localization to Czech
+- Don't accept incoming session from invalid/reserved addresses for NTCP2 and SSU2
+- Limit simultaneous tunnel build requests by 4 per pool
+### Changed
+- Removed SSU support
+- Reduced bandwidth calculation interval from 60 to 15 seconds
+- Increased default max transit tunnels number from 2500 to 5000 or 10000 for floodfill
+- Transit tunnels limit is doubled if floodfill mode is enabled
+- NTCP2 and SSU2 timestamps are rounded to seconds
+- Drop RouterInfos and LeaseSets with timestamp from future
+- Don't delete unreachable routers if tunnel creation success rate is too low
+- Refuse duplicated incoming pending NTCP2 session from same IP
+- Don't send SSU2 termination again if termination received block received
+- Handle standard network error for SSU2 without throwing an exception
+- Don't select overloaded peer for next tunnel
+- Remove "X-Requested-With" in HTTP Proxy for non-AJAX requests
+### Fixed
+- File descriptors leak
+- Random crash on AddressBook update
+- Crash if incorrect LeaseSet size
+- Spamming to log if no descriptors
+- ::1 address in RouterInfo
+- SSU2 network error handling (especially for Windows)
+- Race condition with pending outgoing SSU2 sessions
+- RTT self-reduction for long-live streams
+
 ## [2.44.0] - 2022-11-20
 ### Added
 - SSL connection for server I2P tunnels

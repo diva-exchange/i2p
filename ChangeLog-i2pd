@@ -1,6 +1,12 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.46.1] - 2023-02-20
+### Fixed
+- Race condition while getting router's peer profile
+- Creation of new router.info
+- Displaying LeaseSets in the webconsole
+
 ## [2.46.0] - 2023-02-15
 ### Added
 - Limit number of acked SSU2 packets to 511
@@ -86,7 +92,7 @@
 - SSU2 send and verify path challenge
 - Configurable ssu2.mtu4 and ssu2.mtu6
 ### Changed
-- SSU2 is enbaled and SSU is disabled by default
+- SSU2 is enabled and SSU is disabled by default
 - Separate network status and error
 - Random selection between NTCP2 and SSU2 priority
 - Added notbob.i2p to jump services

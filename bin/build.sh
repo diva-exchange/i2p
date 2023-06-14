@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Author/Maintainer: konrad@diva.exchange
+# Author/Maintainer: DIVA.EXCHANGE Association, https://diva.exchange
 #
 
 # -e  Exit immediately if a simple command exits with a non-zero status

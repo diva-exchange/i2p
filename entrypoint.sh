@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-# Author/Maintainer: Konrad Bächler <konrad@diva.exchange>
+# Author/Maintainer: DIVA.EXCHANGE Association, https://diva.exchange
 #
 
 # -e  Exit immediately if a simple command exits with a non-zero status

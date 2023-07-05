@@ -1,13 +1,14 @@
-FROM alpine:3.16.3
+FROM alpine:3.16
 
 LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
   maintainer="DIVA.EXCHANGE Association <contact@diva.exchange>" \
-  name="diva-i2p" \
+  name="diva-i2p-tor" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 
 COPY conf/ /home/i2pd/conf/
 COPY network/ /home/i2pd/network/
+COPY htdocs/ /home/i2pd/htdocs/
 COPY certificates/ /home/i2pd/data/certificates/
 COPY entrypoint.sh /
 
@@ -57,6 +58,8 @@ RUN mkdir -p /home/i2pd/data/addressbook \
     openssl \
     musl-utils \
     libstdc++ \
+    tor \
+    althttpd \
     sed \
   && cp /home/i2pd/conf/addresses-initial.org.csv /home/i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \

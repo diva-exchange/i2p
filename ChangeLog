@@ -1,6 +1,11 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.48.2] - 2023-07-051
+### Fixed
+- docker image based on alpine 3.16
+- Replaced darkhttpd by althttpd
+
 ## [2.48.1] - 2023-07-05
 ### Fixed
 - Removed svg from htdocs, replaced by standard favicon.ico

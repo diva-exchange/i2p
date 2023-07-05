@@ -79,7 +79,11 @@ fi
 ENABLE_TUNNELS=${ENABLE_TUNNELS:-0}
 IP_BRIDGE=${IP_BRIDGE:-`ip route | awk '/default/ { print $3; }'`}
 
+TUNNELS_DIR=/home/i2pd/tunnels.null
 IP_CONTAINER=`ip route get 1 | awk '{ print $NF; exit; }'`
+
+PORT_TOR=${PORT_TOR:?err}
+PORT_HTTP_PROXY=${PORT_HTTP_PROXY:?err}
 
 if [[ ${ENABLE_TUNNELS} == 1 ]]
 then
@@ -127,9 +131,23 @@ sed -i 's!\$TRANSIT_SHARE!'"${TRANSIT_SHARE}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$ENABLE_UPNP!'"${ENABLE_UPNP}"'!g' /home/i2pd/conf/i2pd.conf
 sed -i 's!\$ENABLE_HIDDEN!'"${ENABLE_HIDDEN}"'!g' /home/i2pd/conf/i2pd.conf
 
+# replace variables in the proxy pac files
+sed \
+  's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
+  /home/i2pd/htdocs/proxy.org.pac >/home/i2pd/htdocs/proxy.pac
+sed \
+  's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
+  /home/i2pd/htdocs/proxy-ip2-onion-clearnet.org.pac >/home/i2pd/htdocs/proxy-ip2-onion-clearnet.pac
+
 # overwrite resolv.conf - using specific DNS servers only to initially access reseed servers
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
 
-# see configs: /conf/i2pd.conf
+# tor proxy
+/usr/bin/tor -f /home/i2pd/network/torrc
+
+# httpd server
+su i2pd -c '/usr/bin/althttpd --root ~/htdocs --port 8080 2>&1 &'
+
 su - i2pd
+# see configs: /conf/i2pd.conf
 /home/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/home/i2pd/conf/i2pd.conf

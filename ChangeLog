@@ -1,6 +1,10 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.48.1] - 2023-07-05
+### Fixed
+- Removed svg from htdocs, replaced by standard favicon.ico
+
 ## [2.48.0] - 2023-06-14
 ### Changed
 - I2Pd v2.48.0 (see ChangeLog-i2pd)

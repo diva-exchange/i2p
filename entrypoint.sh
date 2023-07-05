@@ -142,19 +142,12 @@ sed \
 # overwrite resolv.conf - using specific DNS servers only to initially access reseed servers
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
 
-# httpd server
-/usr/bin/darkhttpd /home/i2pd/htdocs \
-  --port 8080 \
-  --daemon \
-  --chroot \
-  --uid i2pd \
-  --gid i2pd \
-  --log /dev/stdout \
-  --no-listing
-
 # tor proxy
 /usr/bin/tor -f /home/i2pd/network/torrc
 
-# see configs: /conf/i2pd.conf
+# httpd server
+su i2pd -c '/usr/bin/althttpd --root ~/htdocs --port 8080 2>&1 &'
+
 su - i2pd
+# see configs: /conf/i2pd.conf
 /home/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/home/i2pd/conf/i2pd.conf

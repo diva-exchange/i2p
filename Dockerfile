@@ -1,4 +1,4 @@
-FROM alpine:3.16.3
+FROM alpine:3.16
 
 LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
   maintainer="DIVA.EXCHANGE Association <contact@diva.exchange>" \
@@ -59,7 +59,7 @@ RUN mkdir -p /home/i2pd/data/addressbook \
     musl-utils \
     libstdc++ \
     tor \
-    darkhttpd \
+    althttpd \
     sed \
   && cp /home/i2pd/conf/addresses-initial.org.csv /home/i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \

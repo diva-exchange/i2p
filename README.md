@@ -50,16 +50,44 @@ This proxy configuration (see source code below for details) uses your new docke
 
 If you prefer a _weaker_ configuration you can also use the proxy file proxy-ip2-onion-clearnet.pac and set the "Automatic proxy configuration URL" to "http://localhost:8080/proxy-ip2-onion-clearnet.pac". This will only route .i2p and .onion addresses through the docker container. Routes to the clearnet won't be affected.
 
-### Advanced: Configuration
-The docker container might expose an http and a socks proxy. To enable the http and/or socks proxy, set the environment variables ENABLE_HTTPPROXY and/or ENABLE_SOCKSPROXY to 1. If enabled, the container exposes the http proxy on port 4444 and the socks proxy on port 4445 by default. These ports might be changed by setting the environment variables PORT_HTTPPROXY or PORT_SOCKSPROXY. 
+### Advanced: Using Configuration Files on the Host System
+If configuration files are located on the host system and shall be used within the container, then bind the configuration folders on the host to the container.
+
+Assume the configuration folder is located at `/tmp/i2pd-test/conf` on your host. Assume the tunnel configuration files are located within `/tmp/i2pd-test/tunnels.test/` on your host. Now run the container like this:
+
+```
+docker run \
+    --env ENABLE_TUNNELS=1  \
+    --mount type=bind,source=/tmp/i2pd-test/conf,target=/home/i2pd/conf \
+    --mount type=bind,source=/tmp/i2pd-test/tunnels.test,target=/home/i2pd/tunnels.source.conf.d \
+    -p 127.0.0.1:7970:7070 \
+    -d \
+    --name i2pd-conf-test \
+    divax/i2p:current
+```
+
+### Advanced: Configuration Using Environment Variables
+
+#### Overview
+The most important bits of the configuration of I2Pd running within a container can be controlled using environment variables. 
+
+The configuration of a container might be influenced using environment variables: ENABLE_TUNNELS, ENABLE_HTTPPROXY, PORT_HTTPPROXY, ENABLE_SOCKSPROXY, PORT_SOCKSPROXY, ENABLE_SAM, PORT_SAM, ENABLE_FLOODFILL, BANDWIDTH, TRANSIT_SHARE, ENABLE_UPNP and ENABLE_HIDDEN.
+
+Example: The docker container might expose a http and a socks proxy. To enable the http and/or socks proxy, set the environment variables ENABLE_HTTPPROXY and/or ENABLE_SOCKSPROXY to 1. If enabled, the container exposes the http proxy on port 4444 and the socks proxy on port 4445 by default. These ports might be changed by setting the environment variables PORT_HTTPPROXY or PORT_SOCKSPROXY. 
 
 The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration. The configuration files for DNS and Tor `./network`: `resolv.conf` is containing nameserver information. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
 
-The configuration of a container might be influenced with environment variables: ENABLE_TUNNELS, IP_BRIDGE, ENABLE_HTTPPROXY, PORT_HTTPPROXY, ENABLE_SOCKSPROXY, PORT_SOCKSPROXY, ENABLE_SAM, PORT_SAM, ENABLE_FLOODFILL, BANDWIDTH, TRANSIT_SHARE, ENABLE_UPNP and ENABLE_HIDDEN.
-
 Set ENABLE_TUNNELS to 1 to use the tunnels configuration within the container. Defaults to 0 and therefore tunnels are disabled by default.
 
-IP_BRIDGE points by default to the docker host interface.
+#### List of Created Environment Variables 
+The entrypoint script of the container creates some environment variables which can be used within configuration files (useful also within tunnel configuration files).
+
+IP_CONTAINER holds the ip address of the container.
+
+IP_BRIDGE contains the docker host interface.
+
+#### List of Used Environment Variables 
+The following environment variables can be used withinthe I2Pd configuration file:
 
 Set ENABLE_HTTPPROXY to 1 (true) or 0 (false) to enable the HTTP proxy. Defaults to 0.
 
@@ -85,6 +113,7 @@ Set ENABLE_HIDDEN to 1 (true) or 0 (false) to enable hidden mode. Defaults to 0 
 
 Set LOGLEVEL to the desired logging level: debug, info, warn, error or none. Defaults to info. 
 
+#### Examples
 Some examples on how to use environment variables:
 
 `docker run --env ENABLE_TUNNELS=1 -p 127.0.0.1:7070:7070 -d --name i2pd divax/i2p:current`

@@ -3,7 +3,6 @@
 
 ## [2.50.1] - 2024-01-01
 ### Changed
-- docker image based on Alpine 3.19
 - I2Pd v2.50.1 (see ChangeLog-i2pd)
 
 ## [2.50.0] - 2023-12-19

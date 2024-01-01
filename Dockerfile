@@ -1,4 +1,4 @@
-FROM alpine:3.16
+FROM alpine:3.19
 
 LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
   maintainer="DIVA.EXCHANGE Association <contact@diva.exchange>" \

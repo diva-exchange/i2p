@@ -34,10 +34,12 @@ RUN mkdir -p /home/i2pd/data/addressbook \
     git \
     autoconf \
     automake \
+    miniupnpc \
+    miniupnpc-dev \
   && cd /tmp \
-  && git clone -b openssl https://github.com/PurpleI2P/i2pd.git \
+  && git clone --depth 1 -b openssl https://github.com/PurpleI2P/i2pd.git \
   && cd /tmp/i2pd/build \
-  && cmake -DWITH_AESNI=ON . \
+  && cmake -DWITH_AESNI=ON -DWITH_UPNP=ON . \
   && make \
   && strip i2pd \
   && mv /tmp/i2pd/build/i2pd /home/i2pd/bin/i2pd \
@@ -58,6 +60,7 @@ RUN mkdir -p /home/i2pd/data/addressbook \
     musl-utils \
     libstdc++ \
     sed \
+    miniupnpc \
   && cp /home/i2pd/conf/addresses-initial.org.csv /home/i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \

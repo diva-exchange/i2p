@@ -1,6 +1,10 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.51.0] - 2024-04-10
+### Changed
+- I2Pd v2.51.0 (see ChangeLog-i2pd)
+
 ## [2.50.2] - 2024-01-20
 ### Changed
 - fix: WITH_UPNP (with libupnp)

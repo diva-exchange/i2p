@@ -6,18 +6,8 @@ LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 
-COPY conf/ /i2pd/conf/
-COPY network/ /i2pd/network/
-COPY certificates/ /i2pd/data/certificates/
-COPY entrypoint.sh /
 
-# install deps && build i2p binary
-RUN mkdir -p /i2pd/data/addressbook \
-  && mkdir /i2pd/tunnels.null \
-  && mkdir /i2pd/tunnels.source.conf.d \
-  && mkdir /i2pd/tunnels.conf.d \
-  && mkdir /i2pd/bin \
-  && apk --no-cache --virtual build-dependendencies add \
+RUN apk --no-cache --virtual build-dependendencies add \
   cmake \
   make \
   gcc \
@@ -35,21 +25,35 @@ RUN mkdir -p /i2pd/data/addressbook \
   autoconf \
   automake \
   miniupnpc \
-  miniupnpc-dev \
-  && cd /tmp \
-  && git clone --depth 1 -b openssl https://github.com/PurpleI2P/i2pd.git \
-  && cd /tmp/i2pd/build \
+  miniupnpc-dev
+
+COPY conf/ /i2pd/conf/
+COPY network/ /i2pd/network/
+COPY certificates/ /i2pd/data/certificates/
+
+# install deps && build i2p binary
+RUN mkdir -p /i2pd/data/addressbook \
+  && mkdir /i2pd/tunnels.null \
+  && mkdir /i2pd/tunnels.source.conf.d \
+  && mkdir /i2pd/tunnels.conf.d \
+  && mkdir /i2pd/bin 
+
+RUN cd /tmp \
+  && git clone --depth 1 -b openssl https://github.com/PurpleI2P/i2pd.git 
+
+RUN cd /tmp/i2pd/build \
   && cmake -DWITH_AESNI=ON -DWITH_UPNP=ON . \
-  && make \
+  && make -j $(nproc) \
   && strip i2pd \
   && mv /tmp/i2pd/build/i2pd /i2pd/bin/i2pd \
   && mv /tmp/i2pd/LICENSE /i2pd/LICENSE \
   && mv /tmp/i2pd/ChangeLog /i2pd/ChangeLog \
   # clean up /tmp
   && cd /i2pd \
-  && rm -rf /tmp/i2pd \
-  # remove build dependencies
-  && apk --no-cache --purge del build-dependendencies \
+  && rm -rf /tmp/i2pd 
+
+# remove build dependencies
+RUN apk --no-cache --purge del build-dependendencies \
   # i2p runtime dependencies
   && apk --no-cache add \
   boost-filesystem \
@@ -60,8 +64,11 @@ RUN mkdir -p /i2pd/data/addressbook \
   musl-utils \
   libstdc++ \
   sed \
-  miniupnpc \
-  && cp /i2pd/conf/addresses-initial.org.csv /i2pd/data/addressbook/addresses.csv \
+  miniupnpc 
+  
+COPY entrypoint.sh /
+
+RUN cp /i2pd/conf/addresses-initial.org.csv /i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/i2pd" -D i2pd \
   && chown -R i2pd:i2pd /i2pd \

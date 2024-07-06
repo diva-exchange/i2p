@@ -79,7 +79,17 @@ fi
 ENABLE_TUNNELS=${ENABLE_TUNNELS:-0}
 IP_BRIDGE=${IP_BRIDGE:-`ip route | awk '/default/ { print $3; }'`}
 
-IP_CONTAINER=`ip route get 1 | awk '{ print $NF; exit; }'`
+# If IP_CONTAINER is not set in the environment, then get it from the host
+if [ -z "$IP_CONTAINER" ]; then
+    IP_CONTAINER=`ip route get 1 | awk '{ print $NF; exit; }'`
+    echo "Binding to $IP_CONTAINER"
+fi
+
+# copy the i2pd directory to the home directory without overwriting the existing files
+cp -nr /i2pd/* /home/i2pd/
+# copy docker volumes separately
+cp -nr /i2pd/conf/* /home/i2pd/conf/
+cp -nr /i2pd/data/* /home/i2pd/data/
 
 if [[ ${ENABLE_TUNNELS} == 1 ]]
 then

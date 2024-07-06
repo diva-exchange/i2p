@@ -6,17 +6,17 @@ LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
   description="Distributed digital value exchange upholding security, reliability and privacy" \
   url="https://diva.exchange"
 
-COPY conf/ /home/i2pd/conf/
-COPY network/ /home/i2pd/network/
-COPY certificates/ /home/i2pd/data/certificates/
+COPY conf/ /i2pd/conf/
+COPY network/ /i2pd/network/
+COPY certificates/ /i2pd/data/certificates/
 COPY entrypoint.sh /
-COPY bin/i2pd /home/i2pd/bin/i2pd
+COPY bin/i2pd /i2pd/bin/i2pd
 
 # install deps && build i2p binary
-RUN mkdir -p /home/i2pd/data/addressbook \
-  && mkdir /home/i2pd/tunnels.null \
-  && mkdir /home/i2pd/tunnels.source.conf.d \
-  && mkdir /home/i2pd/tunnels.conf.d \
+RUN mkdir -p /i2pd/data/addressbook \
+  && mkdir /i2pd/tunnels.null \
+  && mkdir /i2pd/tunnels.source.conf.d \
+  && mkdir /i2pd/tunnels.conf.d \
   # i2p runtime dependencies
   && apk --no-cache add \
     boost-filesystem \
@@ -28,13 +28,13 @@ RUN mkdir -p /home/i2pd/data/addressbook \
     libstdc++ \
     sed \
     miniupnpc \
-  && cp /home/i2pd/conf/addresses-initial.org.csv /home/i2pd/data/addressbook/addresses.csv \
+  && cp /i2pd/conf/addresses-initial.org.csv /i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \
-  && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
-  && chown -R i2pd:i2pd /home/i2pd \
-  && chmod 0700 /home/i2pd/bin/i2pd \
+  && adduser -u 1000 -G i2pd -s /bin/sh -h "/i2pd" -D i2pd \
+  && chown -R i2pd:i2pd /i2pd \
+  && chmod 0700 /i2pd/bin/i2pd \
   && chmod +x /entrypoint.sh
 
-VOLUME [ "/home/i2pd/data/" ]
-WORKDIR "/home/i2pd/"
+VOLUME [ "/i2pd/data/" ]
+WORKDIR "/i2pd/"
 ENTRYPOINT ["/entrypoint.sh"]

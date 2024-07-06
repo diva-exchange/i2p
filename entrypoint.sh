@@ -119,27 +119,27 @@ fi
 LOGLEVEL=${LOGLEVEL:-info}
 
 # create a copy of the i2pd config file
-cp /home/i2pd/conf/i2pd.org.conf /home/i2pd/conf/i2pd.conf
+cp /home/i2pd/conf/i2pd.conf /tmp/i2pd.conf
 # replace variables in the i2pd config files
-sed -i 's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$LOGLEVEL!'"${LOGLEVEL}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$ENABLE_HTTPPROXY!'"${ENABLE_HTTPPROXY}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$PORT_HTTPPROXY!'"${PORT_HTTPPROXY}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$ENABLE_SOCKSPROXY!'"${ENABLE_SOCKSPROXY}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$PORT_SOCKSPROXY!'"${PORT_SOCKSPROXY}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$ENABLE_SAM!'"${ENABLE_SAM}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$PORT_SAM!'"${PORT_SAM}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$ENABLE_FLOODFILL!'"${ENABLE_FLOODFILL}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$BANDWIDTH!'"${BANDWIDTH}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$TRANSIT_SHARE!'"${TRANSIT_SHARE}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$ENABLE_UPNP!'"${ENABLE_UPNP}"'!g' /home/i2pd/conf/i2pd.conf
-sed -i 's!\$ENABLE_HIDDEN!'"${ENABLE_HIDDEN}"'!g' /home/i2pd/conf/i2pd.conf
+sed -i 's!\$IP_CONTAINER!'"${IP_CONTAINER}"'!g' /tmp/i2pd.conf
+sed -i 's!\$IP_BRIDGE!'"${IP_BRIDGE}"'!g' /tmp/i2pd.conf
+sed -i 's!\$TUNNELS_DIR!'"${TUNNELS_DIR}"'!g' /tmp/i2pd.conf
+sed -i 's!\$LOGLEVEL!'"${LOGLEVEL}"'!g' /tmp/i2pd.conf
+sed -i 's!\$ENABLE_HTTPPROXY!'"${ENABLE_HTTPPROXY}"'!g' /tmp/i2pd.conf
+sed -i 's!\$PORT_HTTPPROXY!'"${PORT_HTTPPROXY}"'!g' /tmp/i2pd.conf
+sed -i 's!\$ENABLE_SOCKSPROXY!'"${ENABLE_SOCKSPROXY}"'!g' /tmp/i2pd.conf
+sed -i 's!\$PORT_SOCKSPROXY!'"${PORT_SOCKSPROXY}"'!g' /tmp/i2pd.conf
+sed -i 's!\$ENABLE_SAM!'"${ENABLE_SAM}"'!g' /tmp/i2pd.conf
+sed -i 's!\$PORT_SAM!'"${PORT_SAM}"'!g' /tmp/i2pd.conf
+sed -i 's!\$ENABLE_FLOODFILL!'"${ENABLE_FLOODFILL}"'!g' /tmp/i2pd.conf
+sed -i 's!\$BANDWIDTH!'"${BANDWIDTH}"'!g' /tmp/i2pd.conf
+sed -i 's!\$TRANSIT_SHARE!'"${TRANSIT_SHARE}"'!g' /tmp/i2pd.conf
+sed -i 's!\$ENABLE_UPNP!'"${ENABLE_UPNP}"'!g' /tmp/i2pd.conf
+sed -i 's!\$ENABLE_HIDDEN!'"${ENABLE_HIDDEN}"'!g' /tmp/i2pd.conf
 
 # overwrite resolv.conf - using specific DNS servers only to initially access reseed servers
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
 
 # see configs: /conf/i2pd.conf
 su - i2pd
-/home/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/home/i2pd/conf/i2pd.conf
+/home/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/tmp/i2pd.conf

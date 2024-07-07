@@ -1,5 +1,4 @@
 FROM alpine:3.16
-ENV PORT_TOR=9950
 
 LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
   maintainer="DIVA.EXCHANGE Association <contact@diva.exchange>" \

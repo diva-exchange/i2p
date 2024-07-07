@@ -142,4 +142,4 @@ cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
 
 # see configs: /conf/i2pd.conf
 su - i2pd
-/home/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/tmp/i2pd.conf
+/i2pd/bin/i2pd --datadir=/home/i2pd/data --conf=/tmp/i2pd.conf

@@ -74,8 +74,9 @@ RUN cp /i2pd/conf/addresses-initial.org.csv /i2pd/data/addressbook/addresses.csv
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/i2pd" -D i2pd \
   && chown -R i2pd:i2pd /i2pd \
   && chmod 0700 /i2pd/bin/i2pd \
-  && chmod +x /entrypoint.sh
+  && chmod +x /entrypoint.sh \
+  && mkdir -p /home/i2pd/
 
-VOLUME [ "/i2pd/data/" ]
-WORKDIR "/i2pd/"
+VOLUME [ "/home/i2pd/data/" ]
+WORKDIR "/home/i2pd/"
 ENTRYPOINT ["/entrypoint.sh"]

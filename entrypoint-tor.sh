@@ -85,11 +85,15 @@ if [ -z "$IP_CONTAINER" ]; then
     echo "Binding to $IP_CONTAINER"
 fi
 
+PORT_TOR=${PORT_TOR:?err}
+PORT_HTTP_PROXY=${PORT_HTTP_PROXY:?err}
+
 # copy the i2pd directory to the home directory without overwriting the existing files
 cp -nr /i2pd/* /home/i2pd/
 # copy docker volumes separately
 cp -nr /i2pd/conf/* /home/i2pd/conf/
 cp -nr /i2pd/data/* /home/i2pd/data/
+cp -nr /i2pd/htdocs/* /home/i2pd/htdocs/
 
 if [[ ${ENABLE_TUNNELS} == 1 ]]
 then
@@ -137,8 +141,22 @@ sed -i 's!\$TRANSIT_SHARE!'"${TRANSIT_SHARE}"'!g' /tmp/i2pd.conf
 sed -i 's!\$ENABLE_UPNP!'"${ENABLE_UPNP}"'!g' /tmp/i2pd.conf
 sed -i 's!\$ENABLE_HIDDEN!'"${ENABLE_HIDDEN}"'!g' /tmp/i2pd.conf
 
+# replace variables in the proxy pac files
+sed \
+  's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
+  /home/i2pd/htdocs/proxy.org.pac >/home/i2pd/htdocs/proxy.pac
+sed \
+  's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
+  /home/i2pd/htdocs/proxy-ip2-onion-clearnet.org.pac >/home/i2pd/htdocs/proxy-ip2-onion-clearnet.pac
+
 # overwrite resolv.conf - using specific DNS servers only to initially access reseed servers
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf
+
+# tor proxy
+/usr/bin/tor -f /home/i2pd/network/torrc
+
+# httpd server
+su i2pd -c '/usr/bin/althttpd --root /home/i2pd/htdocs --port 8080 2>&1 &'
 
 su - i2pd
 # see configs: /conf/i2pd.conf

@@ -15,6 +15,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Get commit SHA for PurpleI2P/i2pd
+        id: get_commit_sha
+        run: |
+          git clone https://github.com/PurpleI2P/i2pd.git
+          cd i2pd
+          git checkout openssl
+          I2P_COMMIT_SHA=$(git rev-parse --short HEAD)
+          echo "I2P_COMMIT_SHA=$I2P_COMMIT_SHA" >> $GITHUB_ENV
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -34,6 +43,6 @@ jobs:
           file: ./Dockerfile-tor
           platforms: linux/arm64,linux/amd64,linux/arm/v7
           push: true
-          tags: shrirajhegde/i2pd-tor:latest
+          tags: shrirajhegde/i2pd-tor:latest,shrirajhegde/i2pd-tor:${{ env.I2P_COMMIT_SHA }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

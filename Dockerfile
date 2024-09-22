@@ -1,4 +1,4 @@
-FROM alpine:3.16 AS builder
+FROM alpine:3 AS builder
 
 LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
   maintainer="DIVA.EXCHANGE Association <contact@diva.exchange>" \
@@ -45,14 +45,14 @@ RUN cd /tmp/i2pd/build \
   && cmake -DWITH_AESNI=ON -DWITH_UPNP=ON . \
   && make -j $(nproc) \
   && strip i2pd 
-  # && mv /tmp/i2pd/build/i2pd /i2pd/bin/i2pd \
-  # && mv /tmp/i2pd/LICENSE /i2pd/LICENSE \
-  # && mv /tmp/i2pd/ChangeLog /i2pd/ChangeLog \
-  # # clean up /tmp
-  # && cd /i2pd \
-  # && rm -rf /tmp/i2pd 
+# && mv /tmp/i2pd/build/i2pd /i2pd/bin/i2pd \
+# && mv /tmp/i2pd/LICENSE /i2pd/LICENSE \
+# && mv /tmp/i2pd/ChangeLog /i2pd/ChangeLog \
+# # clean up /tmp
+# && cd /i2pd \
+# && rm -rf /tmp/i2pd 
 
-FROM alpine:3.16
+FROM alpine:3
 
 RUN apk --no-cache add \
   boost-filesystem \

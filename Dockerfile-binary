@@ -1,4 +1,4 @@
-FROM alpine:3.16
+FROM alpine:3
 
 LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
   maintainer="DIVA.EXCHANGE Association <contact@diva.exchange>" \
@@ -19,15 +19,15 @@ RUN mkdir -p /i2pd/data/addressbook \
   && mkdir /i2pd/tunnels.conf.d \
   # i2p runtime dependencies
   && apk --no-cache add \
-    boost-filesystem \
-    boost-system \
-    boost-program_options \
-    boost-date_time \
-    openssl \
-    musl-utils \
-    libstdc++ \
-    sed \
-    miniupnpc \
+  boost-filesystem \
+  boost-system \
+  boost-program_options \
+  boost-date_time \
+  openssl \
+  musl-utils \
+  libstdc++ \
+  sed \
+  miniupnpc \
   && cp /i2pd/conf/addresses-initial.org.csv /i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \
   && adduser -u 1000 -G i2pd -s /bin/sh -h "/i2pd" -D i2pd \

@@ -43,6 +43,6 @@ jobs:
           file: ./Dockerfile-tor
           platforms: linux/arm64,linux/amd64,linux/arm/v7
           push: true
-          tags: shrirajhegde/i2pd-tor:latest,shrirajhegde/i2pd-tor:${{ env.I2P_COMMIT_SHA }}
+          tags: shrirajhegde/i2pd-tor:latest,shrirajhegde/i2pd-tor:git-${{ env.I2P_COMMIT_SHA }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

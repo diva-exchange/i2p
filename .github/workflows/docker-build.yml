@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push tor variant
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -46,3 +46,15 @@ jobs:
           tags: shrirajhegde/i2pd-tor:latest,shrirajhegde/i2pd-tor:git-${{ env.I2P_COMMIT_SHA }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Build and push regular variant
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/arm64,linux/amd64,linux/arm/v7
+          push: true
+          tags: shrirajhegde/i2pd:latest,shrirajhegde/i2pd:git-${{ env.I2P_COMMIT_SHA }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+

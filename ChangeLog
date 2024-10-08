@@ -1,6 +1,16 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.54.0] - 2024-10-06
+### Changed
+- I2Pd v2.54.0 (see ChangeLog-i2pd)
+- docker improvements, credits and thanks to: https://github.com/diva-exchange/i2p/pull/10
+- I2Pd has removed dependencies to boost-filesystem and boost-date_time, also removed dependencies from Dockerfile
+- removed Dockerfile-binary
+
+### Fixed
+- using tag (like "2.54.0") instead of branch to build i2pd
+
 ## [2.52.0] - 2024-05-14
 ### Changed
 - I2Pd v2.52.0 (see ChangeLog-i2pd)

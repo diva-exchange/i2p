@@ -36,40 +36,32 @@ RUN mkdir -p /i2pd/data/addressbook \
   && mkdir /i2pd/tunnels.null \
   && mkdir /i2pd/tunnels.source.conf.d \
   && mkdir /i2pd/tunnels.conf.d \
-  && mkdir /i2pd/bin 
+  && mkdir /i2pd/bin
 
 RUN cd /tmp \
-  && git clone --depth 1 -b openssl https://github.com/PurpleI2P/i2pd.git 
+  && git clone --depth 1 --branch 2.54.0 https://github.com/PurpleI2P/i2pd.git
 
 RUN cd /tmp/i2pd/build \
   && cmake -DWITH_AESNI=ON -DWITH_UPNP=ON . \
   && make -j $(nproc) \
-  && strip i2pd 
-# && mv /tmp/i2pd/build/i2pd /i2pd/bin/i2pd \
-# && mv /tmp/i2pd/LICENSE /i2pd/LICENSE \
-# && mv /tmp/i2pd/ChangeLog /i2pd/ChangeLog \
-# # clean up /tmp
-# && cd /i2pd \
-# && rm -rf /tmp/i2pd 
+  && strip i2pd
 
 FROM alpine:3
 
 RUN apk --no-cache add \
-  boost-filesystem \
   boost-system \
   boost-program_options \
-  boost-date_time \
   openssl \
   musl-utils \
   libstdc++ \
   sed \
-  miniupnpc 
+  miniupnpc
 
 RUN mkdir -p /i2pd/data/addressbook \
   && mkdir /i2pd/tunnels.null \
   && mkdir /i2pd/tunnels.source.conf.d \
   && mkdir /i2pd/tunnels.conf.d \
-  && mkdir /i2pd/bin 
+  && mkdir /i2pd/bin
 
 COPY --from=builder /tmp/i2pd/build/i2pd /i2pd/bin/i2pd
 COPY --from=builder /tmp/i2pd/LICENSE /i2pd/LICENSE

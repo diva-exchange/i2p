@@ -144,8 +144,10 @@ Some examples of tunnel configuration files are found within the folder `tunnels
 ## Build from Source on Linux
 Get the source code from the public repository:
 ```
-git clone -b master https://github.com/diva-exchange/i2p.git && cd i2p
+git clone -b main https://github.com/diva-exchange/i2p.git && cd i2p
 ```
+
+Requirements: building requires docker and the docker buildx plugin. See: https://docs.docker.com/reference/cli/docker/buildx/
 
 To rebuild the docker image and all the contained binaries from source, execute  `./bin/build.sh`. To pass a specific tag, set the environment variable TAG, like `TAG=local-development ./bin/build.sh`. This will result in a docker image called divax/i2p:local-development.
 

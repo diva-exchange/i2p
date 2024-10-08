@@ -75,7 +75,7 @@ The configuration of a container might be influenced using environment variables
 
 Example: The docker container might expose a http and a socks proxy. To enable the http and/or socks proxy, set the environment variables ENABLE_HTTPPROXY and/or ENABLE_SOCKSPROXY to 1. If enabled, the container exposes the http proxy on port 4444 and the socks proxy on port 4445 by default. These ports might be changed by setting the environment variables PORT_HTTPPROXY or PORT_SOCKSPROXY. 
 
-The configuration files for I2P are found within the folder `./conf`, whereas `i2pd.org.conf` contains the main I2P configuration. The configuration files for DNS and Tor `./network`: `resolv.conf` is containing nameserver information. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
+The configuration files for I2P are found within the folder `./conf`. The configuration files for DNS and Tor `./network`: `resolv.conf` is containing nameserver information. The Tor configuration file is found within the folder `./network`: `torrc` configures the behaviour of the Tor service.
 
 Set ENABLE_TUNNELS to 1 to use the tunnels configuration within the container. Defaults to 0 and therefore tunnels are disabled by default.
 

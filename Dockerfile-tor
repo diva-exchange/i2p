@@ -45,12 +45,12 @@ RUN cd /tmp/i2pd/build \
   && cmake -DWITH_AESNI=ON -DWITH_UPNP=ON . \
   && make -j $(nproc) \
   && strip i2pd 
-# && mv /tmp/i2pd/build/i2pd /i2pd/bin/i2pd \
-# && mv /tmp/i2pd/LICENSE /i2pd/LICENSE \
-# && mv /tmp/i2pd/ChangeLog /i2pd/ChangeLog \
-# # clean up /tmp
-# && cd /i2pd \
-# && rm -rf /tmp/i2pd 
+  # && mv /tmp/i2pd/build/i2pd /i2pd/bin/i2pd \
+  # && mv /tmp/i2pd/LICENSE /i2pd/LICENSE \
+  # && mv /tmp/i2pd/ChangeLog /i2pd/ChangeLog \
+  # # clean up /tmp
+  # && cd /i2pd \
+  # && rm -rf /tmp/i2pd 
 
 FROM alpine:3
 
@@ -62,6 +62,8 @@ RUN apk --no-cache add \
   openssl \
   musl-utils \
   libstdc++ \
+  tor \
+  althttpd \
   sed \
   miniupnpc 
 
@@ -79,7 +81,7 @@ COPY conf/ /i2pd/conf/
 COPY network/ /i2pd/network/
 COPY certificates/ /i2pd/data/certificates/
 COPY htdocs/ /i2pd/htdocs/
-COPY entrypoint.sh /
+COPY entrypoint-tor.sh /entrypoint.sh
 
 RUN cp /i2pd/conf/addresses-initial.org.csv /i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \

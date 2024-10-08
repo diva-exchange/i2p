@@ -1,0 +1,43 @@
+services:
+    i2p:
+        environment:
+            - PORT_TOR=9950
+            - ENABLE_HTTPPROXY=1
+            - PORT_HTTP_PROXY=4444
+            - ENABLE_SOCKSPROXY=1
+            - PORT_SOCKSPROXY=4445
+            - ENABLE_SAM=0
+            - PORT_SAM=7656
+            - ENABLE_FLOODFILL=0
+            - BANDWIDTH=X
+            - TRANSIT_SHARE=100
+            - ENABLE_UPNP=0
+            - ENABLE_HIDDEN = 0
+            - ENABLE_TUNNELS = 0
+            # if you want i2pd to listen to all interfaces (inside docker container)
+            # set IP_CONTAINER to 0.0.0.0 by uncommenting the line below
+            - IP_CONTAINER=0.0.0.0
+
+        ports:
+        # i2pd webconsole
+            - 127.0.0.1:7070:7070
+        # http proxy
+            - 127.0.0.1:4444:4444
+        # socks proxy for tor
+            - 127.0.0.1:9950:9050
+        # proxy setup
+            - 127.0.0.1:8080:8080
+        # SAM 
+            - 127.0.0.1:7656:7656
+        # i2cp
+            - 127.0.0.1:7654:7654
+
+        volumes:
+            - /tmp/path/to/data:/home/i2pd/data
+            - /tmp/path/to/conf:/home/i2pd/conf
+
+        # container_name: i2p-tor
+        # image: divax/i2p:current-i2p-tor
+        build:
+            context: i2pd
+            dockerfile: Dockerfile-tor

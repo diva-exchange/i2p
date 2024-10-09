@@ -22,6 +22,7 @@ RUN apk --no-cache --virtual build-dependendencies add \
   openssl-dev \
   openssl \
   git \
+  sed \
   autoconf \
   automake \
   miniupnpc \
@@ -40,6 +41,9 @@ RUN mkdir -p /i2pd/data/addressbook \
 
 RUN cd /tmp \
   && git clone --depth 1 --branch 2.54.0 https://github.com/PurpleI2P/i2pd.git
+
+#patch to remove boost-filesystem dependency
+RUN sed -i 's/find_package(Boost REQUIRED COMPONENTS system filesystem program_options)/find_package(Boost REQUIRED COMPONENTS system program_options)/g' /tmp/i2pd/build/CMakeLists.txt
 
 RUN cd /tmp/i2pd/build \
   && cmake -DWITH_AESNI=ON -DWITH_UPNP=ON . \
@@ -81,6 +85,5 @@ RUN cp /i2pd/conf/addresses-initial.org.csv /i2pd/data/addressbook/addresses.csv
   && chmod +x /entrypoint.sh \
   && mkdir -p /home/i2pd/
 
-VOLUME [ "/home/i2pd/data/" ]
 WORKDIR "/home/i2pd/"
 ENTRYPOINT ["/entrypoint.sh"]

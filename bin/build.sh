@@ -13,11 +13,9 @@ TAG=${TAG:-current}
 
 sudo docker buildx build --force-rm --no-cache -t divax/i2p:"${TAG}" .
 sudo docker volume create i2pd-build
-sudo docker volume create i2pd-data
 sudo docker run \
   -d \
   --mount type=volume,src=i2pd-build,dst=/i2pd/ \
-  --mount type=volume,src=i2pd-data,dst=/i2pd/data \
   --name i2pd-build divax/i2p:"${TAG}"
 
 # update certs
@@ -36,4 +34,3 @@ sudo chmod u+x ./bin/i2pd
 sudo docker stop i2pd-build
 sudo docker rm i2pd-build
 sudo docker volume rm i2pd-build
-sudo docker volume rm i2pd-data

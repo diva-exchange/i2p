@@ -29,7 +29,7 @@ As said, this tutorial might be helpful: [Introduction to “I2P”](https://www
 
 ### How to Run the Docker Container
  
-#### On Linux, MaCOS and Windows
+#### On Linux, MacOS and Windows
 Run one of the following command in a shell (powershell on Windows).
 
 To run the I2P/TOR-proxy only on your localhost (entry-level, running on your computer or laptop):
@@ -41,7 +41,7 @@ To run I2P only (advanced):
 `docker run --env ENABLE_HTTPPROXY=1 --env ENABLE_SOCKSPROXY=1 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2p divax/i2p:current`
 
 
-#### On a network server (Linux, MaCOS and Windows)
+#### On a network server (Linux, MacOS and Windows)
 
 To run the I2P/TOR-proxy on a server on your local network (example: a NAS or a Raspberry PI within your network):
 

@@ -7,22 +7,12 @@ on:
   push:
     branches:
       - main
-      - develop
 jobs:
   docker-build-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Get commit SHA for PurpleI2P/i2pd
-        id: get_commit_sha
-        run: |
-          git clone https://github.com/PurpleI2P/i2pd.git
-          cd i2pd
-          git checkout openssl
-          I2P_COMMIT_SHA=$(git rev-parse --short HEAD)
-          echo "I2P_COMMIT_SHA=$I2P_COMMIT_SHA" >> $GITHUB_ENV
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -33,8 +23,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.HUB_DOCKER_COM_USERNAME }}
+          password: ${{ secrets.HUB_DOCKER_COM_PASSWORD }}
 
       - name: Build and push tor variant
         uses: docker/build-push-action@v6
@@ -43,7 +33,7 @@ jobs:
           file: ./Dockerfile-tor
           platforms: linux/arm64,linux/amd64,linux/arm/v7
           push: true
-          tags: shrirajhegde/i2pd-tor:latest,shrirajhegde/i2pd-tor:git-${{ env.I2P_COMMIT_SHA }}
+          tags: divax/i2p:current-i2p-tor
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -54,7 +44,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/arm64,linux/amd64,linux/arm/v7
           push: true
-          tags: shrirajhegde/i2pd:latest,shrirajhegde/i2pd:git-${{ env.I2P_COMMIT_SHA }}
+          tags: divax/i2p:current
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

@@ -29,10 +29,10 @@ As said, this tutorial might be helpful: [Introduction to “I2P”](https://www
 
 ### How to Run the Docker Container
  
-#### On Linux, OSX and Windows
+#### On Linux, MaCOS and Windows
 Run one of the following command in a shell (powershell on Windows).
 
-To run the I2P/TOR-proxy only (entry-level):
+To run the I2P/TOR-proxy only on your localhost (entry-level, running on your computer or laptop):
 
 `docker run --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 --env ENABLE_HTTPPROXY=1 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor divax/i2p:current-i2p-tor`
 
@@ -40,11 +40,26 @@ To run I2P only (advanced):
 
 `docker run --env ENABLE_HTTPPROXY=1 --env ENABLE_SOCKSPROXY=1 -p 7070:7070 -p 4444:4444 -p 4445:4445 -d --name i2p divax/i2p:current`
 
+
+#### On a network server (Linux, MaCOS and Windows)
+
+To run the I2P/TOR-proxy on a server on your local network (example: a NAS or a Raspberry PI within your network):
+
+`docker run --env IP_HOST=[IP-ADDRESS-OF-YOUR-SERVER] --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 --env ENABLE_HTTPPROXY=1 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor divax/i2p:current-i2p-tor`
+
+Replace [IP-ADDRESS-OF-YOUR-SERVER] in the command above with the IP address of your server (like your NAS or your Raspberry PI).
+
+Example:
+`docker run --env IP_HOST=10.11.12.13 --env PORT_TOR=9950 --env PORT_HTTP_PROXY=4544 --env ENABLE_HTTPPROXY=1 -p 7170:7070 -p 4544:4444 -p 9950:9050 -p 8080:8080 -d --name i2p-tor divax/i2p:current-i2p-tor`
+
+
 ### Check the Status of your Container
 Check your now-running docker container with `docker ps -a` (within your shell/powershell) and look for the container "i2pd".
 
 ### Entry-Level: How to Adapt the Proxy Settings of Your Browser
 Open your favourite browser, like Firefox. Open the settings. Search for "proxy". Then enable "Automatic proxy configuration URL" and set it to "http://localhost:8080/proxy.pac".
+
+REMARK: if your docker container is running on a network server (example: a NAS or a Raspberry PI) replace "localhost" by the IP address of your network server. Example: http://10.11.12.13:8080/proxy.pac
 
 This proxy configuration (see source code below for details) uses your new docker container to route all your browser traffic through either I2P or Tor. If you now browse the clearnet (like https://diva.exchange) you'll be using automatically Tor.
 

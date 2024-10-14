@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (C) 2020 diva.exchange
+# Copyright (C) 2020-2024 diva.exchange
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -85,6 +85,11 @@ if [ -z "$IP_CONTAINER" ]; then
     echo "Binding to $IP_CONTAINER"
 fi
 
+# If IP_HOST is not set in the environment, use localhost
+if [ -z "$IP_HOST" ]; then
+    IP_HOST=localhost
+fi
+
 PORT_TOR=${PORT_TOR:?err}
 PORT_HTTP_PROXY=${PORT_HTTP_PROXY:?err}
 
@@ -142,12 +147,16 @@ sed -i 's!\$ENABLE_UPNP!'"${ENABLE_UPNP}"'!g' /tmp/i2pd.conf
 sed -i 's!\$ENABLE_HIDDEN!'"${ENABLE_HIDDEN}"'!g' /tmp/i2pd.conf
 
 # replace variables in the proxy pac files
-sed \
-  's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
-  /home/i2pd/htdocs/proxy.org.pac >/home/i2pd/htdocs/proxy.pac
-sed \
-  's!\$PORT_TOR!'"${PORT_TOR}"'!g ; s!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' \
-  /home/i2pd/htdocs/proxy-ip2-onion-clearnet.org.pac >/home/i2pd/htdocs/proxy-ip2-onion-clearnet.pac
+cp /home/i2pd/htdocs/proxy.org.pac /tmp/proxy.pac
+cp /home/i2pd/htdocs/proxy-ip2-onion-clearnet.org.pac /tmp/proxy-ip2-onion-clearnet.pac
+sed -i 's!\$IP_HOST!'"${IP_HOST}"'!g' /tmp/proxy.pac
+sed -i 's!\$PORT_TOR!'"${PORT_TOR}"'!g' /tmp/proxy.pac
+sed -i 's!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' /tmp/proxy.pac
+sed -i 's!\$IP_HOST!'"${IP_HOST}"'!g' /tmp/proxy-ip2-onion-clearnet.pac
+sed -i 's!\$PORT_TOR!'"${PORT_TOR}"'!g' /tmp/proxy-ip2-onion-clearnet.pac
+sed -i 's!\$PORT_HTTP_PROXY!'"${PORT_HTTP_PROXY}"'!g' /tmp/proxy-ip2-onion-clearnet.pac
+cp /tmp/proxy.pac /home/i2pd/htdocs/proxy.pac
+cp /tmp/proxy-ip2-onion-clearnet.pac /home/i2pd/htdocs/proxy-ip2-onion-clearnet.pac
 
 # overwrite resolv.conf - using specific DNS servers only to initially access reseed servers
 cat </home/i2pd/network/resolv.conf >/etc/resolv.conf

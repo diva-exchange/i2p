@@ -31,7 +31,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile-tor
-          platforms: linux/arm64,linux/amd64,linux/arm/v7
+          platforms: linux/arm64,linux/amd64
           push: true
           tags: divax/i2p:current-i2p-tor
           cache-from: type=gha
@@ -42,7 +42,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/arm64,linux/amd64,linux/arm/v7
+          platforms: linux/arm64,linux/amd64
           push: true
           tags: divax/i2p:current
           cache-from: type=gha

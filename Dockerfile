@@ -42,9 +42,6 @@ RUN mkdir -p /i2pd/data/addressbook \
 RUN cd /tmp \
   && git clone --depth 1 --branch 2.55.0 https://github.com/PurpleI2P/i2pd.git
 
-#patch to remove boost-filesystem dependency
-RUN sed -i 's/find_package(Boost REQUIRED COMPONENTS system filesystem program_options)/find_package(Boost REQUIRED COMPONENTS system program_options)/g' /tmp/i2pd/build/CMakeLists.txt
-
 RUN cd /tmp/i2pd/build \
   && cmake -DWITH_AESNI=ON -DWITH_UPNP=ON . \
   && make -j $(nproc) \

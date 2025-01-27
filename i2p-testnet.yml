@@ -17,7 +17,6 @@
 # Author/Maintainer: DIVA.EXCHANGE Association, https://diva.exchange
 #
 
-version: "3.7"
 services:
   n1.i2pd.local:
     container_name: n1.i2pd.local

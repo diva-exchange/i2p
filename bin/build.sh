@@ -19,9 +19,9 @@ sudo docker run \
   --name i2pd-build divax/i2p:"${TAG}"
 
 # update certs
-rm -R certificates
+rm -Rf ./certificates
 sudo cp -r -f /var/lib/docker/volumes/i2pd-build/_data/data/certificates ./certificates
-sudo chown -R --reference ./ certificates
+sudo chown -R --reference ./ ./certificates
 
 # update changelog & license
 sudo cp -r -f /var/lib/docker/volumes/i2pd-build/_data/ChangeLog ./ChangeLog-i2pd

@@ -30,7 +30,6 @@ RUN apk --no-cache --virtual build-dependendencies add \
 
 COPY conf/ /i2pd/conf/
 COPY network/ /i2pd/network/
-COPY certificates/ /i2pd/data/certificates/
 
 # install deps && build i2p binary
 RUN mkdir -p /i2pd/data/addressbook \
@@ -67,16 +66,16 @@ RUN mkdir -p /i2pd/data/addressbook \
 COPY --from=builder /tmp/i2pd/build/i2pd /i2pd/bin/i2pd
 COPY --from=builder /tmp/i2pd/LICENSE /i2pd/LICENSE
 COPY --from=builder /tmp/i2pd/ChangeLog /i2pd/ChangeLog
+COPY --from=builder /tmp/i2pd/contrib/certificates /i2pd/data/certificates
 
 COPY conf/ /i2pd/conf/
 COPY network/ /i2pd/network/
-COPY certificates/ /i2pd/data/certificates/
 COPY htdocs/ /i2pd/htdocs/
 COPY entrypoint.sh /
 
 RUN cp /i2pd/conf/addresses-initial.org.csv /i2pd/data/addressbook/addresses.csv \
   && addgroup -g 1000 i2pd \
-  && adduser -u 1000 -G i2pd -s /bin/sh -h "/home/i2pd" -D i2pd \
+  && adduser -u 1000 -G i2pd -s /bin/sh -h "/i2pd" -D i2pd \
   && chown -R i2pd:i2pd /i2pd \
   && chmod 0700 /i2pd/bin/i2pd \
   && chmod +x /entrypoint.sh \

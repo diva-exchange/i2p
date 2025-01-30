@@ -50,6 +50,7 @@ FROM alpine:3
 
 RUN apk --no-cache add \
   boost-system \
+  boost-filesystem \
   boost-program_options \
   openssl \
   musl-utils \

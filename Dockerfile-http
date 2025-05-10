@@ -1,0 +1,18 @@
+FROM divax/i2p:current
+
+LABEL author="DIVA.EXCHANGE Association <contact@diva.exchange>" \
+  maintainer="DIVA.EXCHANGE Association <contact@diva.exchange>" \
+  name="diva-i2p-http" \
+  description="Distributed digital value exchange upholding security, reliability and privacy" \
+  url="https://diva.exchange"
+
+RUN apk --no-cache add \
+  althttpd
+
+COPY tunnels.example.conf.d/local-http.conf /home/i2pd/tunnels.source.conf.d/local-http.conf
+COPY entrypoint-http.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
+
+WORKDIR "/home/i2pd/"
+ENTRYPOINT ["/entrypoint.sh"]

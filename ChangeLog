@@ -1,6 +1,10 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.56.0] - 2024-06-03
+### Changed
+- I2Pd v2.57.0 (see ChangeLog-i2pd)
+
 ## [2.56.0] - 2024-02-19
 ### Changed
 - I2Pd v2.56.0 (see ChangeLog-i2pd)

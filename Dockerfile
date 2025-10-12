@@ -82,5 +82,14 @@ RUN cp /i2pd/conf/addresses-initial.org.csv /i2pd/data/addressbook/addresses.csv
   && chmod +x /entrypoint.sh \
   && mkdir -p /home/i2pd/
 
+# expose i2pd webinterface
+EXPOSE 7070/tcp 
+
+# expose i2pd http proxy
+EXPOSE 4444/tcp 
+
+# expose i2pd socks proxy
+EXPOSE 4445/tcp 
+
 WORKDIR "/home/i2pd/"
 ENTRYPOINT ["/entrypoint.sh"]

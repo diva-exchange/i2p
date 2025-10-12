@@ -14,5 +14,17 @@ COPY entrypoint-http.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
+# expose althttp (webserver)
+EXPOSE 8080/tcp 
+
+# expose i2pd webinterface
+EXPOSE 7070/tcp 
+
+# expose i2pd http proxy
+EXPOSE 4444/tcp 
+
+# expose i2pd socks proxy
+EXPOSE 4445/tcp 
+
 WORKDIR "/home/i2pd/"
 ENTRYPOINT ["/entrypoint.sh"]

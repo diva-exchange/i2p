@@ -42,8 +42,8 @@ RUN cd /tmp \
   && git clone --depth 1 --branch 2.59.0 https://github.com/PurpleI2P/i2pd.git
 
 RUN cd /tmp/i2pd/build \
-  && cmake -DWITH_AESNI=ON -DWITH_UPNP=ON . \
-  && make -j $(nproc) \
+  && DEBUG=no cmake -DWITH_AESNI=ON -DWITH_HARDENING=ON -DWITH_UPNP=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-Wl,-z,reiro -Wl,-z,now -D_FORTIFY_SOURCE=2 -Ofast -march=native -fstack-protector-strong -fstrict-flex-arrays" . \
+  && DEBUG=no make DEBUG=no -j $(nproc) \
   && strip i2pd
 
 FROM alpine:3

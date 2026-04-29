@@ -1,5 +1,7 @@
 # I2P - For Everyone
 
+[![Docker Build and Push](https://github.com/diva-exchange/i2p/actions/workflows/docker-build.yml/badge.svg)](https://github.com/diva-exchange/i2p/actions/workflows/docker-build.yml)
+
 Two flavours are available:
 * Entry-level experience: I2P and Tor to enable everyone to get started using the i2p and onion network. It's tagged as "current-i2p-tor". 
 * For advanced users: I2P only version - very lean. It's tagged as "current".

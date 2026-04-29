@@ -11,7 +11,7 @@ cd "${PROJECT_PATH}"
 
 TAG=${TAG:-current}
 
-sudo docker buildx build --force-rm --no-cache -t divax/i2p:"${TAG}" .
+sudo docker buildx build --no-cache -t divax/i2p:"${TAG}" .
 sudo docker volume create i2pd-build
 sudo docker run \
   -d \

@@ -39,10 +39,10 @@ RUN mkdir -p /i2pd/data/addressbook \
   && mkdir /i2pd/bin
 
 RUN cd /tmp \
-  && git clone --depth 1 --branch 2.59.0 https://github.com/PurpleI2P/i2pd.git
+  && git clone --depth 1 --branch 2.60.0 https://github.com/PurpleI2P/i2pd.git
 
 RUN cd /tmp/i2pd/build \
-  && cmake -DWITH_AESNI=ON -DWITH_UPNP=ON . \
+  && cmake -DCMAKE_BUILD_TYPE=Release -DWITH_UPNP=ON . \
   && make -j $(nproc) \
   && strip i2pd
 

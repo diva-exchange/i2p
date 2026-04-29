@@ -1,6 +1,84 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.60.0] - 2026-04-20
+### Added
+- "i2cp.closeIdleTime" and "i2cp.newDestOnResume" client tunnel and proxy params
+- Sequence reset flag for UDP tunnels
+- Post-quantum SSU2 crypto(ML-KEM-512, ML-KEM-768) support if openssl >= 3.5.0
+- Forward ipv4 and ipv6 connections to usptream SOCK5 proxy
+- "persist.netdbinterval" param to specify NetDb persist interval
+- Don't select peer for new tunnel if too many connections from that subnet
+- More I2PControl RouterInfo metrics
+### Changed
+- Generate ECIESx25519 session tags faster
+- Set NTCP2 default crypto type to ML-KEM-768 when applicable
+- Set default bandwidth=O for x86_64 and bandwidth=P for x86_64 with more than 4 cores
+- Replaced boost::asio::deadline_timer by boost::asio::steady_timer
+- Set hidden mode only if trust is enabled
+- Publish crypto keys from in high to low order in LeaseSet
+- Case-insensitive HTTP header matching per RFC 7230
+- Max padding size for NTCP2 SessionRequest and SessionCreated messages
+- Routers profiling algorithm
+- Don't publish mtu=1500
+- Limit streaming receive queue size
+- Recreate zero and one hop tunnels after being offline
+- Reseeds list
+ ### Fixed
+- Incorrect Poly1305 tag of chiper text block in next new session reply message for ML-KEM crypto type
+- Stuck UDP client tunnel after network glitch
+- Private signing key size for offline signatures
+- Forever hanging I2P stream if socket got closed right after connect
+- Inverted value of "i2cp.dontPublishLeaseSet"
+- Failed to bind to ipv6 ULA address
+- Reseed failure if malformed response
+- Multiple race conditions
+
+## [2.59.0] - 2026-02-09
+### Added
+- Post-quantum NTCP2 crypto(ML-KEM-512, ML-KEM-768, ML-KEM-1024) support if openssl >= 3.5.0
+- UDP associate for SOCKS5 proxy
+- Trusted routers list for first hop per tunnel
+- "i2p.streaming.maxConnsPerMinute" and "i2p.streaming.maxResends" params
+- Limited connectivity mode
+- *.b32.i2p addresses for SAM datagrams
+- Limiting the number of datagrams sent to maintain the consistency of session encryption through UDP tunnels
+- Desktop app mode for Haiku
+- Ability to suppress X-I2P-* headers for HTTP server tunnel
+- Multi cloves garlic message for datagrams
+- Network error and testing metrics for I2PControl
+- Handle reseed address redirection
+- Throttle excessive number of tunnel build message from the same peer
+- Localization to Esperanto, Filipino and Finnish
+### Changed
+- Return base64 of ident instead full address for Datagram3 in SAM
+- Send ratchet session response for unidirectional traffic for I2CP
+- Set default number of generated tags to 800 for a datagram destination
+- Check ML-KEM encaps_key section length before decryption
+- Create new stream only if bandwidth is available. Close non-responding streams
+- Use Datagram3 by default in UDP tunnels
+- Floodfills are not introducers
+- Disable ipv6 if global ipv6 interface not found
+- Network congestion detection algorithm in streaming
+- Reply with relay tag only if accept tunnels
+- Case-insensitive Content-Length header in I2PControl
+- Increase PID string length
+- Don't communicate with routers of version < 0.9.58
+- Webconsole layout improvements
+- Localization to Hebrew
+- Reseeds list
+### Fixed
+- Incorrect params length calculation for SAM streams
+- Unexpected index in SymmetricKeyTagSet
+- Incorrect preferred crypto type if i2cp.leaseSetEncType is not specified
+- Decoding %00 in url
+- Thread-unsafe localtime()
+- NetDb crash on stop
+- Peer test result OK in case of another recent peer test
+- Published port if full-cone NAT
+- Missing trailing newline in I2PControl JSON response
+- Language selection in webconsole
+
 ## [2.58.0] - 2025-09-08
 ### Added
 - Post-quantum end-to-end crypto(ML-KEM-512, ML-KEM-768, ML-KEM-1024) support if openssl >= 3.5.0
@@ -13,7 +91,7 @@
 - Ability to specify bandwidth with "mb" and "gb" suffixes
 - "i2p.streaming.maxWindowSize" and "i2p.streaming.dontSign" params
 ### Changed
-- Don't verify streaming SYN packet signature if comes from an ECIESx25519 session 
+- Don't verify streaming SYN packet signature if comes from an ECIESx25519 session
 - Non-blocking mode for UDP sockets in UDP tunnels
 - Accept "HELLO VERSION" without "MIN" and "MAX" in SAM
 - Try to resolve host again in server tunnel if failed before

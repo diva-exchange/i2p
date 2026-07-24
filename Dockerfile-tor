@@ -39,7 +39,7 @@ RUN mkdir -p /i2pd/data/addressbook \
   && mkdir /i2pd/bin 
 
 RUN cd /tmp \
-  && git clone --depth 1 --branch 2.60.0 https://github.com/PurpleI2P/i2pd.git
+  && git clone --depth 1 --branch 2.61.0 https://github.com/PurpleI2P/i2pd.git
 
 RUN cd /tmp/i2pd/build \
   && cmake -DCMAKE_BUILD_TYPE=Release -DWITH_UPNP=ON . \

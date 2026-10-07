@@ -1,6 +1,10 @@
 # for this file format description,
 # see https://github.com/olivierlacan/keep-a-changelog
 
+## [2.61.1] - 2026-10-07
+### Changed
+- added tunnel example for diva-api
+
 ## [2.61.0] - 2026-07-24
 ### Changed
 - I2Pd v2.61.0 (see ChangeLog-i2pd)

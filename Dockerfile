@@ -52,6 +52,11 @@ RUN apk --no-cache add \
   boost-system \
   boost-filesystem \
   boost-program_options \
+  boost-date_time \
+  boost-thread \
+  boost-iostreams \
+  boost-json \
+  boost-url \
   openssl \
   musl-utils \
   libstdc++ \
